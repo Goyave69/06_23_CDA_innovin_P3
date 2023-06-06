@@ -3,7 +3,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
+import { Box, CardActionArea } from "@mui/material";
 import offre1 from "../../assets/Home/offre1.jpg";
 import offre2 from "../../assets/Home/offre2.jpg";
 import offre3 from "../../assets/Home/offre3.jpg";
@@ -32,6 +32,7 @@ function Offer() {
         "Une sélection de vins unique parmi ce qui se fait de mieux en Bourgogne. Un coffret Prestige composé de 4 vinottes en verre avec à l'intérieur de chacune, un grand cru de Bourgogne à découvrir.",
     },
   ];
+
   return (
     <div>
       <Typography
@@ -55,16 +56,21 @@ function Offer() {
           fontWeight: "bold",
           fontSize: { xs: "1rem", md: "1.3rem" },
           textAlign: "center",
-          padding: "2% 0 0 0 ",
+          padding: "1% 0",
         }}
       >
         L'accompagnement de votre choix
       </Typography>
-      <div style={{ display: "flex", justifyContent: "space-around" }}>
+      <Box
+        sx={{
+          display: { sx: "block", md: "flex" },
+          justifyContent: "space-around",
+        }}
+      >
         {products.map((product) => {
           return (
             <div key={product.id}>
-              <Card sx={{ maxWidth: 300, marginBottom: 10 }}>
+              <Card sx={{ maxWidth: 300, marginBottom: 5 }}>
                 <CardActionArea>
                   <CardMedia
                     sx={{ objectFit: "contain" }}
@@ -95,6 +101,7 @@ function Offer() {
                     margin: "0 auto 10px auto",
                   }}
                   type="button"
+                  onClick={() => console.warn("Ajouté au panier", product.id)}
                 >
                   Ajouter au panier
                 </button>
@@ -102,7 +109,7 @@ function Offer() {
             </div>
           );
         })}
-      </div>
+      </Box>
     </div>
   );
 }

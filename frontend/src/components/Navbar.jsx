@@ -22,9 +22,29 @@ function Navbar() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+  const [navbarTransparent, setNavbarTransparent] = React.useState(true);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const isTop = window.scrollY === 0;
+      setNavbarTransparent(isTop);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
-    <AppBar position="fixed" style={{ backgroundColor: "transparent" }}>
+    <AppBar
+      position="fixed"
+      sx={{
+        backgroundColor: navbarTransparent ? "transparent" : "white",
+        transition: "background-color 0.5s",
+      }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -103,9 +123,11 @@ function Navbar() {
                   onClick={handleCloseNavMenu}
                   sx={{
                     my: 2,
-                    color: "white",
                     display: "block",
                     marginRight: "10px",
+                    color: "black",
+                    fontWeight: 700,
+                    letterSpacing: ".3rem",
                   }}
                 >
                   {page}
@@ -129,9 +151,9 @@ function Navbar() {
                   borderLeft: "1px solid #CBAF96",
                   borderRight: "1px solid #CBAF96",
                   letterSpacing: ".3rem",
-                  color: "white",
                   px: "10px",
                   textDecoration: "none",
+                  color: "black",
                 }}
               >
                 INNO'VIN
@@ -148,7 +170,13 @@ function Navbar() {
                 <Button
                   key={page}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  sx={{
+                    my: 2,
+                    display: "block",
+                    color: "black",
+                    fontWeight: 700,
+                    letterSpacing: ".3rem",
+                  }}
                 >
                   {page}
                 </Button>

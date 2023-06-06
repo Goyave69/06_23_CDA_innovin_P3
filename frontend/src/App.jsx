@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 
 import Home from "./pages/Home";
 import Header from "./components/Home/Header";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <CssBaseline />
         <Navbar />
       </div>
+      <Footer />
     </ThemeProvider>
   );
 }
