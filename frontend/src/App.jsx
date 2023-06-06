@@ -3,18 +3,16 @@ import { CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
 import Navbar from "./components/Navbar";
-import bgHome from "./assets/bg-home.jpg";
+
+import Home from "./pages/Home";
+import Header from "./components/Home/Header";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <div
-        style={{
-          background: `url(${bgHome}) no-repeat center center fixed`,
-          backgroundSize: "cover",
-          height: "100vh",
-        }}
-      >
+      <div>
+        <Header />
+        <Home />
         <CssBaseline />
         <Navbar />
       </div>

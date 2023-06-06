@@ -116,23 +116,21 @@ function Navbar() {
               sx={{
                 display: "flex",
                 alignItems: "center",
-                margin: "0 auto",
+                mx: "auto",
               }}
             >
-              <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                <WineBarIcon sx={{ mr: 1 }} />
-              </Box>
               <Typography
                 variant="h6"
                 noWrap
-                component="a"
-                href="/"
                 sx={{
-                  mr: 2,
                   display: { xs: "none", md: "flex" },
                   fontWeight: 700,
+                  borderBottom: "1px solid #CBAF96",
+                  borderLeft: "1px solid #CBAF96",
+                  borderRight: "1px solid #CBAF96",
                   letterSpacing: ".3rem",
                   color: "white",
+                  px: "10px",
                   textDecoration: "none",
                 }}
               >
