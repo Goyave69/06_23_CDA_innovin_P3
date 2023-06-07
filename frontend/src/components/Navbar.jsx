@@ -1,19 +1,21 @@
+/* eslint-disable react/prop-types */
 import * as React from "react";
+import { NavLink } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
+import WbSunnyIcon from "@mui/icons-material/WbSunny";
+import ModeNightIcon from "@mui/icons-material/ModeNight";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import WineBarIcon from "@mui/icons-material/WineBar";
+import { FormControlLabel, Switch } from "@mui/material";
 
-const pages = ["Accueil", "Nos Vins", "Contact", "Se Connecter/s'inscrire"];
-
-function Navbar() {
+function Navbar({ toggleDarkMode }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -39,7 +41,7 @@ function Navbar() {
 
   return (
     <AppBar
-      position="fixed"
+      position="static"
       sx={{
         backgroundColor: navbarTransparent ? "transparent" : "white",
         transition: "background-color 0.5s",
@@ -76,17 +78,66 @@ function Navbar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  style={{ backgroundColor: "transparent" }}
+              <MenuItem
+                onClick={handleCloseNavMenu}
+                style={{ backgroundColor: "transparent" }}
+              >
+                <NavLink
+                  to="/"
+                  style={{
+                    textAlign: "center",
+                    color: "black",
+                    textDecoration: "none",
+                  }}
                 >
-                  <Typography textAlign="center" sx={{ color: "black" }}>
-                    {page}
-                  </Typography>
-                </MenuItem>
-              ))}
+                  ACCUEIL
+                </NavLink>
+              </MenuItem>
+              <MenuItem
+                onClick={handleCloseNavMenu}
+                style={{ backgroundColor: "transparent" }}
+              >
+                <NavLink
+                  to="/wine"
+                  style={{
+                    textAlign: "center",
+                    color: "black",
+                    textDecoration: "none",
+                  }}
+                >
+                  NOS VINS
+                </NavLink>
+              </MenuItem>
+              <MenuItem
+                onClick={handleCloseNavMenu}
+                style={{ backgroundColor: "transparent" }}
+              >
+                <NavLink
+                  to="/contact"
+                  style={{
+                    textAlign: "center",
+                    color: "black",
+                    textDecoration: "none",
+                  }}
+                >
+                  CONTACT
+                </NavLink>
+              </MenuItem>
+              <MenuItem
+                onClick={handleCloseNavMenu}
+                style={{ backgroundColor: "transparent" }}
+              >
+                <NavLink
+                  to="/connect"
+                  style={{
+                    textAlign: "center",
+                    color: "black",
+                    textDecoration: "none",
+                  }}
+                >
+                  CONNEXION
+                </NavLink>
+              </MenuItem>
             </Menu>
           </Box>
           <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
@@ -115,24 +166,31 @@ function Navbar() {
                 display: { xs: "none", md: "flex" },
                 width: "40%",
                 justifyContent: "space-around",
+                alignItems: "center",
               }}
             >
-              {pages.slice(0, 2).map((page) => (
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{
-                    my: 2,
-                    display: "block",
-                    marginRight: "10px",
-                    color: "black",
-                    fontWeight: 700,
-                    letterSpacing: ".3rem",
-                  }}
-                >
-                  {page}
-                </Button>
-              ))}
+              <NavLink
+                to="/"
+                style={{
+                  color: "black",
+                  fontWeight: 700,
+                  letterSpacing: ".3rem",
+                  textDecoration: "none",
+                }}
+              >
+                ACCUEIL
+              </NavLink>
+              <NavLink
+                to="/wines"
+                style={{
+                  color: "black",
+                  fontWeight: 700,
+                  letterSpacing: ".3rem",
+                  textDecoration: "none",
+                }}
+              >
+                NOS VINS
+              </NavLink>
             </Box>
             <Box
               sx={{
@@ -164,24 +222,47 @@ function Navbar() {
                 display: { xs: "none", md: "flex" },
                 width: "40%",
                 justifyContent: "space-around",
+                alignItems: "center",
               }}
             >
-              {pages.slice(2).map((page) => (
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{
-                    my: 2,
-                    display: "block",
-                    color: "black",
-                    fontWeight: 700,
-                    letterSpacing: ".3rem",
-                  }}
-                >
-                  {page}
-                </Button>
-              ))}
+              <NavLink
+                to="/contact"
+                style={{
+                  color: "black",
+                  fontWeight: 700,
+                  letterSpacing: ".3rem",
+                  textDecoration: "none",
+                }}
+              >
+                CONTACT
+              </NavLink>
+              <NavLink
+                to="/connect"
+                style={{
+                  color: "black",
+                  fontWeight: 700,
+                  letterSpacing: ".3rem",
+                  textDecoration: "none",
+                }}
+              >
+                CONNEXION
+              </NavLink>
             </Box>
+            <FormControlLabel
+              control={
+                <Switch
+                  onClick={toggleDarkMode}
+                  name="loading"
+                  color="primary"
+                  icon={
+                    <WbSunnyIcon fontSize="medium" sx={{ color: "black" }} />
+                  }
+                  checkedIcon={
+                    <ModeNightIcon fontSize="medium" sx={{ color: "black" }} />
+                  }
+                />
+              }
+            />
           </Box>
         </Toolbar>
       </Container>
