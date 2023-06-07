@@ -1,6 +1,5 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { blue, grey } from "@mui/material/colors";
-import { Button } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
@@ -60,13 +59,10 @@ export default function Root() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Navbar />
+      <Navbar toggleDarkMode={toggleDarkMode} />
       <main>
         <Outlet />
       </main>
-      <Button onClick={toggleDarkMode} sx={{ mx: "auto", width: "100%" }}>
-        Dark Mode
-      </Button>
       <Footer />
     </ThemeProvider>
   );

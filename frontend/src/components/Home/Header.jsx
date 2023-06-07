@@ -16,9 +16,9 @@ function Header() {
         sx={{
           color: "white",
           fontWeight: "bold",
-          fontSize: { xs: "1.8rem", md: "2rem" },
-          textAlign: "left",
-          padding: "20% 0 0 10% ",
+          fontSize: { xs: "1.3rem", md: "1.5rem" },
+          textAlign: "center",
+          padding: "20% 5% 5% 10% ",
         }}
       >
         Découvrez l'art de la dégustation du vin à travers notre site, où

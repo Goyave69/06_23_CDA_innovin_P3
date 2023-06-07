@@ -1,7 +1,11 @@
+/* eslint-disable react/prop-types */
 import * as React from "react";
+import { NavLink } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
+import WbSunnyIcon from "@mui/icons-material/WbSunny";
+import ModeNightIcon from "@mui/icons-material/ModeNight";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
@@ -9,9 +13,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
 import WineBarIcon from "@mui/icons-material/WineBar";
-import { NavLink } from "react-router-dom";
+import { FormControlLabel, Switch } from "@mui/material";
 
-function Navbar() {
+function Navbar({ toggleDarkMode }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -37,7 +41,7 @@ function Navbar() {
 
   return (
     <AppBar
-      position="fixed"
+      position="static"
       sx={{
         backgroundColor: navbarTransparent ? "transparent" : "white",
         transition: "background-color 0.5s",
@@ -177,7 +181,7 @@ function Navbar() {
                 ACCUEIL
               </NavLink>
               <NavLink
-                to="/wine"
+                to="/wines"
                 style={{
                   color: "black",
                   fontWeight: 700,
@@ -244,6 +248,21 @@ function Navbar() {
                 CONNEXION
               </NavLink>
             </Box>
+            <FormControlLabel
+              control={
+                <Switch
+                  onClick={toggleDarkMode}
+                  name="loading"
+                  color="primary"
+                  icon={
+                    <WbSunnyIcon fontSize="medium" sx={{ color: "black" }} />
+                  }
+                  checkedIcon={
+                    <ModeNightIcon fontSize="medium" sx={{ color: "black" }} />
+                  }
+                />
+              }
+            />
           </Box>
         </Toolbar>
       </Container>
