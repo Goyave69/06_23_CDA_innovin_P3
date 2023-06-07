@@ -1,20 +1,24 @@
 import ContactForm from "../components/Contact/ContactForm";
 import bgHome from "../assets/bg-home.jpg";
-import ContactInformation from "../components/Contact/ContactInformation";
 
 export default function Contact() {
   return (
     <div
       style={{
-        background: `url(${bgHome}) no-repeat center center fixed`,
-        backgroundSize: "cover",
         height: "80vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
       }}
     >
-      <ContactInformation />
+      <div
+        style={{
+          background: `url(${bgHome}) no-repeat bottom center fixed`,
+          backgroundSize: "cover",
+          width: "50%",
+          height: "80vh",
+        }}
+      />
       <ContactForm />
     </div>
   );

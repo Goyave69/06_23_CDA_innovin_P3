@@ -1,6 +1,6 @@
 import * as React from "react";
 import {
-  Card,
+  Container,
   CardContent,
   CardHeader,
   TextField,
@@ -23,7 +23,7 @@ export default function ContactForm() {
   };
 
   return (
-    <Card sx={{ width: "50%" }}>
+    <Container sx={{ width: "50%" }}>
       <CardHeader
         title={
           <Typography variant="h2" sx={{ textAlign: "center", margin: "10px" }}>
@@ -39,13 +39,38 @@ export default function ContactForm() {
             <MenuItem value="Partenariat">Partenariat</MenuItem>
           </Select>
         </FormControl>
-        <TextField
-          required
-          id="outlined-required"
-          label="Adresse e-mail"
-          placeholder="jhon@doe.com"
-          sx={{ margin: "10px" }}
-        />
+        <Box sx={{ display: "flex" }}>
+          <TextField
+            required
+            id="outlined"
+            label="Prénom"
+            placeholder="jhon"
+            sx={{ margin: "10px", width: "50%" }}
+          />
+          <TextField
+            required
+            id="outlined"
+            label="Nom"
+            placeholder="Doe"
+            sx={{ margin: "10px", width: "50%" }}
+          />
+        </Box>
+        <Box sx={{ display: "flex" }}>
+          <TextField
+            required
+            id="outlined-required"
+            label="Adresse e-mail"
+            placeholder="jhon@doe.com"
+            sx={{ margin: "10px", width: "50%" }}
+          />
+          <TextField
+            required
+            id="outlined"
+            label="Téléphone"
+            placeholder="+33 1 11 11 11 11"
+            sx={{ margin: "10px", width: "50%" }}
+          />
+        </Box>
         <TextField
           id="outlined-multiline-static"
           label="Message"
@@ -66,6 +91,6 @@ export default function ContactForm() {
         </Box>
         <Button sx={{ margin: "10px" }}>Envoyer</Button>
       </CardContent>
-    </Card>
+    </Container>
   );
 }
