@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const getDesignTokens = (mode) => ({
   palette: {
@@ -60,10 +61,13 @@ export default function Root() {
   return (
     <ThemeProvider theme={theme}>
       <Navbar />
-      <Button onClick={toggleDarkMode}>Dark Mode</Button>
       <main>
         <Outlet />
       </main>
+      <Button onClick={toggleDarkMode} sx={{ mx: "auto", width: "100%" }}>
+        Dark Mode
+      </Button>
+      <Footer />
     </ThemeProvider>
   );
 }

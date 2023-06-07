@@ -7,58 +7,44 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
+import WineBarIcon from "@mui/icons-material/WineBar";
 import { NavLink } from "react-router-dom";
-
-const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+  const [navbarTransparent, setNavbarTransparent] = React.useState(true);
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const isTop = window.scrollY === 0;
+      setNavbarTransparent(isTop);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
-    <AppBar position="static">
+    <AppBar
+      position="fixed"
+      sx={{
+        backgroundColor: navbarTransparent ? "transparent" : "white",
+        transition: "background-color 0.5s",
+      }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            LOGO
-          </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -66,7 +52,7 @@ function Navbar() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="inherit"
+              color="white"
             >
               <MenuIcon />
             </IconButton>
@@ -88,77 +74,181 @@ function Navbar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            LOGO
-          </Typography>
-          <NavLink to="/contact">Contact</NavLink>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
+              <MenuItem
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
+                style={{ backgroundColor: "transparent" }}
               >
-                {page}
-              </Button>
-            ))}
-          </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+                <NavLink
+                  to="/"
+                  style={{
+                    textAlign: "center",
+                    color: "black",
+                    textDecoration: "none",
+                  }}
+                >
+                  ACCUEIL
+                </NavLink>
+              </MenuItem>
+              <MenuItem
+                onClick={handleCloseNavMenu}
+                style={{ backgroundColor: "transparent" }}
+              >
+                <NavLink
+                  to="/wine"
+                  style={{
+                    textAlign: "center",
+                    color: "black",
+                    textDecoration: "none",
+                  }}
+                >
+                  NOS VINS
+                </NavLink>
+              </MenuItem>
+              <MenuItem
+                onClick={handleCloseNavMenu}
+                style={{ backgroundColor: "transparent" }}
+              >
+                <NavLink
+                  to="/contact"
+                  style={{
+                    textAlign: "center",
+                    color: "black",
+                    textDecoration: "none",
+                  }}
+                >
+                  CONTACT
+                </NavLink>
+              </MenuItem>
+              <MenuItem
+                onClick={handleCloseNavMenu}
+                style={{ backgroundColor: "transparent" }}
+              >
+                <NavLink
+                  to="/connect"
+                  style={{
+                    textAlign: "center",
+                    color: "black",
+                    textDecoration: "none",
+                  }}
+                >
+                  CONNEXION
+                </NavLink>
+              </MenuItem>
             </Menu>
+          </Box>
+          <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
+            <Box sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}>
+              <WineBarIcon />
+            </Box>
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href=""
+              sx={{
+                mr: 2,
+                display: { xs: "flex", md: "none" },
+                flexGrow: 1,
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "white",
+                textDecoration: "none",
+              }}
+            >
+              INNO'VIN
+            </Typography>
+            <Box
+              sx={{
+                display: { xs: "none", md: "flex" },
+                width: "40%",
+                justifyContent: "space-around",
+                alignItems: "center",
+              }}
+            >
+              <NavLink
+                to="/"
+                style={{
+                  color: "black",
+                  fontWeight: 700,
+                  letterSpacing: ".3rem",
+                  textDecoration: "none",
+                }}
+              >
+                ACCUEIL
+              </NavLink>
+              <NavLink
+                to="/wine"
+                style={{
+                  color: "black",
+                  fontWeight: 700,
+                  letterSpacing: ".3rem",
+                  textDecoration: "none",
+                }}
+              >
+                NOS VINS
+              </NavLink>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                mx: "auto",
+              }}
+            >
+              <Typography
+                variant="h6"
+                noWrap
+                sx={{
+                  display: { xs: "none", md: "flex" },
+                  fontWeight: 700,
+                  borderBottom: "1px solid #CBAF96",
+                  borderLeft: "1px solid #CBAF96",
+                  borderRight: "1px solid #CBAF96",
+                  letterSpacing: ".3rem",
+                  px: "10px",
+                  textDecoration: "none",
+                  color: "black",
+                }}
+              >
+                INNO'VIN
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: { xs: "none", md: "flex" },
+                width: "40%",
+                justifyContent: "space-around",
+                alignItems: "center",
+              }}
+            >
+              <NavLink
+                to="/contact"
+                style={{
+                  color: "black",
+                  fontWeight: 700,
+                  letterSpacing: ".3rem",
+                  textDecoration: "none",
+                }}
+              >
+                CONTACT
+              </NavLink>
+              <NavLink
+                to="/connect"
+                style={{
+                  color: "black",
+                  fontWeight: 700,
+                  letterSpacing: ".3rem",
+                  textDecoration: "none",
+                }}
+              >
+                CONNEXION
+              </NavLink>
+            </Box>
           </Box>
         </Toolbar>
       </Container>
     </AppBar>
   );
 }
+
 export default Navbar;
