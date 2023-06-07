@@ -5,30 +5,23 @@ const models = require("../models");
 const validate = (data, forCreation = true) => {
   const presence = forCreation ? "required" : "optional";
   return Joi.object({
-    firstname: Joi.string().min(1).max(30).presence(presence),
-    lastname: Joi.string().min(1).max(30).presence(presence),
-    username: Joi.string().min(1).max(30).presence(presence),
-    role: Joi.string().max(100).presence(presence),
-    email: Joi.string()
-      .email({ tlds: { allow: false } })
+    degustation_date: Joi.string()
+      .regex(/^([0-9]{4})-([0-9]{2})-([0-9]{2})$/)
       .presence(presence),
-    address: Joi.string().max(100).presence(presence),
-    password: Joi.string()
-      .regex(
-        /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[\]:;<>,.?/~_+\-=|]).{8,32}$/
-      )
-      .presence(presence),
-    phone: Joi.string()
-      .regex(/^[0-9]{10}$/)
-      .messages({ "string.pattern.base": `Phone number must have 10 digits.` })
-      .presence(presence),
-    avatar: Joi.string().max(255).presence("optional"),
-    cart_id: Joi.number().min(0).presence(presence),
+    shape: Joi.string().max(100).presence(presence),
+    eye: Joi.string().max(100).presence(presence),
+    nose: Joi.string().max(100).presence(presence),
+    mouth: Joi.string().max(100).presence(presence),
+    conclusion: Joi.string().max(100).presence(presence),
+    note: Joi.number().min(0).max(10).presence(presence),
+    commentaire: Joi.string().max(65535).presence(presence),
+    wine_id: Joi.number().min(0).presence(presence),
+    user_id: Joi.number().min(0).presence(presence),
   }).validate(data, { abortEarly: false });
 };
 
 const browse = (req, res) => {
-  models.user
+  models.tastingSheet
     .findAll()
     .then(([rows]) => {
       res.send(rows);
@@ -40,7 +33,7 @@ const browse = (req, res) => {
 };
 
 const read = (req, res) => {
-  models.user
+  models.tastingSheet
     .find(req.params.id)
     .then(([rows]) => {
       if (rows[0] == null) {
@@ -56,17 +49,17 @@ const read = (req, res) => {
 };
 
 const edit = (req, res) => {
-  const user = req.body;
+  const tastingSheet = req.body;
 
   // TODO validations (length, format...)
-  const { error } = validate(user, false);
+  const { error } = validate(tastingSheet, false);
   if (error) {
     res.status(422).json({ validationErrors: error.details });
   } else {
     const id = parseInt(req.params.id, 10);
 
-    models.user
-      .update(id, user)
+    models.tastingSheet
+      .update(id, tastingSheet)
       .then(([result]) => {
         if (result.affectedRows === 0) {
           res.sendStatus(404);
@@ -82,17 +75,17 @@ const edit = (req, res) => {
 };
 
 const add = (req, res) => {
-  const user = req.body;
+  const tastingSheet = req.body;
 
   // TODO validations (length, format...)
-  const { error } = validate(user);
+  const { error } = validate(tastingSheet);
   if (error) {
     res.status(422).json({ validationErrors: error.details });
   } else {
-    models.user
-      .insert(user)
+    models.tastingSheet
+      .insert(tastingSheet)
       .then(([result]) => {
-        res.location(`/users/${result.insertId}`).sendStatus(201);
+        res.location(`/wines/${result.insertId}`).sendStatus(201);
       })
       .catch((err) => {
         console.error(err);
@@ -102,7 +95,7 @@ const add = (req, res) => {
 };
 
 const destroy = (req, res) => {
-  models.user
+  models.tastingSheet
     .delete(req.params.id)
     .then(([result]) => {
       if (result.affectedRows === 0) {
