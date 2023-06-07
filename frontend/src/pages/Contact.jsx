@@ -1,5 +1,6 @@
 import ContactForm from "../components/Contact/ContactForm";
 import bgHome from "../assets/bg-home.jpg";
+import ContactInformation from "../components/Contact/ContactInformation";
 
 export default function Contact() {
   return (
@@ -13,6 +14,7 @@ export default function Contact() {
         alignItems: "center",
       }}
     >
+      <ContactInformation />
       <ContactForm />
     </div>
   );
