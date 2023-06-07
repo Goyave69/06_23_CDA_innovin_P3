@@ -1,5 +1,7 @@
 const AbstractManager = require("./AbstractManager");
 
+const generateSqlSets = require("../services/generateSqlSets");
+
 class WineManager extends AbstractManager {
   constructor() {
     super({ table: "wine" });
@@ -24,21 +26,11 @@ class WineManager extends AbstractManager {
   }
 
   update(id, wine) {
-    let sqlSets = "";
-
-    const wineKeys = Object.keys(wine);
-
-    wineKeys.forEach((key, index) => {
-      sqlSets += `${key} = ?`;
-      sqlSets += index !== wineKeys.length - 1 ? ", " : "";
-    });
-
-    const sqlValues = Object.values(wine);
-    sqlValues.push(id);
+    const sqlSets = generateSqlSets(wine);
 
     return this.database.query(
       `UPDATE ${this.table} SET ${sqlSets} WHERE id = ?`,
-      sqlValues
+      [...Object.values(wine), id]
     );
   }
 }
