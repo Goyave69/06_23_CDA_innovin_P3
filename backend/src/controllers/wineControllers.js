@@ -1,7 +1,9 @@
 const models = require("../models");
 
+const validator = require("../services/validators/wineValidator");
+
 const browse = (req, res) => {
-  models.item
+  models.wine
     .findAll()
     .then(([rows]) => {
       res.send(rows);
@@ -13,7 +15,7 @@ const browse = (req, res) => {
 };
 
 const read = (req, res) => {
-  models.item
+  models.wine
     .find(req.params.id)
     .then(([rows]) => {
       if (rows[0] == null) {
@@ -29,45 +31,53 @@ const read = (req, res) => {
 };
 
 const edit = (req, res) => {
-  const item = req.body;
+  const wine = req.body;
 
   // TODO validations (length, format...)
+  const { error } = validator(wine, false);
+  if (error) {
+    res.status(422).json({ validationErrors: error.details });
+  } else {
+    const id = parseInt(req.params.id, 10);
 
-  item.id = parseInt(req.params.id, 10);
-
-  models.item
-    .update(item)
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.sendStatus(404);
-      } else {
-        res.sendStatus(204);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
+    models.wine
+      .update(id, wine)
+      .then(([result]) => {
+        if (result.affectedRows === 0) {
+          res.sendStatus(404);
+        } else {
+          res.sendStatus(204);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.sendStatus(500);
+      });
+  }
 };
 
 const add = (req, res) => {
-  const item = req.body;
+  const wine = req.body;
 
   // TODO validations (length, format...)
-
-  models.item
-    .insert(item)
-    .then(([result]) => {
-      res.location(`/items/${result.insertId}`).sendStatus(201);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
+  const { error } = validator(wine);
+  if (error) {
+    res.status(422).json({ validationErrors: error.details });
+  } else {
+    models.wine
+      .insert(wine)
+      .then(([result]) => {
+        res.location(`/wines/${result.insertId}`).sendStatus(201);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.sendStatus(500);
+      });
+  }
 };
 
 const destroy = (req, res) => {
-  models.item
+  models.wine
     .delete(req.params.id)
     .then(([result]) => {
       if (result.affectedRows === 0) {
