@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import ContactForm from "../components/Contact/ContactForm";
-import bgHome from "../assets/bg-home.jpg";
+import bgHome from "../assets/bgHome.jpg";
 
 export default function Contact() {
   return (

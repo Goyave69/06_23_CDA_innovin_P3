@@ -14,12 +14,11 @@ function Youtube() {
           color: "text.tertiary",
           backgroundColor: "background.secondary",
           height: 2,
-          marginBottom: 10,
         }}
       />
       <Typography
         variant="h4"
-        sx={{ color: "text.tertiary", textAlign: "center", padding: 20 }}
+        sx={{ color: "text.tertiary", textAlign: "center", padding: 10 }}
       >
         Les Cépages du Vin
       </Typography>
@@ -31,7 +30,7 @@ function Youtube() {
           color: "text.tertiary",
           backgroundColor: "background.secondary",
           height: 2,
-          marginTop: 40,
+          marginTop: 15,
         }}
       />
     </Box>
