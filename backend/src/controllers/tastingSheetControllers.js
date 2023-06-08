@@ -1,24 +1,6 @@
-const Joi = require("joi");
-
 const models = require("../models");
 
-const validate = (data, forCreation = true) => {
-  const presence = forCreation ? "required" : "optional";
-  return Joi.object({
-    degustation_date: Joi.string()
-      .regex(/^([0-9]{4})-([0-9]{2})-([0-9]{2})$/)
-      .presence(presence),
-    shape: Joi.string().max(100).presence(presence),
-    eye: Joi.string().max(100).presence(presence),
-    nose: Joi.string().max(100).presence(presence),
-    mouth: Joi.string().max(100).presence(presence),
-    conclusion: Joi.string().max(100).presence(presence),
-    note: Joi.number().min(0).max(10).presence(presence),
-    commentaire: Joi.string().max(65535).presence(presence),
-    wine_id: Joi.number().min(0).presence(presence),
-    user_id: Joi.number().min(0).presence(presence),
-  }).validate(data, { abortEarly: false });
-};
+const validator = require("../services/validators/tastingSheetValidator");
 
 const browse = (req, res) => {
   models.tastingSheet
@@ -52,7 +34,7 @@ const edit = (req, res) => {
   const tastingSheet = req.body;
 
   // TODO validations (length, format...)
-  const { error } = validate(tastingSheet, false);
+  const { error } = validator(tastingSheet, false);
   if (error) {
     res.status(422).json({ validationErrors: error.details });
   } else {
@@ -78,7 +60,7 @@ const add = (req, res) => {
   const tastingSheet = req.body;
 
   // TODO validations (length, format...)
-  const { error } = validate(tastingSheet);
+  const { error } = validator(tastingSheet);
   if (error) {
     res.status(422).json({ validationErrors: error.details });
   } else {
