@@ -1,9 +1,9 @@
 const models = require("../models");
 
-const validator = require("../services/validators/wineValidator");
+const validator = require("../services/validators/tastingSheetValidator");
 
 const browse = (req, res) => {
-  models.wine
+  models.tastingSheet
     .findAll()
     .then(([rows]) => {
       res.send(rows);
@@ -15,7 +15,7 @@ const browse = (req, res) => {
 };
 
 const read = (req, res) => {
-  models.wine
+  models.tastingSheet
     .find(req.params.id)
     .then(([rows]) => {
       if (rows[0] == null) {
@@ -31,17 +31,17 @@ const read = (req, res) => {
 };
 
 const edit = (req, res) => {
-  const wine = req.body;
+  const tastingSheet = req.body;
 
   // TODO validations (length, format...)
-  const { error } = validator(wine, false);
+  const { error } = validator(tastingSheet, false);
   if (error) {
     res.status(422).json({ validationErrors: error.details });
   } else {
     const id = parseInt(req.params.id, 10);
 
-    models.wine
-      .update(id, wine)
+    models.tastingSheet
+      .update(id, tastingSheet)
       .then(([result]) => {
         if (result.affectedRows === 0) {
           res.sendStatus(404);
@@ -57,15 +57,15 @@ const edit = (req, res) => {
 };
 
 const add = (req, res) => {
-  const wine = req.body;
+  const tastingSheet = req.body;
 
   // TODO validations (length, format...)
-  const { error } = validator(wine);
+  const { error } = validator(tastingSheet);
   if (error) {
     res.status(422).json({ validationErrors: error.details });
   } else {
-    models.wine
-      .insert(wine)
+    models.tastingSheet
+      .insert(tastingSheet)
       .then(([result]) => {
         res.location(`/wines/${result.insertId}`).sendStatus(201);
       })
@@ -77,7 +77,7 @@ const add = (req, res) => {
 };
 
 const destroy = (req, res) => {
-  models.wine
+  models.tastingSheet
     .delete(req.params.id)
     .then(([result]) => {
       if (result.affectedRows === 0) {
