@@ -1,6 +1,6 @@
 import React from "react";
 import { Typography } from "@mui/material";
-import bgHome from "../../assets/bg-home.jpg";
+import bgHome from "../../assets/bgHome.jpg";
 
 function Header() {
   return (
