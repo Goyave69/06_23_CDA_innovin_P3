@@ -3,7 +3,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Box, CardActionArea } from "@mui/material";
+import { Box, Button, CardActionArea } from "@mui/material";
 import offre1 from "../../assets/Home/offre1.jpg";
 import offre2 from "../../assets/Home/offre2.jpg";
 import offre3 from "../../assets/Home/offre3.jpg";
@@ -34,10 +34,10 @@ function Offer() {
   ];
 
   return (
-    <div>
+    <Box>
       <Typography
         sx={{
-          color: "#DEB95D",
+          color: "text.tertiary",
           display: "flex",
           justifyContent: "center",
           fontWeight: "bold",
@@ -50,7 +50,7 @@ function Offer() {
       </Typography>
       <Typography
         sx={{
-          color: "white",
+          color: "text.secondary",
           display: "flex",
           justifyContent: "center",
           fontWeight: "bold",
@@ -69,7 +69,7 @@ function Offer() {
       >
         {products.map((product) => {
           return (
-            <div key={product.id}>
+            <Box key={product.id}>
               <Card sx={{ maxWidth: 300, marginBottom: 5 }}>
                 <CardActionArea>
                   <CardMedia
@@ -83,18 +83,18 @@ function Offer() {
                     <Typography gutterBottom variant="h5" component="div">
                       {product.title}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" color="text.primary">
                       {product.description}
                     </Typography>
                   </CardContent>
                 </CardActionArea>
-                <button
-                  style={{
+                <Button
+                  sx={{
                     backgroundColor: "#DEB95D",
                     padding: "10px",
                     borderRadius: "5px",
                     border: "none",
-                    color: "white",
+                    color: "text.secondary",
                     fontWeight: "bold",
                     justifyContent: "center",
                     display: "flex",
@@ -104,13 +104,13 @@ function Offer() {
                   onClick={() => console.warn("Ajouté au panier", product.id)}
                 >
                   Ajouter au panier
-                </button>
+                </Button>
               </Card>
-            </div>
+            </Box>
           );
         })}
       </Box>
-    </div>
+    </Box>
   );
 }
 

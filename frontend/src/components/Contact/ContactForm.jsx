@@ -23,16 +23,28 @@ export default function ContactForm() {
   };
 
   return (
-    <Container sx={{ width: "50%" }}>
+    <Container
+      sx={{
+        width: { sm: "100%", md: "50%" },
+        height: "80vh",
+        backgroundColor: "background.primary",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}
+    >
       <CardHeader
         title={
-          <Typography variant="h2" sx={{ textAlign: "center", margin: "10px" }}>
+          <Typography
+            variant="h2"
+            sx={{ color: "text.tertiary", textAlign: "center", margin: "10px" }}
+          >
             Contactez-nous
           </Typography>
         }
       />
       <CardContent sx={{ display: "flex", flexDirection: "column" }}>
-        <FormControl color="secondary" sx={{ margin: "10px" }}>
+        <FormControl sx={{ margin: "10px" }}>
           <Select value={subject} label="Sujet" onChange={handleChange}>
             <MenuItem value="Service client">Service client</MenuItem>
             <MenuItem value="Vigneron">Vigneron</MenuItem>
@@ -78,7 +90,15 @@ export default function ContactForm() {
           rows={4}
           sx={{ margin: "10px" }}
         />
-        <Box sx={{ display: "flex", alignItems: "center", margin: "10px" }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            margin: "10px",
+            color: "text.secondary",
+            fontSize: { xs: "0.8rem", md: "1.1rem" },
+          }}
+        >
           <FormControlLabel
             control={
               <Checkbox
@@ -89,7 +109,17 @@ export default function ContactForm() {
           />
           J'accepte les conditions générales et la politique de confidentialité
         </Box>
-        <Button sx={{ margin: "10px" }}>Envoyer</Button>
+        <Button
+          sx={{
+            margin: "10px",
+            color: "text.primary",
+            backgroundColor: "background.secondary",
+            fontWeight: "bold",
+            fontSize: { xs: "0.8rem", md: "1.1rem" },
+          }}
+        >
+          Envoyer
+        </Button>
       </CardContent>
     </Container>
   );
