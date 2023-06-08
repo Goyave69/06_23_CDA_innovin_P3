@@ -2,6 +2,7 @@ import Root from "./Root";
 import Home from "../pages/Home";
 import Contact from "../pages/Contact";
 import OurWines from "../pages/OurWines";
+import Login from "../pages/Login";
 
 const Routes = [
   {
@@ -19,6 +20,10 @@ const Routes = [
       {
         path: "wines",
         element: <OurWines />,
+      },
+      {
+        path: "connect",
+        element: <Login />,
       },
     ],
   },
