@@ -1,14 +1,6 @@
-const generateSqlSets = (data) => {
-  let sqlSets = "";
-
-  const keys = Object.keys(data);
-
-  keys.forEach((key, index) => {
-    sqlSets += `${key} = ?`;
-    sqlSets += index !== keys.length - 1 ? ", " : "";
-  });
-
-  return sqlSets;
-};
+const generateSqlSets = (data) =>
+  Object.keys(data)
+    .map((key) => `${key} = ?`)
+    .join(", ");
 
 module.exports = generateSqlSets;
