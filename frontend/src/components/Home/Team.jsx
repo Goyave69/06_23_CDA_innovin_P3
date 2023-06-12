@@ -32,10 +32,10 @@ function Team() {
     },
   ];
   return (
-    <Box sx={{ backgroundColor: "background.tertiary", paddingBottom: 30 }}>
+    <Box sx={{ backgroundColor: "background.tertiary", paddingBottom: 5 }}>
       <Typography
         variant="h4"
-        sx={{ color: "text.tertiary", textAlign: "center", padding: 20 }}
+        sx={{ color: "text.tertiary", textAlign: "center", padding: 10 }}
       >
         Notre équipe d'incroyables sommeliers
       </Typography>

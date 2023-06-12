@@ -64,12 +64,18 @@ function Offer() {
       <Box
         sx={{
           display: { sx: "block", md: "flex" },
-          justifyContent: "space-around",
+          justifyContent: { xs: "center", md: "space-around" },
         }}
       >
         {products.map((product) => {
           return (
-            <Box key={product.id}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+              key={product.id}
+            >
               <Card sx={{ maxWidth: 300, marginBottom: 5 }}>
                 <CardActionArea>
                   <CardMedia

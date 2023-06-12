@@ -24,27 +24,13 @@ function Navbar({ toggleDarkMode }) {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-  const [navbarTransparent, setNavbarTransparent] = React.useState(true);
-
-  React.useEffect(() => {
-    const handleScroll = () => {
-      const isTop = window.scrollY === 0;
-      setNavbarTransparent(isTop);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   return (
     <AppBar
       position="static"
       sx={{
-        backgroundColor: navbarTransparent ? "transparent" : "white",
-        transition: "background-color 0.5s",
+        backgroundColor: "white",
+        height: "10vh",
       }}
     >
       <Container maxWidth="xl">
