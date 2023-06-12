@@ -1,11 +1,11 @@
 import React from "react";
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import bgHome from "../../assets/bgHome.jpg";
 
 function Header() {
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         background: `url(${bgHome}) no-repeat center center fixed`,
         backgroundSize: "cover",
         height: "100vh",
@@ -14,7 +14,7 @@ function Header() {
       <Typography
         variant="h1"
         sx={{
-          color: "white",
+          color: "text.secondary",
           fontWeight: "bold",
           fontSize: { xs: "1.3rem", md: "1.5rem" },
           textAlign: "center",
@@ -25,7 +25,7 @@ function Header() {
         passion et expertise se rencontrent pour vous guider dans l'univers
         enivrant des saveurs et des arômes.
       </Typography>
-    </div>
+    </Box>
   );
 }
 

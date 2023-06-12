@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 import React from "react";
 import YouTube from "react-youtube";
 
@@ -8,33 +8,32 @@ function Youtube() {
     width: "640",
   };
   return (
-    <div>
-      <hr
-        style={{
-          color: "#DEB95D",
-          backgroundColor: "#DEB95D",
+    <Box>
+      <Divider
+        sx={{
+          color: "text.tertiary",
+          backgroundColor: "background.secondary",
           height: 2,
-          marginBottom: 10,
         }}
       />
       <Typography
         variant="h4"
-        style={{ color: "#DEB95D", textAlign: "center", padding: 20 }}
+        sx={{ color: "text.tertiary", textAlign: "center", padding: 10 }}
       >
         Les Cépages du Vin
       </Typography>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <YouTube videoId="ZM9gUAlbAR0" opts={opts} />
       </div>
-      <hr
-        style={{
-          color: "#DEB95D",
-          backgroundColor: "#DEB95D",
+      <Divider
+        sx={{
+          color: "text.tertiary",
+          backgroundColor: "background.secondary",
           height: 2,
-          marginTop: 40,
+          marginTop: 15,
         }}
       />
-    </div>
+    </Box>
   );
 }
 
