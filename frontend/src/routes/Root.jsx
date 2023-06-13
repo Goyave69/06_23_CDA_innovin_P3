@@ -1,4 +1,5 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ToastContainer } from "react-toastify";
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
@@ -19,6 +20,7 @@ export default function Root() {
       <main>
         <Outlet />
       </main>
+      <ToastContainer />
     </ThemeProvider>
   );
 }

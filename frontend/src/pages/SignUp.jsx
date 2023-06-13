@@ -1,28 +1,35 @@
 import React from "react";
+import axios from "axios";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import bgLogin from "../assets/Login/bgLogin.jpg";
 import mail from "../assets/Login/mail.png";
-import user from "../assets/Login/user.png";
+import userIcon from "../assets/Login/user.png";
 import vector from "../assets/Login/Vector.png";
 import adresse from "../assets/Login/adresse.png";
 import phone from "../assets/Login/phone.png";
 
 function SignUp() {
   const inputFields = [
-    { name: "name", label: "Nom", placeholder: "Nom", icon: user },
-    { name: "firstName", label: "Prénom", placeholder: "Prénom", icon: user },
-    { name: "username", label: "Pseudo", placeholder: "Pseudo", icon: user },
+    {
+      name: "firstname",
+      label: "Prénom",
+      placeholder: "Prénom",
+      icon: userIcon,
+    },
+    { name: "lastname", label: "Nom", placeholder: "Nom", icon: userIcon },
+    {
+      name: "username",
+      label: "Pseudo",
+      placeholder: "Pseudo",
+      icon: userIcon,
+    },
     { name: "email", label: "Email", placeholder: "Email", icon: mail },
     {
       name: "password",
       label: "Mot de passe",
       placeholder: "Mot de passe",
-      icon: vector,
-    },
-    {
-      name: "confirmPassword",
-      label: "Confirmer le mot de passe",
-      placeholder: "Confirmer le mot de passe",
       icon: vector,
     },
     {
@@ -32,7 +39,7 @@ function SignUp() {
       icon: adresse,
     },
     {
-      name: "phoneNumber",
+      name: "phone",
       label: "Numéro de Téléphone",
       placeholder: "Numéro de Téléphone",
       icon: phone,
@@ -40,19 +47,37 @@ function SignUp() {
   ];
 
   const [dataForm, setDataForm] = React.useState({
-    name: "",
-    firstName: "",
+    firstname: "",
+    lastname: "",
     username: "",
+    role: "user",
     email: "",
     password: "",
-    confirmPassword: "",
     address: "",
-    phoneNumber: "",
+    phone: "",
+    avatar: "ijdiozejdiozejdoz",
+    cart_id: 2,
   });
+
+  const SubmitSignUp = () => {
+    axios
+      .post("http://localhost:5000/users", dataForm)
+      .then((response, error) => {
+        if (response.status === 201) {
+          console.warn("created");
+          toast.success(
+            `Bienvenue ${dataForm.firstname}, votre compte a bien été créé !`
+          );
+        } else {
+          console.warn("erreur", error);
+        }
+      });
+  };
 
   const handleChange = (e) => {
     setDataForm({ ...dataForm, [e.target.name]: e.target.value });
   };
+
   return (
     <Box sx={{ display: "flex" }}>
       <Box
@@ -84,25 +109,31 @@ function SignUp() {
             {inputFields.map((field) => (
               <Box
                 sx={{ display: "flex", alignItems: "center" }}
-                key={field.id}
+                key={field.name}
               >
                 <img src={field.icon} alt="" />
                 <TextField
                   onChange={handleChange}
                   required
-                  id={field.id}
+                  name={field.name}
+                  id={field.name}
                   label={field.label}
                   placeholder={field.placeholder}
                   sx={{ margin: "10px" }}
                 />
               </Box>
             ))}
-            <Button
-              sx={{ backgroundColor: "red", width: "35%" }}
-              variant="contained"
+            <Box
+              sx={{ width: "100%", display: "flex", justifyContent: "center" }}
             >
-              S'inscrire
-            </Button>
+              <Button
+                onClick={SubmitSignUp}
+                sx={{ backgroundColor: "red", width: "35%" }}
+                variant="contained"
+              >
+                S'inscrire
+              </Button>
+            </Box>
           </Box>
         </Box>
       </Box>
