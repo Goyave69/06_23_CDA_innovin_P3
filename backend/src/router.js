@@ -14,10 +14,12 @@ router.delete("/wines/:id", wineControllers.destroy);
 // routes pour Users
 const userControllers = require("./controllers/userControllers");
 
+const { hashPassword } = require("./services/PasswordHelper");
+
 router.get("/users", userControllers.browse);
 router.get("/users/:id", userControllers.read);
 router.put("/users/:id", userControllers.edit);
-router.post("/users", userControllers.add);
+router.post("/users", hashPassword, userControllers.add);
 router.delete("/users/:id", userControllers.destroy);
 
 // routes pour TastingSheet

@@ -61,6 +61,7 @@ const add = (req, res) => {
 
   // TODO validations (length, format...)
   const { error } = validator(user);
+  console.warn(error);
   if (error) {
     res.status(422).json({ validationErrors: error.details });
   } else {
