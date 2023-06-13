@@ -5,7 +5,7 @@ import YouTube from "react-youtube";
 function Youtube() {
   const opts = {
     height: "390",
-    width: "640",
+    width: "240",
   };
   return (
     <Box>

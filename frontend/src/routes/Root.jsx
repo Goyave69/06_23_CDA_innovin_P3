@@ -2,7 +2,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 import getDesignTokens from "../theme";
 
 export default function Root() {
@@ -20,7 +19,6 @@ export default function Root() {
       <main>
         <Outlet />
       </main>
-      <Footer />
     </ThemeProvider>
   );
 }
