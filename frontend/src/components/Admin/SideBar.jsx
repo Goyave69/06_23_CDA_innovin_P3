@@ -101,12 +101,8 @@ export default function SideBar(props) {
           }}
         >
           {items.map((item) => {
-            const active = true;
-
             return (
               <SideBarItem
-                active={active}
-                disabled={item.disabled}
                 icon={item.icon}
                 key={item.title}
                 path={item.path}
