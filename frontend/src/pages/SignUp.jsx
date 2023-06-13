@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { Box, Button, TextField, Typography } from "@mui/material";
@@ -58,16 +59,17 @@ function SignUp() {
     avatar: "ijdiozejdiozejdoz",
     cart_id: 2,
   });
+  const navigate = useNavigate();
 
   const SubmitSignUp = () => {
     axios
       .post("http://localhost:5000/users", dataForm)
       .then((response, error) => {
         if (response.status === 201) {
-          console.warn("created");
           toast.success(
             `Bienvenue ${dataForm.firstname}, votre compte a bien été créé !`
           );
+          navigate("/connect");
         } else {
           console.warn("erreur", error);
         }
