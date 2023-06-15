@@ -7,37 +7,41 @@ import {
   TableSortLabel,
 } from "@mui/material";
 import PropTypes from "prop-types";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 const headCells = [
   {
-    id: "name",
-    numeric: false,
-    disablePadding: true,
-    label: "Dessert (100g serving)",
+    id: "id",
+    label: "Id",
   },
   {
-    id: "calories",
-    numeric: true,
-    disablePadding: false,
-    label: "Calories",
+    id: "firstname",
+    label: "Prénom",
   },
   {
-    id: "fat",
-    numeric: true,
-    disablePadding: false,
-    label: "Fat (g)",
+    id: "lastname",
+    label: "Nom",
   },
   {
-    id: "carbs",
-    numeric: true,
-    disablePadding: false,
-    label: "Carbs (g)",
+    id: "username",
+    label: "Pseudo",
   },
   {
-    id: "protein",
-    numeric: true,
-    disablePadding: false,
-    label: "Protein (g)",
+    id: "role",
+    label: "Rôle",
+  },
+  {
+    id: "email",
+    label: "Email",
+  },
+  {
+    id: "adress",
+    label: "Adresse",
+  },
+  {
+    id: "phone",
+    label: "Téléphone",
   },
 ];
 
@@ -64,15 +68,15 @@ export default function UserTableHead(props) {
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
             inputProps={{
-              "aria-label": "select all desserts",
+              "aria-label": "select all users",
             }}
           />
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? "right" : "left"}
-            padding={headCell.disablePadding ? "none" : "normal"}
+            align="center"
+            padding="normal"
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
@@ -83,7 +87,11 @@ export default function UserTableHead(props) {
               {headCell.label}
               {orderBy === headCell.id ? (
                 <Box component="span">
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
+                  {order === "desc" ? (
+                    <ArrowDownwardIcon />
+                  ) : (
+                    <ArrowUpwardIcon />
+                  )}
                 </Box>
               ) : null}
             </TableSortLabel>

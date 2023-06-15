@@ -15,7 +15,7 @@ import SideBarItem from "./SideBarItem";
 
 const items = [
   {
-    title: "Vue d'ensemble",
+    title: "Dashboard",
     path: "/admin",
     icon: <SignalCellularAltIcon />,
   },

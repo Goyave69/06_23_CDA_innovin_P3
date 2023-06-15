@@ -23,7 +23,7 @@ export default function UserTableToolbar(props) {
           variant="subtitle1"
           component="div"
         >
-          {numSelected} selected
+          {numSelected} sélectionnés
         </Typography>
       ) : (
         <Typography
@@ -32,7 +32,7 @@ export default function UserTableToolbar(props) {
           id="tableTitle"
           component="div"
         >
-          Nutrition
+          Utilisation
         </Typography>
       )}
 
