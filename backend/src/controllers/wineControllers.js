@@ -58,7 +58,6 @@ const edit = (req, res) => {
 
 const add = (req, res) => {
   const wine = req.body;
-
   // TODO validations (length, format...)
   const { error } = validator(wine);
   if (error) {

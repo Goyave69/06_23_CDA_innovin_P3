@@ -9,6 +9,7 @@ import AdminWine from "../components/Admin/AdminWine";
 import AdminTastingSheet from "../components/Admin/AdminTastingSheet";
 import AdminUser from "../components/Admin/User/AdminUser";
 import Error404 from "../pages/404";
+import SignUp from "../pages/SignUp";
 
 const Routes = [
   {
@@ -30,6 +31,10 @@ const Routes = [
       {
         path: "connect",
         element: <Login />,
+      },
+      {
+        path: "signUp",
+        element: <SignUp />,
       },
     ],
   },

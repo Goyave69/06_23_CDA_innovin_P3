@@ -11,10 +11,10 @@ const userValidator = (data, forCreation = true) => {
       .email({ tlds: { allow: false } })
       .presence(presence),
     address: Joi.string().max(100).presence(presence),
-    password: Joi.string()
-      .regex(
-        /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[\]:;<>,.?/~_+\-=|]).{8,32}$/
-      )
+    hashedPassword: Joi.string()
+      // .regex(
+      //   /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[\]:;<>,.?/~_+\-=|]).{8,32}$/
+      // )
       .presence(presence),
     phone: Joi.string()
       .regex(/^[0-9]{10}$/)
