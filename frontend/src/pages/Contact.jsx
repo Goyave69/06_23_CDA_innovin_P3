@@ -1,19 +1,26 @@
+import { Box } from "@mui/material";
 import ContactForm from "../components/Contact/ContactForm";
 import bgHome from "../assets/bgHome.jpg";
 
 export default function Contact() {
   return (
-    <div
-      style={{
-        background: `url(${bgHome}) no-repeat center center fixed`,
-        backgroundSize: "cover",
-        height: "80vh",
+    <Box
+      sx={{
         display: "flex",
+        flexDirection: { xs: "column", md: "row" },
         justifyContent: "center",
         alignItems: "center",
       }}
     >
+      <Box
+        sx={{
+          background: `url(${bgHome}) no-repeat bottom center fixed`,
+          backgroundSize: "cover",
+          width: { sm: "100%", md: "50%" },
+          height: "80vh",
+        }}
+      />
       <ContactForm />
-    </div>
+    </Box>
   );
 }

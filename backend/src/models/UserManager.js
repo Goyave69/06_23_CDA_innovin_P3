@@ -16,7 +16,7 @@ class WineManager extends AbstractManager {
         user.username,
         user.role,
         user.email,
-        user.password,
+        user.hashedPassword,
         user.address,
         user.phone,
         user.avatar,

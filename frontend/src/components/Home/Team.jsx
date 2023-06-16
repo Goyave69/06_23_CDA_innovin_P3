@@ -1,4 +1,4 @@
-import { Typography, CardActionArea, Box } from "@mui/material";
+import { Typography, CardActionArea, Box, Divider } from "@mui/material";
 import React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -32,10 +32,10 @@ function Team() {
     },
   ];
   return (
-    <div style={{ backgroundColor: "black", paddingBottom: 30 }}>
+    <Box sx={{ backgroundColor: "background.tertiary", paddingBottom: 5 }}>
       <Typography
         variant="h4"
-        style={{ color: "#DEB95D", textAlign: "center", padding: 20 }}
+        sx={{ color: "text.tertiary", textAlign: "center", padding: 10 }}
       >
         Notre équipe d'incroyables sommeliers
       </Typography>
@@ -50,8 +50,8 @@ function Team() {
             key={sommelier.id}
             sx={{
               maxWidth: 345,
-              backgroundColor: "black",
-              color: "white",
+              backgroundColor: "background.tertiary",
+              color: "text.secondary",
               border: "1px solid White",
               py: 2,
             }}
@@ -77,14 +77,14 @@ function Team() {
                 >
                   {sommelier.title}
                 </Typography>
-                <hr style={{ width: "50%", margin: "0 auto 10px auto" }} />
+                <Divider sx={{ width: "50%", margin: "0 auto 10px auto" }} />
                 <Typography variant="body2">{sommelier.description}</Typography>
               </CardContent>
             </CardActionArea>
           </Card>
         ))}
       </Box>
-    </div>
+    </Box>
   );
 }
 
