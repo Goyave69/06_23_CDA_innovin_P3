@@ -8,10 +8,20 @@ import {
   Typography,
 } from "@mui/material";
 
+import stringHelper from "../../services/stringHelper";
+
 export default function WineCard({ wine }) {
   return (
     <div key={wine.id}>
-      <Card sx={{ maxWidth: 300, marginBottom: 5 }}>
+      <Card
+        sx={{
+          maxWidth: 400,
+          height: 550,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
+      >
         <CardActionArea>
           <CardMedia
             sx={{ objectFit: "contain" }}
@@ -33,7 +43,7 @@ export default function WineCard({ wine }) {
               {wine.price} €
             </Typography>
             <Typography variant="body2" color="text.secondary" align="center">
-              {wine.description}
+              {stringHelper.stringLimiter(wine.description, 100)}
             </Typography>
           </CardContent>
         </CardActionArea>
