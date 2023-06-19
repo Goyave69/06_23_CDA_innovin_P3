@@ -1,6 +1,5 @@
 import {
   Box,
-  Checkbox,
   TableCell,
   TableHead,
   TableRow,
@@ -46,14 +45,7 @@ const headCells = [
 ];
 
 export default function UserTableHead(props) {
-  const {
-    onSelectAllClick,
-    order,
-    orderBy,
-    numSelected,
-    rowCount,
-    onRequestSort,
-  } = props;
+  const { order, orderBy, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -61,17 +53,6 @@ export default function UserTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              "aria-label": "select all users",
-            }}
-          />
-        </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -97,16 +78,16 @@ export default function UserTableHead(props) {
             </TableSortLabel>
           </TableCell>
         ))}
+        <TableCell key="Toolbox" align="center" padding="normal">
+          Boite à outils
+        </TableCell>
       </TableRow>
     </TableHead>
   );
 }
 
 UserTableHead.propTypes = {
-  numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
   order: PropTypes.oneOf(["asc", "desc"]).isRequired,
   orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
 };

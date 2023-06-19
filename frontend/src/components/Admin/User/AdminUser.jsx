@@ -5,11 +5,13 @@ import {
   Button,
   Modal,
   Box,
+  Link,
 } from "@mui/material";
 import * as React from "react";
 import axios from "axios";
 import AddIcon from "@mui/icons-material/Add";
 import UserTable from "./UserTable";
+import UserForm from "./UserForm";
 
 export default function AdminUser() {
   const [users, setUsers] = React.useState([]);
@@ -30,17 +32,6 @@ export default function AdminUser() {
       });
   }, [loadingUsers]);
 
-  React.useEffect(() => {
-    axios
-      .post("http://localhost:5000/users")
-      .then(() => {
-        setLoadingUsers((prev) => !prev);
-      })
-      .catch((err) => {
-        console.error(`Axios Error : ${err.message}`);
-      });
-  }, []);
-
   return (
     <Container>
       <Stack
@@ -49,9 +40,15 @@ export default function AdminUser() {
         justifyContent="space-between"
         mb={5}
       >
-        <Typography variant="h4" gutterBottom>
-          User
-        </Typography>
+        <Box sx={{ display: "flex", justifyContent: "flex-start" }}>
+          <Link href="/admin" underline="hover">
+            Dashboard
+          </Link>
+          /
+          <Link href="/admin/users" underline="hover">
+            User
+          </Link>
+        </Box>
         <Button
           variant="contained"
           onClick={handleOpenModal}
@@ -61,7 +58,7 @@ export default function AdminUser() {
         </Button>
       </Stack>
 
-      <UserTable users={users} />
+      <UserTable users={users} setLoadingUsers={setLoadingUsers} />
 
       <Modal
         open={open}
@@ -80,9 +77,10 @@ export default function AdminUser() {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Ajoutez un nouvel utilisateur
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+          <UserForm
+            closeModal={handleCloseModal}
+            setLoadingUsers={setLoadingUsers}
+          />
         </Box>
       </Modal>
     </Container>
