@@ -6,17 +6,21 @@ import {
   CardMedia,
   Divider,
   Typography,
+  Button,
 } from "@mui/material";
 
-export default function CardHome({ props }) {
+import { Box } from "@mui/system";
+import stringHelper from "../../services/stringHelper";
+
+export default function CardHome({ props, showButton = true }) {
   return (
-    <div>
+    <div key={props.id}>
       <Card
-        key={props.id}
         sx={{
           display: "flex",
           flexDirection: "column",
           maxWidth: "30vw",
+          minWidth: "26vw",
           minHeight: "26vw",
           margin: "auto",
           marginBottom: "3px",
@@ -41,13 +45,53 @@ export default function CardHome({ props }) {
             alt="green iguana"
           />
           <CardContent>
-            <Typography style={{ textAlign: "center", paddingBottom: "4px" }}>
-              {props.title}
-            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+              }}
+            >
+              <Typography
+                variant="h6"
+                style={{ textAlign: "center", paddingBottom: "4px" }}
+              >
+                {props.title ? props.title : props.name}
+              </Typography>
+              {props.price && (
+                <Typography
+                  style={{ textAlign: "center", paddingBottom: "4px" }}
+                >
+                  {props.price} €
+                </Typography>
+              )}
+            </Box>
             <Divider sx={{ width: "50%", margin: "0 auto 10px auto" }} />
-            <Typography variant="body2">{props.description}</Typography>
+
+            <Typography variant="body2">
+              {stringHelper.stringLimiter(props.description, 100)}
+            </Typography>
           </CardContent>
         </CardActionArea>
+        {showButton && (
+          <Button
+            style={{
+              backgroundColor: "#DEB95D",
+              padding: "10px",
+              borderRadius: "5px",
+              border: "none",
+              color: "white",
+              fontWeight: "bold",
+              justifyContent: "center",
+              display: "flex",
+              margin: "0 auto 10px auto",
+            }}
+            type="button"
+            onClick={() => console.warn("Ajouté au panier", props.id)}
+          >
+            Voir plus
+          </Button>
+        )}
       </Card>
     </div>
   );

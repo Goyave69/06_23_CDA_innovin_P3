@@ -40,7 +40,7 @@ function Offer() {
         }}
       >
         {products.map((product) => (
-          <CardHome props={product} />
+          <CardHome props={product} showButton={false} />
         ))}
       </Box>
     </Box>

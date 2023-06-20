@@ -26,7 +26,7 @@ function Team() {
         }}
       >
         {sommeliers.map((sommelier) => (
-          <CardHome key={sommelier.id} props={sommelier} />
+          <CardHome props={sommelier} showButton={false} />
         ))}
       </Box>
     </Box>
