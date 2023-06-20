@@ -3,8 +3,6 @@ const argon2 = require("argon2");
 
 const { JWT_SECRET, JWT_TIMING } = process.env;
 
-console.warn(JWT_SECRET, JWT_TIMING);
-
 const hashingOptions = {
   type: argon2.argon2id,
   memoryCost: 2 ** 16,
