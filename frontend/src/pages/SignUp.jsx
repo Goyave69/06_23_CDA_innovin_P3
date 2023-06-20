@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
@@ -10,6 +9,7 @@ import userIcon from "../assets/Login/user.png";
 import vector from "../assets/Login/Vector.png";
 import adresse from "../assets/Login/adresse.png";
 import phone from "../assets/Login/phone.png";
+import ApiHelper from "../services/apiHelper";
 
 function SignUp() {
   const inputFields = [
@@ -62,20 +62,17 @@ function SignUp() {
   const navigate = useNavigate();
 
   const SubmitSignUp = () => {
-    axios
-      .post("http://localhost:5000/users", dataForm)
-      .then((response, error) => {
-        if (response.status === 201) {
-          toast.success(
-            `Bienvenue ${dataForm.firstname}, votre compte a bien été créé !`
-          );
-          navigate("/connect");
-        } else {
-          console.warn("erreur", error);
-        }
-      });
+    ApiHelper("users", "post", dataForm).then((res, error) => {
+      if (res.status === 201) {
+        toast.success(
+          `Bienvenue ${dataForm.firstname}, votre compte a bien été créé !`
+        );
+        navigate("/connect");
+      } else {
+        console.warn("erreur", error);
+      }
+    });
   };
-
   const handleChange = (e) => {
     setDataForm({ ...dataForm, [e.target.name]: e.target.value });
   };
@@ -121,7 +118,9 @@ function SignUp() {
                   id={field.name}
                   label={field.label}
                   placeholder={field.placeholder}
-                  sx={{ margin: "10px" }}
+                  InputProps={{
+                    style: { margin: "10px", borderRadius: "30px" },
+                  }}
                 />
               </Box>
             ))}
