@@ -31,4 +31,14 @@ router.put("/tastingsheets/:id", tastingSheetControllers.edit);
 router.post("/tastingsheets", tastingSheetControllers.add);
 router.delete("/tastingsheets/:id", tastingSheetControllers.destroy);
 
+// routes pour login
+const { verifyPassword } = require("./services/auth");
+const authControllers = require("./controllers/authControllers");
+
+router.post(
+  "/login",
+  authControllers.getUserByEmailWithPasswordAndPassToNext,
+  verifyPassword
+);
+
 module.exports = router;
