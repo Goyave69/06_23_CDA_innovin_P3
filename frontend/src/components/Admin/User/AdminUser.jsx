@@ -1,3 +1,4 @@
+import { DataGrid } from "@mui/x-data-grid";
 import {
   Container,
   Stack,
@@ -6,11 +7,13 @@ import {
   Modal,
   Box,
   Link,
+  Tooltip,
+  IconButton,
 } from "@mui/material";
 import * as React from "react";
 import axios from "axios";
 import AddIcon from "@mui/icons-material/Add";
-import UserTable from "./UserTable";
+import DeleteIcon from "@mui/icons-material/Delete";
 import UserForm from "./UserForm";
 
 export default function AdminUser() {
@@ -31,6 +34,119 @@ export default function AdminUser() {
         console.error(`Axios Error : ${err.message}`);
       });
   }, [loadingUsers]);
+
+  const handleDelete = (id) => {
+    axios
+      .delete(`http://localhost:5000/users/${id}`)
+      .then(() => {
+        setLoadingUsers((prev) => !prev);
+      })
+      .catch((err) => {
+        console.error(`Axios Error : ${err.message}`);
+      });
+  };
+
+  const columns = [
+    { field: "id", headerName: "ID", width: 90 },
+    {
+      field: "firstname",
+      headerName: "Prénom",
+      width: 110,
+      editable: true,
+    },
+    {
+      field: "lastname",
+      headerName: "Nom",
+      width: 110,
+      editable: true,
+    },
+    {
+      field: "username",
+      headerName: "Pseudo",
+      width: 110,
+      editable: true,
+    },
+    {
+      field: "role",
+      headerName: "Rôle",
+      width: 110,
+      editable: true,
+    },
+    {
+      field: "email",
+      headerName: "Email",
+      width: 150,
+      editable: true,
+    },
+    {
+      field: "address",
+      headerName: "Adresse",
+      width: 150,
+      editable: true,
+    },
+    {
+      field: "phone",
+      headerName: "Téléphone",
+      width: 110,
+      editable: true,
+    },
+    {
+      field: "delete",
+      headerName: "Supprimer",
+      width: 80,
+      editable: false,
+      sortable: false,
+      renderCell: (params) => (
+        <Tooltip>
+          <IconButton
+            onClick={() => {
+              handleDelete(params.id);
+            }}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
+      ),
+    },
+  ];
+
+  const processRowUpdate = React.useCallback((user) => {
+    const {
+      id,
+      firstname,
+      lastname,
+      username,
+      role,
+      email,
+      address,
+      phone,
+      avatar,
+    } = user;
+    const updateUser = { ...user, isNew: false };
+    setUsers(users.map((row) => (row.id === user.id ? updateUser : user)));
+    axios
+      .put(`http://localhost:5000/users/${id}`, {
+        firstname,
+        lastname,
+        username,
+        role,
+        email,
+        address,
+        phone,
+        avatar,
+      })
+      .then(() => {
+        setLoadingUsers((prev) => !prev);
+      })
+      .catch((err) => {
+        console.error(`Axios Error : ${err.message}`);
+      });
+    return updateUser;
+  }, []);
+
+  const handleProcessRowUpdateError = React.useCallback((error) => {
+    console.error(error);
+  }, []);
 
   return (
     <Container>
@@ -58,7 +174,24 @@ export default function AdminUser() {
         </Button>
       </Stack>
 
-      <UserTable users={users} setLoadingUsers={setLoadingUsers} />
+      <DataGrid
+        getRowId={(row) => row.id}
+        rows={users}
+        columns={columns}
+        editMode="row"
+        initialState={{
+          pagination: {
+            paginationModel: {
+              pageSize: 10,
+            },
+          },
+        }}
+        pageSizeOptions={[10, 25]}
+        processRowUpdate={processRowUpdate}
+        onProcessRowUpdateError={handleProcessRowUpdateError}
+        autoHeight
+        disableRowSelectionOnClick
+      />
 
       <Modal
         open={open}
