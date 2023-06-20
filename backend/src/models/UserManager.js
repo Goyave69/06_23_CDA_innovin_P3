@@ -33,6 +33,13 @@ class WineManager extends AbstractManager {
       [...Object.values(user), id]
     );
   }
+
+  findByEmailWithPassword(email) {
+    return this.database.query(
+      `SELECT id, email, password FROM ${this.table} WHERE email = ?`,
+      [email]
+    );
+  }
 }
 
 module.exports = WineManager;
