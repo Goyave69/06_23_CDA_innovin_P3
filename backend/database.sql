@@ -121,6 +121,7 @@ INSERT INTO user (
         password,
         address,
         phone,
+        avatar,
         cart_id
     )
 VALUES (
@@ -132,6 +133,7 @@ VALUES (
         'password456',
         '456 Elm St',
         '9876543210',
+        "/",
         2
     );
 INSERT INTO wine (
@@ -143,7 +145,8 @@ INSERT INTO wine (
         grape_variety,
         description,
         best_seller,
-        price
+        price,
+        image,
     )
 VALUES (
         'Chardonnay',
@@ -154,7 +157,8 @@ VALUES (
         'Chardonnay',
         'A rich and buttery white wine.',
         1,
-        29.99
+        29.99,
+        "/"
     );
 INSERT INTO wine (
         name,
@@ -165,7 +169,8 @@ INSERT INTO wine (
         grape_variety,
         description,
         best_seller,
-        price
+        price,
+        image,
     )
 VALUES (
         'Merlot',
@@ -176,7 +181,8 @@ VALUES (
         'Merlot',
         'A smooth and fruity red wine.',
         0,
-        24.99
+        24.99,
+        "/",
     );
 INSERT INTO tasting_sheet (
         degustation_date,
