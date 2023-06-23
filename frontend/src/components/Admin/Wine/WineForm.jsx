@@ -5,67 +5,75 @@ import ApiHelper from "../../../services/apiHelper";
 
 const inputFields = [
   {
-    name: "firstname",
-    label: "Prénom",
-    placeholder: "Prénom",
-    sx: { margin: "10px", width: "46%" },
-  },
-  {
-    name: "lastname",
+    name: "name",
     label: "Nom",
-    placeholder: "Nom",
+    placeholder: "Beaujolais",
     sx: { margin: "10px", width: "46%" },
+    props: {},
   },
   {
-    name: "username",
-    label: "Pseudo",
-    placeholder: "Pseudo",
+    name: "year",
+    label: "Année",
+    placeholder: "1994",
     sx: { margin: "10px", width: "46%" },
+    props: { inputMode: "numeric", pattern: "[0-9]*" },
   },
   {
-    name: "role",
-    label: "Rôle",
-    placeholder: "user",
+    name: "wine_type",
+    label: "Type de vin",
+    placeholder: "Blanc, Rouge, Rosé",
     sx: { margin: "10px", width: "46%" },
+    props: {},
   },
   {
-    name: "email",
-    label: "Email",
-    placeholder: "Email",
-    sx: { margin: "10px", width: "95%" },
+    name: "origin_country",
+    label: "Pays d'origin",
+    placeholder: "France",
+    sx: { margin: "10px", width: "46%" },
+    props: {},
   },
   {
-    name: "password",
-    label: "Mot de passe",
-    placeholder: "Mot de passe",
-    sx: { margin: "10px", width: "95%" },
+    name: "region",
+    label: "Région",
+    placeholder: "Bourgogne",
+    sx: { margin: "10px", width: "46%" },
+    props: {},
   },
   {
-    name: "address",
-    label: "Adresse",
-    placeholder: "Adresse",
-    sx: { margin: "10px", width: "95%" },
+    name: "grape_variety",
+    label: "Variété de grappe",
+    placeholder: "Chardonnay",
+    sx: { margin: "10px", width: "46%" },
+    props: {},
   },
   {
-    name: "phone",
-    label: "Téléphone",
-    placeholder: "Numéro de Téléphone",
+    name: "description",
+    label: "Description",
+    placeholder: "Exemple",
     sx: { margin: "10px", width: "95%" },
+    props: {},
+  },
+  {
+    name: "price",
+    label: "Prix",
+    placeholder: "14",
+    sx: { margin: "10px", width: "95%" },
+    props: { inputMode: "numeric", pattern: "[0-9]*" },
   },
 ];
 
 export default function UserForm({ closeModal, setLoadingUsers }) {
   const [dataForm, setDataForm] = React.useState({
-    firstname: "",
-    lastname: "",
-    username: "",
-    role: "",
-    email: "",
-    password: "",
-    address: "",
-    phone: "",
-    avatar: "/",
-    cart_id: 1,
+    name: "",
+    year: 1994,
+    wine_type: "",
+    origin_country: "",
+    region: "",
+    grape_variety: "",
+    description: "",
+    best_seller: false,
+    image: "/",
+    price: 0,
   });
 
   const handleChange = (e) => {
@@ -73,7 +81,7 @@ export default function UserForm({ closeModal, setLoadingUsers }) {
   };
 
   const onSubmit = () => {
-    ApiHelper("users", "post", dataForm)
+    ApiHelper("wines", "post", dataForm)
       .then(() => {
         setLoadingUsers((prev) => !prev);
         closeModal();
@@ -96,6 +104,7 @@ export default function UserForm({ closeModal, setLoadingUsers }) {
             name={field.name}
             label={field.label}
             placeholder={field.placeholder}
+            inputProps={field.props}
             sx={field.sx}
           />
         ))}

@@ -14,65 +14,71 @@ import * as React from "react";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ApiHelper from "../../../services/apiHelper";
-import UserForm from "./UserForm";
+import WineForm from "./WineForm";
 
-export default function AdminUser() {
-  const [users, setUsers] = React.useState([]);
-  const [loadingUsers, setLoadingUsers] = React.useState(false);
+export default function AdminWine() {
+  const [wines, setWines] = React.useState([]);
+  const [loadingWines, setLoadingWines] = React.useState(false);
   const [open, setOpen] = React.useState(false);
 
   const handleOpenModal = () => setOpen(true);
   const handleCloseModal = () => setOpen(false);
 
   React.useEffect(() => {
-    ApiHelper("users", "get")
+    ApiHelper("wines", "get")
       .then((res) => {
-        setUsers(res.data);
+        setWines(res.data);
       })
       .catch((err) => {
         console.error(`Axios Error : ${err.message}`);
       });
-  }, [loadingUsers]);
+  }, [loadingWines]);
 
   const handleDelete = (id) => {
-    ApiHelper(`users/${id}`, "delete", {}, "")
+    ApiHelper(`wines/${id}`, "delete", {}, "")
       .then(() => {
-        setLoadingUsers((prev) => !prev);
+        setLoadingWines((prev) => !prev);
       })
       .catch((err) => {
         console.error(`Axios Error : ${err.message}`);
       });
   };
 
-  const processRowUpdate = React.useCallback((updateUser) => {
+  const processRowUpdate = React.useCallback((updateWine) => {
     const {
       id,
-      firstname,
-      lastname,
-      username,
-      role,
-      email,
-      address,
-      phone,
-      avatar,
-    } = updateUser;
-    ApiHelper(`users/${id}`, "put", {
-      firstname,
-      lastname,
-      username,
-      role,
-      email,
-      address,
-      phone,
-      avatar,
+      name,
+      year,
+      wineType,
+      originCountry,
+      region,
+      grapeVariety,
+      description,
+      bestSeller,
+      image,
+      price,
+    } = updateWine;
+
+    ApiHelper(`wines/${id}`, "put", {
+      name,
+      year,
+      wine_type: wineType,
+      origin_country: originCountry,
+      region,
+      grape_variety: grapeVariety,
+      description,
+      best_seller: bestSeller === 1,
+      image,
+      price,
     })
       .then(() => {
-        setLoadingUsers((prev) => !prev);
+        setLoadingWines((prev) => !prev);
       })
       .catch((err) => {
         console.error(`Axios Error : ${err.message}`);
       });
-    return updateUser;
+
+    return updateWine;
   }, []);
 
   const handleProcessRowUpdateError = React.useCallback((error) => {
@@ -82,44 +88,62 @@ export default function AdminUser() {
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
     {
-      field: "firstname",
-      headerName: "Prénom",
-      width: 110,
-      editable: true,
-    },
-    {
-      field: "lastname",
+      field: "name",
       headerName: "Nom",
       width: 110,
       editable: true,
     },
     {
-      field: "username",
-      headerName: "Pseudo",
+      field: "year",
+      headerName: "Année",
       width: 110,
       editable: true,
     },
     {
-      field: "role",
-      headerName: "Rôle",
+      field: "wine_type",
+      headerName: "Type de vin",
       width: 110,
       editable: true,
     },
     {
-      field: "email",
-      headerName: "Email",
+      field: "origin_country",
+      headerName: "Pays d'origin",
+      width: 110,
+      editable: true,
+    },
+    {
+      field: "region",
+      headerName: "Région",
       width: 150,
       editable: true,
     },
     {
-      field: "address",
-      headerName: "Adresse",
+      field: "grape_variety",
+      headerName: "Variété de grappe",
       width: 150,
       editable: true,
     },
     {
-      field: "phone",
-      headerName: "Téléphone",
+      field: "description",
+      headerName: "Description",
+      width: 110,
+      editable: true,
+    },
+    {
+      field: "best_seller",
+      headerName: "Meilleure vente",
+      width: 110,
+      editable: true,
+    },
+    {
+      field: "image",
+      headerName: "Image",
+      width: 110,
+      editable: true,
+    },
+    {
+      field: "price",
+      headerName: "Prix",
       width: 110,
       editable: true,
     },
@@ -162,12 +186,12 @@ export default function AdminUser() {
           </Link>
           <p style={{ padding: "10px" }}>/</p>
           <Link
-            href="/admin/user"
+            href="/admin/wine"
             underline="hover"
             color="text.primary"
             sx={{ p: "10px" }}
           >
-            User
+            Wine
           </Link>
         </Box>
         <Button
@@ -175,12 +199,12 @@ export default function AdminUser() {
           onClick={handleOpenModal}
           startIcon={<AddIcon />}
         >
-          New User
+          New Wine
         </Button>
       </Stack>
 
       <DataGrid
-        rows={users}
+        rows={wines}
         columns={columns}
         editMode="row"
         initialState={{
@@ -212,11 +236,11 @@ export default function AdminUser() {
           }}
         >
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Ajoutez un nouvel utilisateur
+            Ajoutez un nouveau vin
           </Typography>
-          <UserForm
+          <WineForm
             closeModal={handleCloseModal}
-            setLoadingUsers={setLoadingUsers}
+            setLoadingUsers={setLoadingWines}
           />
         </Box>
       </Modal>
