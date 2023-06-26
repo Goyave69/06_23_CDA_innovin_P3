@@ -93,10 +93,23 @@ const destroy = (req, res) => {
     });
 };
 
+const getColumns = (req, res) => {
+  models.user
+    .getColumns()
+    .then(([result]) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   browse,
   read,
   edit,
   add,
   destroy,
+  getColumns,
 };

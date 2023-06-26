@@ -10,6 +10,7 @@ import AdminTastingSheet from "../components/Admin/AdminTastingSheet";
 import AdminUser from "../components/Admin/User/AdminUser";
 import Error404 from "../pages/404";
 import SignUp from "../pages/SignUp";
+import CreationModal from "../components/Admin/CreationModal";
 
 const Routes = [
   {
@@ -57,6 +58,10 @@ const Routes = [
       {
         path: "user",
         element: <AdminUser />,
+      },
+      {
+        path: "modal-test",
+        element: <CreationModal tableName="tastingsheets" />,
       },
     ],
   },

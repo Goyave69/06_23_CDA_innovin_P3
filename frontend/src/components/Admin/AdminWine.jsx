@@ -1,3 +1,3 @@
 export default function AdminWine() {
-  return <div>Hey</div>;
+  return <div>test</div>;
 }
