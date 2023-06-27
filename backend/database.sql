@@ -146,7 +146,7 @@ INSERT INTO wine (
         description,
         best_seller,
         price,
-        image,
+        image
     )
 VALUES (
         'Chardonnay',
@@ -170,7 +170,7 @@ INSERT INTO wine (
         description,
         best_seller,
         price,
-        image,
+        image
     )
 VALUES (
         'Merlot',
@@ -182,7 +182,7 @@ VALUES (
         'A smooth and fruity red wine.',
         0,
         24.99,
-        "/",
+        "/"
     );
 INSERT INTO tasting_sheet (
         degustation_date,

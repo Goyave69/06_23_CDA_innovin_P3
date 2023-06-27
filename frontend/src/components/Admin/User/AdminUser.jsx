@@ -163,7 +163,7 @@ export default function AdminUser() {
           <p style={{ padding: "10px" }}>/</p>
           <Link
             href="/admin/user"
-            underline="hover"
+            underline="none"
             color="text.primary"
             sx={{ p: "10px" }}
           >
@@ -216,7 +216,7 @@ export default function AdminUser() {
           </Typography>
           <UserForm
             closeModal={handleCloseModal}
-            setLoadingUsers={setLoadingUsers}
+            setLoading={setLoadingUsers}
           />
         </Box>
       </Modal>
