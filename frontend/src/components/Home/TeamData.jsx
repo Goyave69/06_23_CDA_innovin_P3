@@ -13,7 +13,7 @@ const sommeliers = [
   {
     id: 2,
     image: Ryan,
-    title: "Ryan, notre sommelier Francophone ",
+    title: "Ryan, notre sommelier Francophone",
     description:
       "Ryan Beaujot, notre sommelier globetrotter est un spécialiste de vins d'exception. Il est aussi formateur au Bureau Interprofessionnel des Vins de Bourgogne.",
   },

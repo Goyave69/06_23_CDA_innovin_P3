@@ -1,5 +1,5 @@
 import { Typography, Box } from "@mui/material";
-import CardHome from "./CardHome";
+import CardHome from "../CardHome";
 import sommeliers from "./TeamData";
 
 function Team() {
