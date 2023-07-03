@@ -7,13 +7,20 @@ import {
   Container,
   Box,
   Link,
+  SvgIcon,
 } from "@mui/material";
+import PeopleIcon from "@mui/icons-material/People";
+import LiquorIcon from "@mui/icons-material/Liquor";
+import ListAltIcon from "@mui/icons-material/ListAlt";
 import * as React from "react";
 import ApiHelper from "../../../services/apiHelper";
+import Donut from "../Donut";
 
 export default function Dashboard() {
   const [users, setUsers] = React.useState([]);
   const [wines, setWines] = React.useState([]);
+  const [sheet, setSheet] = React.useState([]);
+  const graph = [users.length, wines.length, sheet.length];
 
   React.useEffect(() => {
     ApiHelper("users", "get")
@@ -23,6 +30,9 @@ export default function Dashboard() {
       .catch((err) => {
         console.error(`Axios Error : ${err.message}`);
       });
+  }, [users]);
+
+  React.useEffect(() => {
     ApiHelper("wines", "get")
       .then((res) => {
         setWines(res.data);
@@ -30,7 +40,17 @@ export default function Dashboard() {
       .catch((err) => {
         console.error(`Axios Error : ${err.message}`);
       });
-  }, [users, wines]);
+  }, [wines]);
+
+  React.useEffect(() => {
+    ApiHelper("tastingsheets", "get")
+      .then((res) => {
+        setSheet(res.data);
+      })
+      .catch((err) => {
+        console.error(`Axios Error : ${err.message}`);
+      });
+  }, [sheet]);
 
   return (
     <Container>
@@ -43,52 +63,57 @@ export default function Dashboard() {
         <Box sx={{ display: "flex", justifyContent: "flex-start" }}>
           <Link
             href="/admin"
-            underline="hover"
+            underline="none"
             color="text.primary"
             sx={{ p: "10px" }}
           >
             Dashboard
           </Link>
-          <p style={{ padding: "10px" }}>/</p>
-          <Link
-            href="/admin/wine"
-            underline="hover"
-            color="text.primary"
-            sx={{ p: "10px" }}
-          >
-            Wine
-          </Link>
         </Box>
       </Stack>
-      <Stack direction="row" alignItems="center" my={5}>
-        <Card sx={{ maxWidth: "300px", height: "150px", m: 5 }}>
-          <CardActionArea>
+      <Stack direction="row" justifyContent="center" alignItems="center" my={5}>
+        <Card sx={{ m: 5 }}>
+          <CardActionArea href="/admin/user">
             <CardContent
               sx={{
                 display: "flex",
                 flexDirection: "column",
+                justifyContent: "space-evenly",
                 alignItems: "center",
+                p: 0,
+                width: "15vw",
+                height: "30vh",
               }}
             >
-              <Typography variant="body2" color="text.primary">
+              <SvgIcon fontSize="large">
+                <PeopleIcon />
+              </SvgIcon>
+              <Typography fontSize="3rem" variant="body2" color="text.primary">
                 {users.length}
               </Typography>
-              <Typography gutterBottom variant="h5" component="div">
+              <Typography variant="h5" component="div">
                 Users
               </Typography>
             </CardContent>
           </CardActionArea>
         </Card>
-        <Card sx={{ maxWidth: "300px", height: "150px", m: 5 }}>
-          <CardActionArea>
+        <Card sx={{ m: 5 }}>
+          <CardActionArea href="/admin/wine">
             <CardContent
               sx={{
                 display: "flex",
                 flexDirection: "column",
+                justifyContent: "space-evenly",
                 alignItems: "center",
+                p: 0,
+                width: "15vw",
+                height: "30vh",
               }}
             >
-              <Typography variant="body2" color="text.primary">
+              <SvgIcon fontSize="large">
+                <LiquorIcon />
+              </SvgIcon>
+              <Typography fontSize="3rem" variant="body2" color="text.primary">
                 {wines.length}
               </Typography>
               <Typography gutterBottom variant="h5" component="div">
@@ -97,7 +122,45 @@ export default function Dashboard() {
             </CardContent>
           </CardActionArea>
         </Card>
+        <Card sx={{ m: 5 }}>
+          <CardActionArea href="/admin/tasting_sheet">
+            <CardContent
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+                p: 0,
+                width: "15vw",
+                height: "30vh",
+              }}
+            >
+              <SvgIcon fontSize="large">
+                <ListAltIcon />
+              </SvgIcon>
+              <Typography fontSize="3rem" variant="body2" color="text.primary">
+                {sheet.length}
+              </Typography>
+              <Typography gutterBottom variant="h5" component="div">
+                Tasting Sheet
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
       </Stack>
+      <Box sx={{ display: "flex", justifyContent: "center", width: "100%" }}>
+        <Card
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "25vw",
+            height: "25vh",
+          }}
+        >
+          <Donut count={graph} />
+        </Card>
+      </Box>
     </Container>
   );
 }
