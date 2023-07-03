@@ -10,6 +10,7 @@ import AdminTastingSheet from "../components/Admin/AdminTastingSheet";
 import AdminUser from "../components/Admin/User/AdminUser";
 import Error404 from "../pages/404";
 import SignUp from "../pages/SignUp";
+import WineDetails from "../pages/WineDetails";
 
 const Routes = [
   {
@@ -35,6 +36,10 @@ const Routes = [
       {
         path: "signUp",
         element: <SignUp />,
+      },
+      {
+        path: "wine/:id",
+        element: <WineDetails />,
       },
     ],
   },

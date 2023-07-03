@@ -1,7 +1,7 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
-import CardHome from "./CardHome";
+import CardHome from "../CardHome";
 import products from "./OfferData";
 
 function Offer() {
