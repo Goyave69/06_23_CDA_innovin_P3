@@ -121,6 +121,7 @@ INSERT INTO user (
         password,
         address,
         phone,
+        avatar,
         cart_id
     )
 VALUES (
@@ -132,6 +133,7 @@ VALUES (
         'password456',
         '456 Elm St',
         '9876543210',
+        "/",
         2
     );
 INSERT INTO wine (
