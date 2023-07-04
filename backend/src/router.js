@@ -22,6 +22,26 @@ router.put("/users/:id", userControllers.edit);
 router.post("/users", hashPassword, userControllers.add);
 router.delete("/users/:id", userControllers.destroy);
 
+// routes pour Carts
+
+const cartControllers = require("./controllers/cartControllers");
+
+router.get("/carts", cartControllers.browse);
+router.get("/carts/:id", cartControllers.read);
+router.put("/carts/:id", cartControllers.edit);
+router.post("/carts", cartControllers.add);
+router.delete("/carts/:id", cartControllers.destroy);
+
+// routes pour Orders
+
+const orderControllers = require("./controllers/orderControllers");
+
+router.get("/orders", orderControllers.browse);
+router.get("/orders/:id", orderControllers.read);
+router.put("/orders/:id", orderControllers.edit);
+router.post("/orders", orderControllers.add);
+router.delete("/orders/:id", orderControllers.destroy);
+
 // routes pour TastingSheet
 const tastingSheetControllers = require("./controllers/tastingSheetControllers");
 
