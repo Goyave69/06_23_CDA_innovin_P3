@@ -2,7 +2,7 @@ const models = require("../models");
 
 const browse = (req, res) => {
   models.order
-    .findAll(1)
+    .findAll(req.payload.user.id)
     .then(([rows]) => {
       res.send(rows);
     })
@@ -19,9 +19,7 @@ const read = (req, res) => {
       if (rows[0] == null) {
         res.sendStatus(404);
       } else {
-        models.cart.findNotOrder(1).then(([rows2]) => {
-          res.send({ ...rows[0], products: rows2 });
-        });
+        res.send(rows[0]);
       }
     })
     .catch((err) => {

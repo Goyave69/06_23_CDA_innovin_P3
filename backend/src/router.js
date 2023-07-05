@@ -22,6 +22,15 @@ router.put("/users/:id", userControllers.edit);
 router.post("/users", hashPassword, userControllers.add);
 router.delete("/users/:id", userControllers.destroy);
 
+// routes pour Wines
+const cartWineControllers = require("./controllers/cartWineControllers");
+
+router.get("/cartwines", cartWineControllers.browse);
+router.get("/cartwines/:id", cartWineControllers.read);
+router.put("/cartwines/:id", cartWineControllers.edit);
+router.post("/cartwines", cartWineControllers.add);
+router.delete("/cartwines/:id", cartWineControllers.destroy);
+
 // routes pour Carts
 
 const cartControllers = require("./controllers/cartControllers");

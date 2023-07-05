@@ -1,8 +1,8 @@
 const models = require("../models");
 
 const browse = (req, res) => {
-  models.cart
-    .findNotOrder(req.params.id)
+  models.cartWine
+    .findAll()
     .then(([rows]) => {
       res.send(rows);
     })
@@ -13,7 +13,7 @@ const browse = (req, res) => {
 };
 
 const read = (req, res) => {
-  models.cart
+  models.cartWine
     .find(req.params.id)
     .then(([rows]) => {
       if (rows[0] == null) {
@@ -29,13 +29,13 @@ const read = (req, res) => {
 };
 
 const edit = (req, res) => {
-  const cart = req.body;
+  const cartWine = req.body;
 
   // TODO validations (length, format...)
   const id = parseInt(req.params.id, 10);
 
-  models.cart
-    .update(id, cart)
+  models.cartWine
+    .update(id, cartWine)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
@@ -50,12 +50,12 @@ const edit = (req, res) => {
 };
 
 const add = (req, res) => {
-  const cart = req.body;
+  const cartWine = req.body;
   // TODO validations (length, format...)
-  models.cart
-    .insert(cart)
+  models.cartWine
+    .insert(cartWine)
     .then(([result]) => {
-      res.location(`/carts/${result.insertId}`).sendStatus(201);
+      res.location(`/cartwines/${result.insertId}`).sendStatus(201);
     })
     .catch((err) => {
       console.error(err);
@@ -64,7 +64,7 @@ const add = (req, res) => {
 };
 
 const destroy = (req, res) => {
-  models.cart
+  models.cartWine
     .delete(req.params.id)
     .then(([result]) => {
       if (result.affectedRows === 0) {

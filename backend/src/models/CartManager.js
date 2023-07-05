@@ -9,8 +9,18 @@ class CartManager extends AbstractManager {
 
   findNotOrder(userId) {
     return this.database.query(
-      `SELECT c.id, w.name, c.quantity, w.price FROM ${this.table} AS c 
-    JOIN wine AS w ON w.id = c.wine_id WHERE user_id = ?`,
+      `SELECT c.id, c.user_id, c.is_order, JSON_ARRAYAGG(
+          JSON_OBJECT(
+              'id', w.id,
+              'name', w.name,
+              'price', w.price
+          )
+      ) AS content
+      FROM cart c
+      LEFT JOIN cart_wine cw ON c.id = cw.cart_id
+      LEFT JOIN wine w ON cw.wine_id = w.id
+      WHERE c.id = ?
+      GROUP BY c.id`,
       [userId]
     );
   }
