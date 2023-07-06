@@ -64,8 +64,6 @@ export default function UserForm({ closeModal, setLoading }) {
     password: "",
     address: "",
     phone: "",
-    avatar: "/",
-    cart_id: 1,
   });
 
   const handleChange = (e) => {

@@ -49,16 +49,15 @@ export default function AdminWine() {
       id,
       name,
       year,
-      wineType,
-      originCountry,
+      wine_type: wineType,
+      origin_country: originCountry,
       region,
-      grapeVariety,
+      grape_variety: grapeVariety,
       description,
       bestSeller,
       image,
       price,
     } = updateWine;
-
     ApiHelper(`wines/${id}`, "put", {
       name,
       year,
@@ -77,7 +76,6 @@ export default function AdminWine() {
       .catch((err) => {
         console.error(`Axios Error : ${err.message}`);
       });
-
     return updateWine;
   }, []);
 
