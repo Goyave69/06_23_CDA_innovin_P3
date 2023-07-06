@@ -14,6 +14,7 @@ const ApiHelper = async (
       "content-type": format,
       Accept: "application/json",
     },
+    withCredentials: true,
   });
 };
 

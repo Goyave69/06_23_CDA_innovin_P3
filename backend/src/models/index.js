@@ -39,6 +39,21 @@ const UserManager = require("./UserManager");
 models.user = new UserManager();
 models.user.setDatabase(pool);
 
+const CartWineManager = require("./CartWineManager");
+
+models.cartWine = new CartWineManager();
+models.cartWine.setDatabase(pool);
+
+const CartManager = require("./CartManager");
+
+models.cart = new CartManager();
+models.cart.setDatabase(pool);
+
+const OrderManager = require("./OrderManager");
+
+models.order = new OrderManager();
+models.order.setDatabase(pool);
+
 const TastingSheetManager = require("./TastingSheetManager");
 
 models.tastingSheet = new TastingSheetManager();
