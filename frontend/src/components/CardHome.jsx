@@ -8,11 +8,15 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-
 import { Box } from "@mui/system";
-import stringHelper from "../../services/stringHelper";
+import { NavLink } from "react-router-dom";
+import stringHelper from "../services/stringHelper";
 
-export default function CardHome({ props, showButton = true }) {
+export default function CardHome({
+  props,
+  showButton = true,
+  showDescription = true,
+}) {
   return (
     <div key={props.id}>
       <Card
@@ -35,7 +39,7 @@ export default function CardHome({ props, showButton = true }) {
             component="img"
             sx={{
               width: "192px",
-              height: "160px",
+              height: "180px",
               marginTop: "3px",
               borderRadius: "50%",
               marginLeft: "auto",
@@ -45,52 +49,52 @@ export default function CardHome({ props, showButton = true }) {
             alt="green iguana"
           />
           <CardContent>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-              }}
-            >
+            <Box>
               <Typography
                 variant="h6"
-                style={{ textAlign: "center", paddingBottom: "4px" }}
+                style={{
+                  textAlign: "center",
+                  paddingBottom: "4px",
+                }}
               >
                 {props.title ? props.title : props.name}
               </Typography>
               {props.price && (
                 <Typography
-                  style={{ textAlign: "center", paddingBottom: "4px" }}
+                  style={{
+                    textAlign: "center",
+                    paddingBottom: "4px",
+                  }}
                 >
                   {props.price} €
                 </Typography>
               )}
             </Box>
             <Divider sx={{ width: "50%", margin: "0 auto 10px auto" }} />
-
-            <Typography variant="body2">
-              {stringHelper.stringLimiter(props.description, 100)}
-            </Typography>
+            {showDescription && (
+              <Typography variant="body2">
+                {stringHelper.stringLimiter(props.description, 100)}
+              </Typography>
+            )}
           </CardContent>
         </CardActionArea>
         {showButton && (
-          <Button
-            style={{
-              backgroundColor: "#DEB95D",
-              padding: "10px",
-              borderRadius: "5px",
-              border: "none",
-              color: "white",
-              fontWeight: "bold",
-              justifyContent: "center",
-              display: "flex",
-              margin: "0 auto 10px auto",
-            }}
-            type="button"
-            onClick={() => console.warn("Ajouté au panier", props.id)}
-          >
-            Voir plus
-          </Button>
+          <NavLink style={{ textDecoration: "none" }} to={`/wine/${props.id}`}>
+            <Button
+              style={{
+                backgroundColor: "#DEB95D",
+                padding: "10px",
+                borderRadius: "5px",
+                color: "white",
+                fontWeight: "bold",
+                display: "flex",
+                justifyContent: "center",
+                margin: "0 auto 10px auto",
+              }}
+            >
+              Voir plus
+            </Button>
+          </NavLink>
         )}
       </Card>
     </div>
