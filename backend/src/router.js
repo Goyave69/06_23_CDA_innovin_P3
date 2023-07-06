@@ -51,15 +51,6 @@ router.put("/orders/:id", orderControllers.edit);
 router.post("/orders", orderControllers.add);
 router.delete("/orders/:id", orderControllers.destroy);
 
-// routes pour TastingSheet
-const tastingSheetControllers = require("./controllers/tastingSheetControllers");
-
-router.get("/tastingsheets", tastingSheetControllers.browse);
-router.get("/tastingsheets/:id", tastingSheetControllers.read);
-router.put("/tastingsheets/:id", tastingSheetControllers.edit);
-router.post("/tastingsheets", tastingSheetControllers.add);
-router.delete("/tastingsheets/:id", tastingSheetControllers.destroy);
-
 // route pour login
 const { verifyPassword } = require("./services/auth");
 const authControllers = require("./controllers/authControllers");
