@@ -45,17 +45,8 @@ export default function AdminUser() {
   };
 
   const processRowUpdate = React.useCallback((updateUser) => {
-    const {
-      id,
-      firstname,
-      lastname,
-      username,
-      role,
-      email,
-      address,
-      phone,
-      avatar,
-    } = updateUser;
+    const { id, firstname, lastname, username, role, email, address, phone } =
+      updateUser;
     ApiHelper(`users/${id}`, "put", {
       firstname,
       lastname,
@@ -64,7 +55,6 @@ export default function AdminUser() {
       email,
       address,
       phone,
-      avatar,
     })
       .then(() => {
         setLoadingUsers((prev) => !prev);

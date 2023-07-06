@@ -4,7 +4,7 @@ import Chart from "react-apexcharts";
 
 export default function Donut({ count }) {
   const [series, setSeries] = useState([]);
-  const labels = ["User", "Wine", "Tasting Sheet"];
+  const labels = ["User", "Wine"];
 
   React.useEffect(() => {
     setSeries(count);
