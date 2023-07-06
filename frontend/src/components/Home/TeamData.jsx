@@ -22,7 +22,7 @@ const sommeliers = [
     image: Mathieu,
     title: "Mathieu, notre sommelier anglo-italien ",
     description:
-      "Diplômée de l’Université de Londres Mathieu, au-delà d’être un sommelier expérimenté, est également un animateur hors pair pour vos dégustations ! Il est spécialiste dans les vins du monde.",
+      "Au-delà d’être un sommelier expérimenté, est également un animateur hors pair pour vos dégustations ! Il est spécialiste dans les vins du monde.",
   },
 ];
 

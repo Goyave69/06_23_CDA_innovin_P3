@@ -1,4 +1,5 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ChakraProvider } from "@chakra-ui/react";
 import { ToastContainer } from "react-toastify";
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
@@ -15,12 +16,14 @@ export default function Root() {
   const theme = createTheme(getDesignTokens(darkMode ? "dark" : "light"));
 
   return (
-    <ThemeProvider theme={theme}>
-      <Navbar toggleDarkMode={toggleDarkMode} />
-      <main>
-        <Outlet />
-      </main>
-      <ToastContainer />
-    </ThemeProvider>
+    <ChakraProvider>
+      <ThemeProvider theme={theme}>
+        <Navbar toggleDarkMode={toggleDarkMode} />
+        <main>
+          <Outlet />
+        </main>
+        <ToastContainer />
+      </ThemeProvider>
+    </ChakraProvider>
   );
 }

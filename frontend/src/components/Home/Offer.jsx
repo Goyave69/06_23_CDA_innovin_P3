@@ -1,49 +1,22 @@
 import React from "react";
-import Typography from "@mui/material/Typography";
-import { Box } from "@mui/material";
 import CardHome from "../CardHome";
 import products from "./OfferData";
 
 function Offer() {
   return (
-    <Box>
-      <Typography
-        sx={{
-          color: "text.tertiary",
-          display: "flex",
-          justifyContent: "center",
-          fontWeight: "bold",
-          fontSize: { xs: "1.8rem", md: "2rem" },
-          textAlign: "center",
-          padding: "2% 0 0 0 ",
-        }}
-      >
-        UNE OFFRE SUR-MESURE
-      </Typography>
-      <Typography
-        sx={{
-          color: "text.secondary",
-          display: "flex",
-          justifyContent: "center",
-          fontWeight: "bold",
-          fontSize: { xs: "1rem", md: "1.3rem" },
-          textAlign: "center",
-          padding: "1% 0",
-        }}
-      >
+    <div>
+      <h2 className="flex justify-center uppercase font-bold text-2xl md:text-4xl text-center pt-8">
+        une offre sur-mesure
+      </h2>
+      <h4 className="flex justify-center font-bold text-xl md:text-2xl text-center pt-2 pb-6">
         L'accompagnement de votre choix
-      </Typography>
-      <Box
-        sx={{
-          display: { sx: "block", md: "flex" },
-          justifyContent: { xs: "center", md: "space-around" },
-        }}
-      >
+      </h4>
+      <div className="block md:flex justify-around">
         {products.map((product) => (
-          <CardHome props={product} showButton={false} />
+          <CardHome key={product.id} props={product} showButton={false} />
         ))}
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 }
 

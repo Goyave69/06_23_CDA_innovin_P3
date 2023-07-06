@@ -1,126 +1,93 @@
 import * as React from "react";
-import {
-  Container,
-  CardContent,
-  CardHeader,
-  TextField,
-  Typography,
-  Select,
-  MenuItem,
-  FormControl,
-  Checkbox,
-  FormControlLabel,
-  Box,
-  Button,
-} from "@mui/material";
 
 export default function ContactForm() {
-  const [subject, setSubject] = React.useState("");
   const [checked, setChecked] = React.useState(null);
 
+  const [dataFormContact, setDataFormContact] = React.useState({
+    subject: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    message: "",
+  });
+
   const handleChange = (e) => {
-    setSubject(e.target.value);
+    setDataFormContact({ ...dataFormContact, [e.target.name]: e.target.value });
   };
 
   return (
-    <Container
-      sx={{
-        width: { sm: "100%", md: "50%" },
-        height: "80vh",
-        backgroundColor: "background.primary",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-      }}
-    >
-      <CardHeader
-        title={
-          <Typography
-            variant="h2"
-            sx={{ color: "text.tertiary", textAlign: "center", margin: "10px" }}
-          >
-            Contactez-nous
-          </Typography>
-        }
-      />
-      <CardContent sx={{ display: "flex", flexDirection: "column" }}>
-        <FormControl sx={{ margin: "10px" }}>
-          <Select value={subject} label="Sujet" onChange={handleChange}>
-            <MenuItem value="Service client">Service client</MenuItem>
-            <MenuItem value="Vigneron">Vigneron</MenuItem>
-            <MenuItem value="Partenariat">Partenariat</MenuItem>
-          </Select>
-        </FormControl>
-        <Box sx={{ display: "flex" }}>
-          <TextField
-            required
-            id="outlined"
-            label="Prénom"
-            placeholder="jhon"
-            sx={{ margin: "10px", width: "50%" }}
-          />
-          <TextField
-            required
-            id="outlined"
-            label="Nom"
-            placeholder="Doe"
-            sx={{ margin: "10px", width: "50%" }}
-          />
-        </Box>
-        <Box sx={{ display: "flex" }}>
-          <TextField
-            required
-            id="outlined-required"
-            label="Adresse e-mail"
-            placeholder="jhon@doe.com"
-            sx={{ margin: "10px", width: "50%" }}
-          />
-          <TextField
-            required
-            id="outlined"
-            label="Téléphone"
-            placeholder="+33 1 11 11 11 11"
-            sx={{ margin: "10px", width: "50%" }}
-          />
-        </Box>
-        <TextField
-          id="outlined-multiline-static"
-          label="Message"
-          multiline
-          rows={4}
-          sx={{ margin: "10px" }}
-        />
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            margin: "10px",
-            color: "text.secondary",
-            fontSize: { xs: "0.8rem", md: "1.1rem" },
-          }}
+    <div className=" flex flex-col h-[90vh] w-[50%] ">
+      <h2 className="text-3xl font-bold text-center pt-20 px-32 ">
+        Contactez-nous
+      </h2>
+      <div className="flex flex-col px-24">
+        <select
+          className="m-3 p-2 rounded-lg shadow-lg border border-black"
+          name="subject"
+          label="Sujet"
+          onChange={handleChange}
         >
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={checked}
-                onChange={(e) => setChecked(e.target.checked)}
-              />
-            }
+          <option value="Service client">Service client</option>
+          <option value="Vigneron">Vigneron</option>
+          <option value="Partenariat">Partenariat</option>
+        </select>
+        <div className="flex w-full ">
+          <input
+            className="m-3 w-[50%] shadow-lg p-2 rounded-lg border border-black"
+            label="Prénom"
+            name="firstName"
+            placeholder="john"
+            onChange={handleChange}
           />
-          J'accepte les conditions générales et la politique de confidentialité
-        </Box>
-        <Button
-          sx={{
-            margin: "10px",
-            color: "text.primary",
-            backgroundColor: "background.secondary",
-            fontWeight: "bold",
-            fontSize: { xs: "0.8rem", md: "1.1rem" },
-          }}
+          <input
+            className="m-3 w-[50%] shadow-lg p-2 rounded-lg border border-black"
+            label="Nom"
+            name="lastName"
+            placeholder="Doe"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="flex">
+          <input
+            className="m-3 w-[50%] shadow-lg p-2 rounded-lg border border-black"
+            label="Adresse e-mail"
+            name="email"
+            onChange={handleChange}
+            placeholder="jhon@doe.com"
+          />
+          <input
+            className="m-3 w-[50%] shadow-lg p-2 border rounded-lg border-black"
+            label="Téléphone"
+            name="phone"
+            onChange={handleChange}
+            placeholder="+33 1 11 11 11 11"
+          />
+        </div>
+        <textarea
+          name="message"
+          onChange={handleChange}
+          placeholder="message"
+          className="rounded-lg pl-2 border m-3 shadow-lg border-black"
+        />
+        <div className="flex items-center m-3 ">
+          <input
+            className="mx-4"
+            checked={checked}
+            onChange={(e) => setChecked(e.target.checked)}
+            type="checkbox"
+          />
+          <p>
+            J'accepte les conditions générales et la politique de
+            confidentialité
+          </p>
+        </div>
+        <button
+          type="button"
+          className="my-3 border border-black py-2 rounded-lg m-3 bg-black text-white hover:bg-white hover:text-black "
         >
           Envoyer
-        </Button>
-      </CardContent>
-    </Container>
+        </button>
+      </div>
+    </div>
   );
 }
