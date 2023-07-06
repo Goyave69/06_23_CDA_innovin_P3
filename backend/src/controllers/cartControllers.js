@@ -2,7 +2,7 @@ const models = require("../models");
 
 const browse = (req, res) => {
   models.cart
-    .findNotOrder(req.params.id)
+    .findNotOrder(1)
     .then(([rows]) => {
       res.send(rows);
     })

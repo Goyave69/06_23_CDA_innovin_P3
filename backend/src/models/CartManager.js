@@ -13,7 +13,7 @@ class CartManager extends AbstractManager {
           JSON_OBJECT(
               'id', w.id,
               'name', w.name,
-              'price', w.price
+              'price', ROUND(w.price, 2)
           )
       ) AS content
       FROM cart c

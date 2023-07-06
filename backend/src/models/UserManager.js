@@ -9,7 +9,7 @@ class WineManager extends AbstractManager {
 
   insert(user) {
     return this.database.query(
-      `INSERT INTO ${this.table} (firstname, lastname, username, role, email, password, address, phone, avatar, cart_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO ${this.table} (firstname, lastname, username, role, email, password, address, phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         user.firstname,
         user.lastname,
@@ -19,8 +19,6 @@ class WineManager extends AbstractManager {
         user.hashedPassword,
         user.address,
         user.phone,
-        user.avatar,
-        user.cart_id,
       ]
     );
   }
