@@ -14,71 +14,65 @@ import * as React from "react";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ApiHelper from "../../../services/apiHelper";
-import WineForm from "./WineForm";
+import SheetForm from "./SheetForm";
 
-export default function AdminWine() {
-  const [wines, setWines] = React.useState([]);
-  const [loadingWines, setLoadingWines] = React.useState(false);
+export default function AdminUser() {
+  const [tastingSheet, setTastingSheet] = React.useState([]);
+  const [loadingSheet, setLoadingSheet] = React.useState(false);
   const [open, setOpen] = React.useState(false);
 
   const handleOpenModal = () => setOpen(true);
   const handleCloseModal = () => setOpen(false);
 
   React.useEffect(() => {
-    ApiHelper("wines", "get")
+    ApiHelper("tastingsheets", "get")
       .then((res) => {
-        setWines(res.data);
+        setTastingSheet(res.data);
       })
       .catch((err) => {
         console.error(`Axios Error : ${err.message}`);
       });
-  }, [loadingWines]);
+  }, [loadingSheet]);
 
   const handleDelete = (id) => {
-    ApiHelper(`wines/${id}`, "delete", {}, "")
+    ApiHelper(`tastingsheets/${id}`, "delete", {}, "")
       .then(() => {
-        setLoadingWines((prev) => !prev);
+        setLoadingSheet((prev) => !prev);
       })
       .catch((err) => {
         console.error(`Axios Error : ${err.message}`);
       });
   };
 
-  const processRowUpdate = React.useCallback((updateWine) => {
+  const processRowUpdate = React.useCallback((updateSheet) => {
     const {
       id,
-      name,
-      year,
-      wineType,
-      originCountry,
-      region,
-      grapeVariety,
-      description,
-      bestSeller,
-      image,
-      price,
-    } = updateWine;
-
-    ApiHelper(`wines/${id}`, "put", {
-      name,
-      year,
-      wine_type: wineType,
-      origin_country: originCountry,
-      region,
-      grape_variety: grapeVariety,
-      description,
-      best_seller: bestSeller === 1,
-      image,
-      price,
+      degustationDate,
+      shape,
+      eye,
+      nose,
+      mouth,
+      conclusion,
+      note,
+      commentaire,
+    } = updateSheet;
+    ApiHelper(`tastingsheets/${id}`, "put", {
+      degustation_date: degustationDate,
+      shape,
+      eye,
+      nose,
+      mouth,
+      conclusion,
+      note,
+      commentaire,
     })
       .then(() => {
-        setLoadingWines((prev) => !prev);
+        setLoadingSheet((prev) => !prev);
       })
       .catch((err) => {
         console.error(`Axios Error : ${err.message}`);
       });
-
-    return updateWine;
+    return updateSheet;
   }, []);
 
   const handleProcessRowUpdateError = React.useCallback((error) => {
@@ -88,62 +82,50 @@ export default function AdminWine() {
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
     {
-      field: "name",
-      headerName: "Nom",
+      field: "degustation_date",
+      headerName: "Date de dégustation",
       width: 110,
       editable: true,
     },
     {
-      field: "year",
-      headerName: "Année",
+      field: "shape",
+      headerName: "Forme",
       width: 110,
       editable: true,
     },
     {
-      field: "wine_type",
-      headerName: "Type de vin",
+      field: "eye",
+      headerName: "Visuel",
       width: 110,
       editable: true,
     },
     {
-      field: "origin_country",
-      headerName: "Pays d'origin",
+      field: "nose",
+      headerName: "Nez",
       width: 110,
       editable: true,
     },
     {
-      field: "region",
-      headerName: "Région",
+      field: "mouth",
+      headerName: "Bouche",
       width: 150,
       editable: true,
     },
     {
-      field: "grape_variety",
-      headerName: "Variété de grappe",
+      field: "conclusion",
+      headerName: "Conclusion",
       width: 150,
       editable: true,
     },
     {
-      field: "description",
-      headerName: "Description",
+      field: "note",
+      headerName: "Note",
       width: 110,
       editable: true,
     },
     {
-      field: "best_seller",
-      headerName: "Meilleure vente",
-      width: 110,
-      editable: true,
-    },
-    {
-      field: "image",
-      headerName: "Image",
-      width: 110,
-      editable: true,
-    },
-    {
-      field: "price",
-      headerName: "Prix",
+      field: "commentaire",
+      headerName: "Commentaire",
       width: 110,
       editable: true,
     },
@@ -186,12 +168,12 @@ export default function AdminWine() {
           </Link>
           <p style={{ padding: "10px" }}>/</p>
           <Link
-            href="/admin/wine"
+            href="/admin/tasting_sheet"
             underline="none"
             color="text.primary"
             sx={{ p: "10px" }}
           >
-            Wine
+            Tasting Sheet
           </Link>
         </Box>
         <Button
@@ -199,12 +181,12 @@ export default function AdminWine() {
           onClick={handleOpenModal}
           startIcon={<AddIcon />}
         >
-          New Wine
+          New Tasting Sheet
         </Button>
       </Stack>
 
       <DataGrid
-        rows={wines}
+        rows={tastingSheet}
         columns={columns}
         editMode="row"
         initialState={{
@@ -236,11 +218,11 @@ export default function AdminWine() {
           }}
         >
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Ajoutez un nouveau vin
+            Ajoutez une nouvelle fiche de dégustation
           </Typography>
-          <WineForm
+          <SheetForm
             closeModal={handleCloseModal}
-            setLoading={setLoadingWines}
+            setLoading={setLoadingSheet}
           />
         </Box>
       </Modal>

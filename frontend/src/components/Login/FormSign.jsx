@@ -26,8 +26,7 @@ export default function FormSign() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    ApiHelper("login", "POST", dataLogin).then((res) => {
-      localStorage.setItem("user", JSON.stringify(res.data.user));
+    ApiHelper("login", "POST", dataLogin).then(() => {
       navigate("/");
       window.location.reload();
     });

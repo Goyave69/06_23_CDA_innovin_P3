@@ -54,7 +54,7 @@ const inputFields = [
   },
 ];
 
-export default function UserForm({ closeModal, setLoadingUsers }) {
+export default function UserForm({ closeModal, setLoading }) {
   const [dataForm, setDataForm] = React.useState({
     firstname: "",
     lastname: "",
@@ -75,7 +75,7 @@ export default function UserForm({ closeModal, setLoadingUsers }) {
   const onSubmit = () => {
     ApiHelper("users", "post", dataForm)
       .then(() => {
-        setLoadingUsers((prev) => !prev);
+        setLoading((prev) => !prev);
         closeModal();
       })
       .catch((err) => {
@@ -112,5 +112,5 @@ export default function UserForm({ closeModal, setLoadingUsers }) {
 
 UserForm.propTypes = {
   closeModal: PropTypes.func.isRequired,
-  setLoadingUsers: PropTypes.func.isRequired,
+  setLoading: PropTypes.func.isRequired,
 };

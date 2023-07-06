@@ -5,75 +5,67 @@ import ApiHelper from "../../../services/apiHelper";
 
 const inputFields = [
   {
-    name: "name",
-    label: "Nom",
-    placeholder: "Beaujolais",
+    name: "degustation_date",
+    label: "Date de dégustation",
+    placeholder: "Date de dégustation",
     sx: { margin: "10px", width: "46%" },
-    props: {},
   },
   {
-    name: "year",
-    label: "Année",
-    placeholder: "1994",
+    name: "shape",
+    label: "Forme",
+    placeholder: "Forme",
     sx: { margin: "10px", width: "46%" },
-    props: { inputMode: "numeric", pattern: "[0-9]*" },
   },
   {
-    name: "wine_type",
-    label: "Type de vin",
-    placeholder: "Blanc, Rouge, Rosé",
+    name: "eye",
+    label: "Visuel",
+    placeholder: "Visuel",
     sx: { margin: "10px", width: "46%" },
-    props: {},
   },
   {
-    name: "origin_country",
-    label: "Pays d'origin",
-    placeholder: "France",
+    name: "nose",
+    label: "Nez",
+    placeholder: "Nez",
     sx: { margin: "10px", width: "46%" },
-    props: {},
   },
   {
-    name: "region",
-    label: "Région",
-    placeholder: "Bourgogne",
-    sx: { margin: "10px", width: "46%" },
-    props: {},
-  },
-  {
-    name: "grape_variety",
-    label: "Variété de grappe",
-    placeholder: "Chardonnay",
-    sx: { margin: "10px", width: "46%" },
-    props: {},
-  },
-  {
-    name: "description",
-    label: "Description",
-    placeholder: "Exemple",
+    name: "mouth",
+    label: "Bouche",
+    placeholder: "Bouche",
     sx: { margin: "10px", width: "95%" },
-    props: {},
   },
   {
-    name: "price",
-    label: "Prix",
-    placeholder: "14",
+    name: "conclusion",
+    label: "Conclusion",
+    placeholder: "Conclusion",
     sx: { margin: "10px", width: "95%" },
-    props: { inputMode: "numeric", pattern: "[0-9]*" },
+  },
+  {
+    name: "note",
+    label: "Note",
+    placeholder: "Note",
+    sx: { margin: "10px", width: "95%" },
+  },
+  {
+    name: "commentaire",
+    label: "Commentaire",
+    placeholder: "Commentaire",
+    sx: { margin: "10px", width: "95%" },
   },
 ];
 
 export default function UserForm({ closeModal, setLoading }) {
   const [dataForm, setDataForm] = React.useState({
-    name: "",
-    year: 1994,
-    wine_type: "",
-    origin_country: "",
-    region: "",
-    grape_variety: "",
-    description: "",
-    best_seller: false,
-    image: "/",
-    price: 0,
+    degustation_date: "",
+    shape: "",
+    eye: "",
+    nose: "",
+    mouth: "",
+    conclusion: "",
+    note: "",
+    commentaire: "",
+    wine_id: 1,
+    user_id: 1,
   });
 
   const handleChange = (e) => {
@@ -81,7 +73,7 @@ export default function UserForm({ closeModal, setLoading }) {
   };
 
   const onSubmit = () => {
-    ApiHelper("wines", "post", dataForm)
+    ApiHelper("tastingsheets", "post", dataForm)
       .then(() => {
         setLoading((prev) => !prev);
         closeModal();
@@ -104,7 +96,6 @@ export default function UserForm({ closeModal, setLoading }) {
             name={field.name}
             label={field.label}
             placeholder={field.placeholder}
-            inputProps={field.props}
             sx={field.sx}
           />
         ))}

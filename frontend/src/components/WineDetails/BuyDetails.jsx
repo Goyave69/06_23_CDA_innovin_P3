@@ -7,7 +7,6 @@ export default function BuyDetails({
   setQuantitiesSelected,
   quantity,
   quantitiesSelected,
-  user,
   // takeItemInCart,
 }) {
   return (
@@ -34,7 +33,7 @@ export default function BuyDetails({
       </select>
       <br />
       <button
-        onClick={() => console.warn(wineDetail, quantitiesSelected, user)}
+        onClick={() => console.warn(wineDetail, quantitiesSelected)}
         className=" bg-yellow-300 hover:bg-yellow-400 py-1 mb-2 rounded-lg font-bold"
         type="button"
       >

@@ -2,10 +2,10 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import iconMenu from "../assets/menu.png";
+import getCookie from "../services/cookieHelper";
+import ApiHelper from "../services/apiHelper";
 
 export default function Navbar() {
-  const user = JSON.parse(localStorage.getItem("user"));
-
   const Links = [
     { name: "ACCUEIL", link: "/" },
     { name: "NOS VINS", link: "wines" },
@@ -13,8 +13,10 @@ export default function Navbar() {
   ];
   const [open, setOpen] = useState(false);
 
+  const user = getCookie("user");
+
   const handleDeconnected = () => {
-    localStorage.removeItem("user");
+    ApiHelper("logout", "POST", {});
     window.location.reload();
   };
 

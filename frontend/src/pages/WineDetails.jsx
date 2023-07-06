@@ -17,8 +17,6 @@ export default function WineDetails() {
 
   const quantity = [...Array(31).keys()];
 
-  const user = JSON.parse(localStorage.getItem("user"));
-
   const [quantitiesSelected, setQuantitiesSelected] = useState(1);
 
   const priceMultiple = wineDetail.price * quantitiesSelected;
@@ -38,7 +36,6 @@ export default function WineDetails() {
           priceMultiple={priceMultiple}
           quantity={quantity}
           quantitiesSelected={quantitiesSelected}
-          user={user}
         />
       </div>
       <hr />

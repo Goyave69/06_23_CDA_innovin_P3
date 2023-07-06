@@ -18,6 +18,11 @@ const getUserByEmailWithPasswordAndPassToNext = (req, res, next) => {
     });
 };
 
+const logout = (_, res) => {
+  res.clearCookie("user").clearCookie("token").sendStatus(200);
+};
+
 module.exports = {
   getUserByEmailWithPasswordAndPassToNext,
+  logout,
 };

@@ -23,8 +23,14 @@ const verifyPassword = (req, res) => {
 
         delete req.user.hashedPassword;
         delete req.user.password;
-
-        res.send({ token, user: req.user });
+        res
+          .cookie("user", req.user, {
+            httpOnly: false,
+          })
+          .cookie("token", token, {
+            httpOnly: true,
+          })
+          .sendStatus(200);
       } else {
         res.sendStatus(401);
       }
