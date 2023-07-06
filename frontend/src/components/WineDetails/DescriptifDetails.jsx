@@ -1,6 +1,4 @@
 /* eslint-disable react/prop-types */
-import { Typography } from "@mui/material";
-import { Box } from "@mui/system";
 import React from "react";
 
 function DescriptifDetails({ wineDetail }) {
@@ -8,48 +6,34 @@ function DescriptifDetails({ wineDetail }) {
   const valuesWine = Object.values(wineDetail);
 
   return (
-    <Box sx={{ mx: "5vw" }}>
-      <Typography sx={{ color: "red", fontWeight: "bold" }} variant="h7">
-        Informations sur le produit
-      </Typography>
-      <br />
-      <br />
-      <Typography variant="h6">Descriptif technique</Typography>
-      <table style={{ display: "flex" }}>
+    <div className="mx-[5vw]">
+      <p className="text-red-500 font-bold pb-2">Informations sur le produit</p>
+      <p className="pb-2">Descriptif technique</p>
+      <table className="flex">
         <tr>
           {keysWine.slice(1, 7).map((keyWine) => (
-            <Box
-              sx={{
-                backgroundColor: "gray",
-                width: "30vw",
-                height: "5vh",
-              }}
-            >
-              <th scope="col">{keyWine}</th>
+            <div key={keyWine} className="w-[30vw] h-[5vh] bg-gray-300">
+              <th className="pl-2" scope="col">
+                {keyWine}
+              </th>
               <hr />
-            </Box>
+            </div>
           ))}
         </tr>
         <tr>
           {valuesWine.slice(1, 7).map((valueWine) => (
-            <Box
-              sx={{
-                width: "30vw",
-                overflowX: "auto",
-                height: "5vh",
-              }}
-            >
-              <th style={{ overflowX: "auto" }} scope="col">
+            <div className="w-[40vw] md:w-[30vw] h-[5vh]" key={valueWine}>
+              <th className="pl-2" scope="col">
                 {valueWine}
               </th>
               <hr />
-            </Box>
+            </div>
           ))}
         </tr>
       </table>
       <br />
       <hr />
-    </Box>
+    </div>
   );
 }
 

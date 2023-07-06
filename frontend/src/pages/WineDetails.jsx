@@ -1,14 +1,13 @@
-import { Box } from "@mui/system";
 import { useParams } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ApiHelper from "../services/apiHelper";
-import ImgDetails from "../components/WineDetails/ImgDetails";
 import DescriptionDetails from "../components/WineDetails/DescriptionDetails";
 import BuyDetails from "../components/WineDetails/BuyDetails";
 import DescriptifDetails from "../components/WineDetails/DescriptifDetails";
 
 export default function WineDetails() {
   const { id } = useParams();
+
   const [wineDetail, setWineDetail] = useState({});
   useEffect(() => {
     ApiHelper(`wines/${id}`, "get").then((res) => {
@@ -16,32 +15,31 @@ export default function WineDetails() {
     });
   }, []);
 
-  const Quantity = [...Array(31).keys()];
+  const quantity = [...Array(31).keys()];
 
-  const [QuantitiesSelected, setQuantitiesSelected] = useState(1);
+  const [quantitiesSelected, setQuantitiesSelected] = useState(1);
 
-  const priceMultiple = wineDetail.price * QuantitiesSelected;
+  const priceMultiple = wineDetail.price * quantitiesSelected;
 
   return (
-    <Box
-      sx={{
-        backgroundColor: "white",
-        paddingTop: "2%",
-        boxShadow: "12px 1px 2px 1px black",
-      }}
-    >
-      <Box sx={{ display: "flex", marginBottom: "5vh" }}>
-        <ImgDetails wineDetail={wineDetail} />
+    <div className="pt-4 px-4 md:px-0">
+      <div className="md:flex mb-10">
+        <img
+          className="md:h-[70vh] h-[30vh] m-4 rounded-xl mx-auto md:mx-32"
+          src={wineDetail.image}
+          alt=""
+        />
         <DescriptionDetails wineDetail={wineDetail} />
         <BuyDetails
-          setQuantitiesSelected={setQuantitiesSelected}
           wineDetail={wineDetail}
+          setQuantitiesSelected={setQuantitiesSelected}
           priceMultiple={priceMultiple}
-          Quantity={Quantity}
+          quantity={quantity}
+          quantitiesSelected={quantitiesSelected}
         />
-      </Box>
+      </div>
       <hr />
       <DescriptifDetails wineDetail={wineDetail} />
-    </Box>
+    </div>
   );
 }

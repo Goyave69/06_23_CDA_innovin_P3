@@ -1,64 +1,38 @@
 /* eslint-disable react/prop-types */
-import { Typography } from "@mui/material";
-import { Box } from "@mui/system";
 import React from "react";
 import warning from "../../assets/warning.png";
 import star from "../../assets/star.png";
 
 export default function DescriptionDetails({ wineDetail }) {
   return (
-    <Box sx={{ width: "40vw" }}>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-evenly",
-        }}
-      >
-        <Typography variant="h5">{wineDetail.name}</Typography>
+    <div className="md:w-[40vw]">
+      <div className="flex justify-between items-center py-3">
+        <h3 className="text-2xl">{wineDetail.name}</h3>
         {wineDetail.best_seller && (
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <img style={{ height: "30px" }} src={star} alt="" />
-            <Typography>Meilleure vente</Typography>
-          </Box>
+          <div className="flex items-center">
+            <img className="h-7" src={star} alt="" />
+            <p>Meilleure vente</p>
+          </div>
         )}
-      </Box>
+      </div>
       <hr />
-      <br />
-      <Typography variant="h6" style={{ textDecoration: "underline" }}>
-        À propos de cet article
-      </Typography>
-      <br />
-      <Typography variant="h7">{wineDetail.description}</Typography>
-      <br />
-      <br />
-      <Typography>
+      <h3 className="underline font-bold py-4">À propos de cet article</h3>
+      <p className="pb-4 mx-10 md:mx-2">{wineDetail.description}</p>
+      <p className="pb-4">
         <b>Marque</b> : Petrus
-      </Typography>
-      <br />
-      <Typography>
+      </p>
+      <p className="pb-4">
         <b>Age</b> : {wineDetail.year}
-      </Typography>
-      <br />
+      </p>
       <hr />
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-around",
-          backgroundColor: "#CBAF96",
-          padding: "2%",
-          borderRadius: "10px",
-          marginTop: "6%",
-        }}
-      >
+      <div className="flex items-center justify-between bg-[#CBAF96] rounded-xl p-2 mt-5">
         <img src={warning} alt="" />
-        <Typography>
+        <p>
           Interdiction de vente de boissons alcooliques aux mineurs de moins de
           18 ans. L’abus d’alcool est dangereux pour la santé. A consommer avec
           modération.
-        </Typography>
-      </Box>
-    </Box>
+        </p>
+      </div>
+    </div>
   );
 }

@@ -21,7 +21,6 @@ const userValidator = (data, forCreation = true) => {
       .messages({ "string.pattern.base": `Phone number must have 10 digits.` })
       .presence(presence),
     avatar: Joi.string().max(255).presence("optional"),
-    cart_id: Joi.number().min(0).presence(presence),
   }).validate(data, { abortEarly: false });
 };
 

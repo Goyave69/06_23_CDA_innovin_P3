@@ -34,7 +34,7 @@ class WineManager extends AbstractManager {
 
   findByEmailWithPassword(email) {
     return this.database.query(
-      `SELECT id, email, password FROM ${this.table} WHERE email = ?`,
+      `SELECT id, email, password, firstname, lastname FROM ${this.table} WHERE email = ?`,
       [email]
     );
   }

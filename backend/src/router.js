@@ -60,7 +60,7 @@ router.put("/tastingsheets/:id", tastingSheetControllers.edit);
 router.post("/tastingsheets", tastingSheetControllers.add);
 router.delete("/tastingsheets/:id", tastingSheetControllers.destroy);
 
-// routes pour login
+// route pour login
 const { verifyPassword } = require("./services/auth");
 const authControllers = require("./controllers/authControllers");
 
@@ -69,5 +69,9 @@ router.post(
   authControllers.getUserByEmailWithPasswordAndPassToNext,
   verifyPassword
 );
+
+// route pour logout
+
+router.post("/logout", authControllers.logout);
 
 module.exports = router;

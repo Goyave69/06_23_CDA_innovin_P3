@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Typography } from "@mui/material";
 import ApiHelper from "../services/apiHelper";
 import CardHome from "../components/CardHome";
 
@@ -13,33 +12,14 @@ function OurWines() {
 
   return (
     <div>
-      <Typography
-        variant="h4"
-        sx={{
-          color: "text.tertiary",
-          display: "flex",
-          justifyContent: "center",
-          fontWeight: "bold",
-          fontSize: { xs: "1.8rem", md: "2rem" },
-          textAlign: "center",
-          padding: "2% 0 2% 0 ",
-        }}
-      >
+      <h4 className=" text-center py-4 font-bold text-red-500 text-3xl">
         Notre équipe d'incroyables sommeliers
-      </Typography>
-      <div
-        style={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
-      >
+      </h4>
+      <div className="flex justify-center flex-wrap">
         {wines.length > 0 && (
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: 10,
-            }}
-          >
+          <div className="grid grid-cols-3 gap-10">
             {wines.map((wine) => (
-              <CardHome props={wine} showDescription={false} />
+              <CardHome props={wine} imgDif showDescription={false} />
             ))}
           </div>
         )}

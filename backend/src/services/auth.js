@@ -24,8 +24,8 @@ const verifyPassword = (req, res) => {
         delete req.user.hashedPassword;
         delete req.user.password;
         res
-          .cookie("id", req.user.id, {
-            httpOnly: true,
+          .cookie("user", req.user, {
+            httpOnly: false,
           })
           .cookie("token", token, {
             httpOnly: true,
