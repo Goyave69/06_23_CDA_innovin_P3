@@ -6,7 +6,6 @@ import Login from "../pages/Login";
 import Admin from "./Admin";
 import Dashboard from "../components/Admin/Dashboard/Dashboard";
 import AdminWine from "../components/Admin/Wine/AdminWine";
-import AdminTastingSheet from "../components/Admin/TastingSheet/AdminTastingSheet";
 import AdminUser from "../components/Admin/User/AdminUser";
 import Error404 from "../pages/404";
 import SignUp from "../pages/SignUp";
@@ -59,10 +58,6 @@ const Routes = [
       {
         path: "wine",
         element: <AdminWine />,
-      },
-      {
-        path: "tasting_sheet",
-        element: <AdminTastingSheet />,
       },
       {
         path: "user",

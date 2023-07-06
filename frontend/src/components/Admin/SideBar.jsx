@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 import SignalCellularAltIcon from "@mui/icons-material/SignalCellularAlt";
 import LiquorIcon from "@mui/icons-material/Liquor";
-import ArticleIcon from "@mui/icons-material/Article";
 import PeopleIcon from "@mui/icons-material/People";
 import SideBarItem from "./SideBarItem";
 
@@ -23,11 +22,6 @@ const items = [
     title: "Vin",
     path: "/admin/wine",
     icon: <LiquorIcon />,
-  },
-  {
-    title: "Fiche de dégustation",
-    path: "/admin/tasting_sheet",
-    icon: <ArticleIcon />,
   },
   {
     title: "Utilisateur",

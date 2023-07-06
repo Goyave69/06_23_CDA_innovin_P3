@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import PeopleIcon from "@mui/icons-material/People";
 import LiquorIcon from "@mui/icons-material/Liquor";
-import ListAltIcon from "@mui/icons-material/ListAlt";
 import * as React from "react";
 import ApiHelper from "../../../services/apiHelper";
 import Donut from "../Donut";
@@ -19,8 +18,7 @@ import Donut from "../Donut";
 export default function Dashboard() {
   const [users, setUsers] = React.useState([]);
   const [wines, setWines] = React.useState([]);
-  const [sheet, setSheet] = React.useState([]);
-  const graph = [users.length, wines.length, sheet.length];
+  const graph = [users.length, wines.length];
 
   React.useEffect(() => {
     ApiHelper("users", "get")
@@ -41,16 +39,6 @@ export default function Dashboard() {
         console.error(`Axios Error : ${err.message}`);
       });
   }, [wines]);
-
-  React.useEffect(() => {
-    ApiHelper("tastingsheets", "get")
-      .then((res) => {
-        setSheet(res.data);
-      })
-      .catch((err) => {
-        console.error(`Axios Error : ${err.message}`);
-      });
-  }, [sheet]);
 
   return (
     <Container>
@@ -118,31 +106,6 @@ export default function Dashboard() {
               </Typography>
               <Typography gutterBottom variant="h5" component="div">
                 Wines
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-        <Card sx={{ m: 5 }}>
-          <CardActionArea href="/admin/tasting_sheet">
-            <CardContent
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                p: 0,
-                width: "15vw",
-                height: "30vh",
-              }}
-            >
-              <SvgIcon fontSize="large">
-                <ListAltIcon />
-              </SvgIcon>
-              <Typography fontSize="3rem" variant="body2" color="text.primary">
-                {sheet.length}
-              </Typography>
-              <Typography gutterBottom variant="h5" component="div">
-                Tasting Sheet
               </Typography>
             </CardContent>
           </CardActionArea>
