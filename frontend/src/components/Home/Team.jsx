@@ -9,7 +9,7 @@ function Team() {
       </h4>
       <div className="block md:flex justify-around">
         {sommeliers.map((sommelier) => (
-          <CardHome key={sommelier.id} props={sommelier} showButton={false} />
+          <CardHome key={sommelier.id} props={sommelier} />
         ))}
       </div>
     </div>

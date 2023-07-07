@@ -62,15 +62,25 @@ export default function Navbar() {
               </NavLink>
             </li>
           ) : (
-            <li className="md:ml-8 text-xl md:my-0 my-7">
-              <button
-                onClick={handleDeconnected}
-                type="button"
-                className="text-gray-800 hover:text-gray-600 duration-300"
-              >
-                DECONNECTION
-              </button>
-            </li>
+            <>
+              <li className="md:ml-8 text-xl md:my-0 my-7">
+                <NavLink
+                  to="/cart"
+                  className="text-gray-800 hover:text-gray-600 duration-300"
+                >
+                  PANIER
+                </NavLink>
+              </li>
+              <li className="md:ml-8 text-xl md:my-0 my-7">
+                <button
+                  onClick={handleDeconnected}
+                  type="button"
+                  className="text-gray-800 hover:text-gray-600 duration-300"
+                >
+                  DECONNEXION
+                </button>
+              </li>
+            </>
           )}
         </ul>
       </div>

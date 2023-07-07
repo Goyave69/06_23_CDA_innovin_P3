@@ -57,12 +57,14 @@ const edit = (req, res) => {
 };
 
 const add = (req, res) => {
-  const wine = req.body;
+  const wine = JSON.parse(req.body.wine);
   // TODO validations (length, format...)
   const { error } = validator(wine);
   if (error) {
     res.status(422).json({ validationErrors: error.details });
   } else {
+    const { renamedFile } = req;
+    wine.image = renamedFile;
     models.wine
       .insert(wine)
       .then(([result]) => {

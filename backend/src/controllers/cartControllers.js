@@ -1,6 +1,6 @@
 const models = require("../models");
 
-const browse = (req, res) => {
+const browse = (_, res) => {
   models.cart
     .findNotOrder(1)
     .then(([rows]) => {

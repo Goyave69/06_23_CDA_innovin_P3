@@ -1,14 +1,24 @@
 const express = require("express");
 
+const multer = require("multer");
+
 const router = express.Router();
+
+const upload = multer({ dest: process.env.UPLOADS_FOLDER });
 
 // routes pour Wines
 const wineControllers = require("./controllers/wineControllers");
+const fileControllers = require("./controllers/fileControllers");
 
 router.get("/wines", wineControllers.browse);
 router.get("/wines/:id", wineControllers.read);
 router.put("/wines/:id", wineControllers.edit);
-router.post("/wines", wineControllers.add);
+router.post(
+  "/wines",
+  upload.single("picture"),
+  fileControllers.fileRename,
+  wineControllers.add
+);
 router.delete("/wines/:id", wineControllers.destroy);
 
 // routes pour Users
@@ -22,7 +32,7 @@ router.put("/users/:id", userControllers.edit);
 router.post("/users", hashPassword, userControllers.add);
 router.delete("/users/:id", userControllers.destroy);
 
-// routes pour Wines
+// routes pour CartWines
 const cartWineControllers = require("./controllers/cartWineControllers");
 
 router.get("/cartwines", cartWineControllers.browse);
