@@ -1,71 +1,123 @@
-import React from "react";
-import { CloseButton } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import data from "../components/Cart/_data";
+import axios from "axios";
+import { CloseButton } from "@chakra-ui/react";
 import arrow from "../assets/Cart/arrow.png";
+import ApiHelper from "../services/apiHelper";
+import ModaleConfirme from "../components/Cart/ModaleConfirme";
+
+const { VITE_BACKEND_URL } = import.meta.env;
 
 export default function CartBis() {
+  const [dataCart, setDataCart] = useState([]);
+  const [reloadCart, setReloadCart] = useState(false);
+  const [showModalConfirme, setShowModalConfirme] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedWine, setSelectedWine] = useState(null);
+
+  useEffect(() => {
+    ApiHelper("carts", "get").then((res) => {
+      setDataCart(res.data);
+    });
+  }, []);
+
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    let sum = 0;
+    if (dataCart.length > 0) {
+      dataCart[0].content.forEach((item) => {
+        sum += item.price * item.quantity;
+      });
+    }
+    setTotal(Math.round(sum * 100) / 100);
+  }, [dataCart]);
+
+  const handleDelete = (id) => {
+    if (!selectedWine) return;
+    axios.delete(`http://localhost:5000/cartwines/${id}`).then(() => {
+      setReloadCart(!reloadCart);
+      setShowModalConfirme(false);
+      setShowModal(true);
+      setTimeout(() => {
+        setShowModal(false);
+      }, 2000);
+    });
+  };
+
+  useEffect(() => {
+    ApiHelper("carts", "get").then((res) => {
+      setDataCart(res.data);
+    });
+  }, [reloadCart]);
+
+  console.warn(dataCart);
   return (
     <div className="flex">
       <div className=" w-2/3 mr-10 pt-12 pl-12 flex-col">
-        <h1 className=" tracking-wider pb-4 text-2xl font-bold">
-          Panier(3 articles)
+        <h1 className=" tracking-wider pb-4 mb-4 text-2xl font-bold shadow pl-3">
+          Panier
         </h1>
-        <div className="flex pt-3  justify-between">
-          <div className="flex">
-            <img
-              className="h-32 w-32 rounded-lg"
-              src={data[0].imageUrl}
-              alt=""
+        <div className=" h-[70vh] overflow-auto">
+          {dataCart[0]?.content[0].name === null ? (
+            <p>Votre panier est vide.</p>
+          ) : (
+            dataCart[0]?.content.map((item) => (
+              <div className="grid grid-cols-4 py-3 justify-between ">
+                <div className="flex">
+                  <img
+                    className="h-36 w-fit rounded-lg "
+                    src={`${VITE_BACKEND_URL}/uploads/${item.image}`}
+                    alt=""
+                  />
+                  <div className="flex flex-col p-3 pl-3 ">
+                    <p>{item.name}</p>
+                    <p>{item.description}</p>
+                  </div>
+                </div>
+                <p className="p-5 ">{item.quantity}</p>
+                <p className="p-5">
+                  {Math.round(item.price * item.quantity * 100) / 100} €
+                </p>
+                <CloseButton
+                  onClick={() => {
+                    setSelectedWine(item);
+                    setShowModalConfirme(true);
+                  }}
+                  className="h-5 pt-8"
+                />
+              </div>
+            ))
+          )}
+          {showModalConfirme && (
+            <ModaleConfirme
+              selectedWine={selectedWine}
+              setSelectedWine={setSelectedWine}
+              setShowModalConfirme={setShowModalConfirme}
+              handleDelete={handleDelete}
             />
-            <div className="flex flex-col pt-3 pl-3">
-              <p>{data[0].name}</p>
-              <p>{data[0].description}</p>
+          )}
+          {showModal && (
+            <div className="justify-center items-center flex overflow-x-hidden mx-10 overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+              <div className="relative w-auto my-6 mx-auto max-w-3xl">
+                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full px-14 bg-[#38a169] outline-none focus:outline-none">
+                  <div className="flex items-center justify-between p-5 border-b h-[30vh]  border-solid text-white border-slate-200 rounded-t">
+                    <h3 className="text-xl text-center font-semibold">
+                      Suppréssion du produit éffectuée
+                    </h3>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-          <p className="pt-5">{data[0].quantity}</p>
-          <p className="pt-5">{data[0].price}€</p>
-          <CloseButton className="h-5 pt-8" />
-        </div>
-        <div className="flex pt-3  justify-between">
-          <div className="flex">
-            <img
-              className="h-32 w-32 rounded-lg"
-              src={data[1].imageUrl}
-              alt=""
-            />
-            <div className="flex flex-col pt-3 pl-3">
-              <p>{data[1].name}</p>
-              <p>{data[1].description}</p>
-            </div>
-          </div>
-          <p className="pt-5">{data[1].quantity}</p>
-          <p className="pt-5">{data[1].price}€</p>
-          <CloseButton className="h-5 pt-8" />
-        </div>
-        <div className="flex pt-3  justify-between">
-          <div className="flex">
-            <img
-              className="h-32 w-32 rounded-lg"
-              src={data[2].imageUrl}
-              alt=""
-            />
-            <div className="flex flex-col pt-3 pl-3">
-              <p>{data[2].name}</p>
-              <p>{data[2].description}</p>
-            </div>
-          </div>
-          <p className="pt-5">{data[2].quantity}</p>
-          <p className="pt-5">{data[2].price}€</p>
-          <CloseButton className="h-5 pt-8" />
+          )}
         </div>
       </div>
-      <div className=" mt-20 mx-5 h-[300px] w-[25%] flex flex-col border px-5 py-10 rounded-lg border-gray-300">
+      <div className=" mt-20 mx-5 h-[300px] w-[25%] flex flex-col border px-5 py-10 rounded-lg shadow border-gray-300">
         <h2 className="text-2xl font-bold tracking-wide">Commande</h2>
         <br />
         <div className="flex justify-between">
           <p>Sous-Total :</p>
-          <p>300€</p>
+          <p>{total}</p>
         </div>
         <br />
         <div className="flex justify-between">
@@ -75,7 +127,7 @@ export default function CartBis() {
         <br />
         <div className="flex justify-between">
           <p className="font-bold">Total :</p>
-          <p className="font-bold">303€</p>
+          <p className="font-bold">{total + 3}€</p>
         </div>
         <button
           className="p-2 border w-full text-center bg-[#3182ce] hover:bg-[#1e5181] text-white mt-4 flex items-center border-black rounded-lg"
@@ -84,9 +136,10 @@ export default function CartBis() {
           Paiement
           <img className="h-8 pl-4" src={arrow} alt="" />
         </button>
-        <NavLink className="pt-14 mx-auto">
-          ou{" "}
-          <span className="font-bold text-[#3182ce]">continuer vos achats</span>
+        <NavLink to="/wines" className="pt-14 mx-auto">
+          <span className="font-bold text-[#3182ce] hover:text-[#3273af] hover:underline">
+            continuer vos achats
+          </span>
         </NavLink>
       </div>
     </div>

@@ -5,6 +5,8 @@ import favori from "../../assets/favori.png";
 import cart from "../../assets/cart.png";
 import oeil from "../../assets/oeil.png";
 
+const { VITE_BACKEND_URL } = import.meta.env;
+
 export default function CardOurWines({ props }) {
   const [showOptions, setShowOptions] = useState(false);
 
@@ -12,10 +14,38 @@ export default function CardOurWines({ props }) {
     <div
       onMouseEnter={() => setShowOptions(!showOptions)}
       onMouseLeave={() => setShowOptions(!showOptions)}
-      className="w-[20vw] relative"
+      className="md:w-[20vw] pt-5 relative"
     >
-      <div className="bg-cardHome flex flex-col">
-        <img className="mx-auto h-[50vh] py-7" src={props.image} alt="" />
+      <div className="bg-cardHome bg-cover max-h-[50vh] flex flex-col">
+        <img
+          className="mx-auto h-[50vh] py-7"
+          src={`${VITE_BACKEND_URL}/uploads/${props.image}`}
+          alt=""
+        />
+        {showOptions && (
+          <div className="relative bottom-12 mx-auto bg-gray-300 w-[90%] rounded flex justify-evenly text-red-500">
+            <img
+              title="Mettre en favoris"
+              className="h-10 p-2 cursor-pointer "
+              src={favori}
+              alt=""
+            />
+            <img
+              title="Ajouter au panier"
+              className="h-10 p-2 cursor-pointer"
+              src={cart}
+              alt=""
+            />
+            <NavLink className="flex" to={`/wine/${props.id}`}>
+              <img
+                title="Voir en detail"
+                className="h-10 p-2 cursor-pointer"
+                src={oeil}
+                alt="coucou"
+              />
+            </NavLink>
+          </div>
+        )}
       </div>
 
       <br />
@@ -23,31 +53,6 @@ export default function CardOurWines({ props }) {
         <p className="text-lg pb-2">{props.name}</p>
         <p className="text-xl">{props.price} €</p>
       </div>
-
-      {showOptions && (
-        <div className="absolute bottom-24 left-3 bg-gray-300 w-[90%] rounded flex justify-evenly text-red-500">
-          <img
-            title="Mettre en favoris"
-            className="h-10 p-2 cursor-pointer "
-            src={favori}
-            alt=""
-          />
-          <img
-            title="Ajouter au panier"
-            className="h-10 p-2 cursor-pointer"
-            src={cart}
-            alt=""
-          />
-          <NavLink className="flex" to={`/wine/${props.id}`}>
-            <img
-              title="Voir en detail"
-              className="h-10 p-2 cursor-pointer"
-              src={oeil}
-              alt="coucou"
-            />
-          </NavLink>
-        </div>
-      )}
     </div>
   );
 }

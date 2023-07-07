@@ -1,7 +1,6 @@
 import { TextField, Box, Button } from "@mui/material";
-import * as React from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
-import ApiHelper from "../../../services/apiHelper";
 
 const inputFields = [
   {
@@ -65,30 +64,47 @@ const inputFields = [
 export default function UserForm({ closeModal, setLoading }) {
   const [dataForm, setDataForm] = React.useState({
     name: "",
-    year: 1994,
+    year: "",
     wine_type: "",
     origin_country: "",
     region: "",
     grape_variety: "",
     description: "",
     best_seller: false,
-    image: "/",
-    price: 0,
+    image: "",
+    price: "",
   });
+
+  const inputRef = useRef(null);
 
   const handleChange = (e) => {
     setDataForm({ ...dataForm, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = () => {
-    ApiHelper("wines", "post", dataForm)
-      .then(() => {
-        setLoading((prev) => !prev);
-        closeModal();
-      })
-      .catch((err) => {
-        console.error(`Axios Error : ${err.message}`);
-      });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (dataForm.image) {
+      const myHeaders = new Headers();
+      const wine = JSON.stringify(dataForm);
+      const formData = new FormData();
+
+      formData.append("wine", wine);
+      formData.append("picture", inputRef.current.files[0]);
+
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: formData,
+      };
+      fetch(`http://localhost:5000/wines`, requestOptions)
+        .then((response) => response.text())
+        .then(() => {
+          closeModal();
+          setLoading(true);
+        })
+        .catch(console.error);
+    }
   };
 
   return (
@@ -108,12 +124,20 @@ export default function UserForm({ closeModal, setLoading }) {
             sx={field.sx}
           />
         ))}
+        <input
+          type="file"
+          onChange={handleChange}
+          ref={inputRef}
+          name="image"
+          className="my-4"
+          value={dataForm.image}
+        />
       </Box>
       <Box
         sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}
       >
         <Button onClick={closeModal}>Retour</Button>
-        <Button onClick={onSubmit}>Ajouter</Button>
+        <Button onClick={handleSubmit}>Ajouter</Button>
       </Box>
     </Box>
   );

@@ -1,12 +1,16 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useToast } from "@chakra-ui/react";
 import ApiHelper from "../services/apiHelper";
 import DescriptionDetails from "../components/WineDetails/DescriptionDetails";
 import BuyDetails from "../components/WineDetails/BuyDetails";
 import DescriptifDetails from "../components/WineDetails/DescriptifDetails";
 
+const { VITE_BACKEND_URL } = import.meta.env;
+
 export default function WineDetails() {
   const { id } = useParams();
+  const toast = useToast();
 
   const [wineDetail, setWineDetail] = useState({});
   useEffect(() => {
@@ -21,12 +25,45 @@ export default function WineDetails() {
 
   const priceMultiple = wineDetail.price * quantitiesSelected;
 
+  const handleCart = () => {
+    ApiHelper("carts", "get").then((res) => {
+      const duplicateItem = res.data[0].content.find(
+        (wine) => wine.wine_id === parseInt(id, 10)
+      );
+      if (duplicateItem) {
+        ApiHelper(`cartwines/${duplicateItem.cart_wine_id}`, "put", {
+          quantity: duplicateItem.quantity + parseInt(quantitiesSelected, 10),
+        }).then(() => {
+          toast({
+            title: `${quantitiesSelected} bouteille(s) de ${wineDetail.name} ont été ajoutées à votre panier.`,
+            status: "success",
+            duration: 9000,
+            isClosable: true,
+          });
+        });
+      } else {
+        ApiHelper("cartwines", "post", {
+          cart_id: res.data[0].id,
+          wine_id: wineDetail.id,
+          quantity: parseInt(quantitiesSelected, 10),
+        }).then(() => {
+          toast({
+            title: `${quantitiesSelected} bouteille(s) de ${wineDetail.name} ont été ajoutées à votre panier.`,
+            status: "success",
+            duration: 9000,
+            isClosable: true,
+          });
+        });
+      }
+    });
+  };
+
   return (
     <div className="pt-4 px-4 md:px-0">
       <div className="md:flex mb-10">
         <img
-          className="md:h-[70vh] h-[30vh] m-4 rounded-xl mx-auto md:mx-32"
-          src={wineDetail.image}
+          className="md:h-[70vh] md:max-w-[30vw] h-[30vh] m-4 rounded-xl mx-auto md:mx-32"
+          src={`${VITE_BACKEND_URL}/uploads/${wineDetail.image}`}
           alt=""
         />
         <DescriptionDetails wineDetail={wineDetail} />
@@ -36,6 +73,7 @@ export default function WineDetails() {
           priceMultiple={priceMultiple}
           quantity={quantity}
           quantitiesSelected={quantitiesSelected}
+          handleCart={handleCart}
         />
       </div>
       <hr />

@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-curly-brace-presence */
 /* eslint-disable react/prop-types */
-import { NavLink } from "react-router-dom";
 import {
   Center,
   Flex,
@@ -13,7 +12,6 @@ import {
 
 export default function CardHome({
   props,
-  showButton = true,
   showDescription = true,
   imgDif = false,
 }) {
@@ -59,26 +57,6 @@ export default function CardHome({
           >
             {showDescription && props.description}
           </Text>
-
-          <Stack
-            width={"100%"}
-            mt={"2rem"}
-            direction={"row"}
-            padding={2}
-            justifyContent={"space-between"}
-            alignItems={"center"}
-          >
-            {showButton && (
-              <NavLink className="flex" to={`/wine/${props.id}`}>
-                <button
-                  type="button"
-                  className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded-full mx-auto mb-3"
-                >
-                  Voir plus
-                </button>
-              </NavLink>
-            )}
-          </Stack>
         </Stack>
       </Stack>
     </Center>
