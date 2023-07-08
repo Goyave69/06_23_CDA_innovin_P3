@@ -1,6 +1,7 @@
 const models = require("../models");
 
-const browse = (_, res) => {
+const browse = (req, res) => {
+  // const id = req.payload.sub;
   models.cart
     .findNotOrder(1)
     .then(([rows]) => {

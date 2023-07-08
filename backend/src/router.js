@@ -6,6 +6,8 @@ const router = express.Router();
 
 const upload = multer({ dest: process.env.UPLOADS_FOLDER });
 
+const { verifyToken } = require("./services/auth");
+
 // routes pour Wines
 const wineControllers = require("./controllers/wineControllers");
 const fileControllers = require("./controllers/fileControllers");
@@ -45,7 +47,7 @@ router.delete("/cartwines/:id", cartWineControllers.destroy);
 
 const cartControllers = require("./controllers/cartControllers");
 
-router.get("/carts", cartControllers.browse);
+router.get("/carts", verifyToken, cartControllers.browse);
 router.get("/carts/:id", cartControllers.read);
 router.put("/carts/:id", cartControllers.edit);
 router.post("/carts", cartControllers.add);

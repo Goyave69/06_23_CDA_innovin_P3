@@ -4,10 +4,10 @@ import Team from "../components/Home/Team";
 
 export default function Home() {
   return (
-    <div>
+    <>
       <Header />
       <Offer />
       <Team />
-    </div>
+    </>
   );
 }

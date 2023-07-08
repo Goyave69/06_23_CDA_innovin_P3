@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-curly-brace-presence */
-/* eslint-disable react/prop-types */
 import {
   Center,
   Flex,

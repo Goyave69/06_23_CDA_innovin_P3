@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import favori from "../../assets/favori.png";
