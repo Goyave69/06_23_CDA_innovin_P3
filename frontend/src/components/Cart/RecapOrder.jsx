@@ -13,7 +13,7 @@ export default function RecapOrder({ total, showCartWines, setShowCartWines }) {
       </div>
       <button
         onClick={() => setShowCartWines(!showCartWines)}
-        className="p-2 border w-full text-center bg-[#3182ce] hover:bg-[#1e5181] text-white mt-6 flex items-center border-black rounded-lg"
+        className="p-2 border  bg-[#3182ce] hover:bg-[#1e5181] text-white mt-6 flex justify-center w-full items-center border-black rounded-lg"
         type="button"
       >
         Paiement

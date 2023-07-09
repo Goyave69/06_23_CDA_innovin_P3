@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import iconMenu from "../assets/menu.png";
 import getCookie from "../services/cookieHelper";
 import ApiHelper from "../services/apiHelper";
@@ -14,10 +14,11 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   const user = getCookie("user");
+  const navigate = useNavigate()
 
   const handleDeconnected = () => {
     ApiHelper("logout", "POST", {});
-    window.location.reload();
+    navigate("/")
   };
 
   return (

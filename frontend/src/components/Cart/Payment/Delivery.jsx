@@ -22,7 +22,7 @@ export default function Delivery() {
           <AccordionPanel className="flex item-center py-4">
             <input type="radio" />
             <p className="pl-4">
-              ryan beaujot 37 Rue du CoinCoin L Isle D Abeau, 38080
+              Ryan Beaujot 37 Rue du CoinCoin L Isle D Abeau, 38080
             </p>
           </AccordionPanel>
         </AccordionItem>
