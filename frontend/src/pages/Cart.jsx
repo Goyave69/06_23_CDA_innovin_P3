@@ -14,8 +14,10 @@ export default function CartBis() {
   const [dataCart, setDataCart] = useState([]);
   const [reloadCart, setReloadCart] = useState(false);
   const [showModalConfirme, setShowModalConfirme] = useState(false);
+  const [showCartWines, setShowCartWines] = useState(true);
   const [selectedWine, setSelectedWine] = useState(null);
   const [valueDelivery, setValueDelivery] = useState(null);
+  const [total, setTotal] = useState(0);
   const [_, setValuePaiment] = useState(null);
   const [user, setUser] = useState({});
   const [checkedValidePaiment, setCheckedValidePaiment] = useState({
@@ -23,6 +25,10 @@ export default function CartBis() {
     paiment: false,
   });
 
+  const toast = useToast();
+
+  // rempli les states d'adresse et de paiment
+  // change le bool pour faire apparaitre l'icon success
   const handleValide = (e) => {
     if (!checkedValidePaiment.delivery && e.target.value === user.address) {
       setValueDelivery(e.target.value);
@@ -33,15 +39,21 @@ export default function CartBis() {
     }
   };
 
+  const [dataOrder, setDataOrder] = useState([]);
+  // récupere les carts
   useEffect(() => {
     ApiHelper("carts", "get").then((res) => {
       setDataCart(res.data);
-      console.warn(res.data);
     });
-  }, []);
+  }, [reloadCart]);
 
-  const [total, setTotal] = useState(0);
+  useEffect(() => {
+    ApiHelper("orders", "get").then((res) => {
+      setDataOrder(res.data);
+    });
+  }, [reloadCart]);
 
+  // calcul la somme total du panier
   useEffect(() => {
     let sum = 0;
     if (dataCart.length > 0) {
@@ -61,18 +73,11 @@ export default function CartBis() {
   };
 
   useEffect(() => {
-    ApiHelper("carts", "get").then((res) => {
-      setDataCart(res.data);
-    });
-  }, [reloadCart]);
-
-  const [showCartWines, setShowCartWines] = useState(true);
-
-  useEffect(() => {
     setUser(JSON.parse(Cookies.get("user").slice(2)));
   }, []);
 
-  const toast = useToast();
+  // vérifie si l'utilisateur a bien mis l'adresse et le moyen de paiment avant de valider
+  // Modifie is_order en true et renvoi un nouveau panier vide
   const handleCartOrder = () => {
     if (
       checkedValidePaiment.delivery === false ||
@@ -99,6 +104,9 @@ export default function CartBis() {
   };
   return (
     <div className="flex">
+      <button type="button" onClick={() => console.warn(dataOrder)}>
+        coucou console moi order
+      </button>
       {showCartWines ? (
         <CartWines
           dataCart={dataCart}

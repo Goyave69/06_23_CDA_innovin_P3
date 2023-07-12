@@ -21,6 +21,10 @@ export default function SignUp() {
   });
   const navigate = useNavigate();
 
+  const handleChange = (e) => {
+    setDataForm({ ...dataForm, [e.target.name]: e.target.value });
+  };
+
   const SubmitSignUp = () => {
     ApiHelper("users", "post", dataForm).then((res, error) => {
       if (res.status === 201) {
@@ -32,9 +36,6 @@ export default function SignUp() {
         console.warn("erreur", error);
       }
     });
-  };
-  const handleChange = (e) => {
-    setDataForm({ ...dataForm, [e.target.name]: e.target.value });
   };
 
   return (

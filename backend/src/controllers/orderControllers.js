@@ -2,7 +2,7 @@ const models = require("../models");
 
 const browse = (req, res) => {
   models.order
-    .findAll(req.payload.user.id)
+    .findAllOrder(req.payload.sub)
     .then(([rows]) => {
       res.send(rows);
     })

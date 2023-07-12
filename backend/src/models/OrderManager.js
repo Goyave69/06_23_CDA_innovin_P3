@@ -7,10 +7,27 @@ class OrderManager extends AbstractManager {
     super({ table: "`order`" });
   }
 
-  findAll(userId) {
+  // findAllOrder(userId) {
+  //   return this.database.query(
+  //     `SELECT o.id, o.order_date, o.total_amount, o.shipping_address, o.status FROM ${this.table} AS o
+  //   JOIN cart AS c ON c.id = o.cart_id AND c.is_order = 1 WHERE c.user_id = ?`,
+  //     [userId]
+  //   );
+  // }
+  findAllOrder(userId) {
     return this.database.query(
-      `SELECT o.id, o.order_date, o.total_amount, o.shipping_address, o.status, SUM(c.) FROM ${this.table} AS o
-    JOIN cart AS c ON c.order_id = o.id WHERE c.user_id = ?`,
+      `SELECT c.id, c.user_id, c.is_order, JSON_ARRAYAGG(
+          JSON_OBJECT(
+              'order_date', NOW(),
+              'name', w.name,
+              'price', ROUND(w.price, 2),
+              'quantity', cw.quantity
+          )
+      ) AS content FROM cart c
+      LEFT JOIN cart_wine cw ON c.id = cw.cart_id
+      LEFT JOIN wine w ON cw.wine_id = w.id
+      WHERE c.user_id = ? && c.is_order = 1
+      GROUP BY c.id`,
       [userId]
     );
   }

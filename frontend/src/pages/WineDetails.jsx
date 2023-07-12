@@ -57,18 +57,6 @@ export default function WineDetails() {
       }
     });
   };
-
-  const handProps = () => {
-    return {
-      wineDetail: wineDetail,
-      setQuantitiesSelected: setQuantitiesSelected,
-      priceMultiple: priceMultiple,
-      quantity: quantity,
-      quantitiesSelected: quantitiesSelected,
-      handleCart: handleCart,
-    };
-  };
-
   return (
     <div className="pt-4 px-4 md:px-0">
       <div className="md:flex mb-10">
@@ -78,7 +66,13 @@ export default function WineDetails() {
           alt=""
         />
         <DescriptionDetails wineDetail={wineDetail} />
-        <BuyDetails {...handProps()} />
+        <BuyDetails
+          wineDetail={wineDetail}
+          setQuantitiesSelected={setQuantitiesSelected}
+          priceMultiple={priceMultiple}
+          quantity={quantity}
+          handleCart={handleCart}
+        />
       </div>
       <hr />
       <DescriptifDetails wineDetail={wineDetail} />
