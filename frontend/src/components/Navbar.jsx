@@ -14,11 +14,12 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   const user = getCookie("user");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleDeconnected = () => {
+    navigate("/");
     ApiHelper("logout", "POST", {});
-    navigate("/")
+    window.location.reload();
   };
 
   return (

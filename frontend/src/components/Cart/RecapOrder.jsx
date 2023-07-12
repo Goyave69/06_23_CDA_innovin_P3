@@ -2,13 +2,24 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import arrow from "../../assets/Cart/arrow.png";
 
-export default function RecapOrder({ total, showCartWines, setShowCartWines }) {
+export default function RecapOrder({
+  total,
+  showCartWines,
+  setShowCartWines,
+  valueDelivery,
+}) {
   return (
     <div className=" mt-20 mx-5 h-[300px] w-[25%] flex flex-col border px-5 py-10 rounded-lg shadow border-gray-300">
       <h2 className="text-2xl font-bold tracking-wide">Commande</h2>
       <br />
+      {valueDelivery && (
+        <div className="flex flex-col mb-3 justify-between">
+          <p className="font-bold underline">Adresse :</p>
+          <p>{valueDelivery}</p>
+        </div>
+      )}
       <div className="flex justify-between">
-        <p className="font-bold">Total :</p>
+        <p className="font-bold underline">Total :</p>
         <p className="font-bold">{total}€</p>
       </div>
       <button

@@ -1,9 +1,8 @@
 const models = require("../models");
 
 const browse = (req, res) => {
-  // const id = req.payload.sub;
   models.cart
-    .findNotOrder(1)
+    .findNotOrder(req.payload.sub)
     .then(([rows]) => {
       res.send(rows);
     })

@@ -22,7 +22,10 @@ export default function CartWines({
           <p>Votre panier est vide.</p>
         ) : (
           dataCart[0]?.content.map((item) => (
-            <div className="grid grid-cols-4 py-3 justify-between ">
+            <div
+              key={item.id}
+              className="grid grid-cols-4 py-3 justify-between "
+            >
               <div className="flex">
                 <img
                   className="h-36 w-fit rounded-lg "

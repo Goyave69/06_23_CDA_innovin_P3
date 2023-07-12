@@ -23,7 +23,7 @@ export default function WineDetails() {
 
   const [quantitiesSelected, setQuantitiesSelected] = useState(1);
 
-  const priceMultiple = wineDetail.price * quantitiesSelected;
+  const priceMultiple = (wineDetail.price * quantitiesSelected).toFixed(2);
 
   const handleCart = () => {
     ApiHelper("carts", "get").then((res) => {
@@ -37,7 +37,7 @@ export default function WineDetails() {
           toast({
             title: `${quantitiesSelected} bouteille(s) de ${wineDetail.name} ont été ajoutées à votre panier.`,
             status: "success",
-            duration: 9000,
+            duration: 4000,
             isClosable: true,
           });
         });
@@ -50,7 +50,7 @@ export default function WineDetails() {
           toast({
             title: `${quantitiesSelected} bouteille(s) de ${wineDetail.name} ont été ajoutées à votre panier.`,
             status: "success",
-            duration: 9000,
+            duration: 4000,
             isClosable: true,
           });
         });

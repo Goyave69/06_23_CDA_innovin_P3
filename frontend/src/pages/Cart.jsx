@@ -1,5 +1,8 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
+import { useToast } from "@chakra-ui/react";
 import ApiHelper from "../services/apiHelper";
 import CartWines from "../components/Cart/CartWines";
 import RecapOrder from "../components/Cart/RecapOrder";
@@ -12,10 +15,28 @@ export default function CartBis() {
   const [reloadCart, setReloadCart] = useState(false);
   const [showModalConfirme, setShowModalConfirme] = useState(false);
   const [selectedWine, setSelectedWine] = useState(null);
+  const [valueDelivery, setValueDelivery] = useState(null);
+  const [_, setValuePaiment] = useState(null);
+  const [user, setUser] = useState({});
+  const [checkedValidePaiment, setCheckedValidePaiment] = useState({
+    delivery: false,
+    paiment: false,
+  });
+
+  const handleValide = (e) => {
+    if (!checkedValidePaiment.delivery && e.target.value === user.address) {
+      setValueDelivery(e.target.value);
+      setCheckedValidePaiment({ ...checkedValidePaiment, delivery: true });
+    } else if (!checkedValidePaiment.paiment) {
+      setValuePaiment(e.target.value);
+      setCheckedValidePaiment({ ...checkedValidePaiment, paiment: true });
+    }
+  };
 
   useEffect(() => {
     ApiHelper("carts", "get").then((res) => {
       setDataCart(res.data);
+      console.warn(res.data);
     });
   }, []);
 
@@ -28,7 +49,7 @@ export default function CartBis() {
         sum += item.price * item.quantity;
       });
     }
-    setTotal(Math.round(sum * 100) / 100);
+    setTotal(sum.toFixed(2));
   }, [dataCart]);
 
   const handleDelete = (id) => {
@@ -47,28 +68,60 @@ export default function CartBis() {
 
   const [showCartWines, setShowCartWines] = useState(true);
 
-  const handleProps = () => {
-    return {
-      dataCart: dataCart,
-      setSelectedWine: setSelectedWine,
-      setShowModalConfirme: setShowModalConfirme,
-      showModalConfirme: showModalConfirme,
-      selectedWine: selectedWine,
-      handleDelete: handleDelete,
-      showCartWines: showCartWines,
-      setShowCartWines: setShowCartWines,
-      total: total,
-    };
-  };
+  useEffect(() => {
+    setUser(JSON.parse(Cookies.get("user").slice(2)));
+  }, []);
 
+  const toast = useToast();
+  const handleCartOrder = () => {
+    if (
+      checkedValidePaiment.delivery === false ||
+      checkedValidePaiment.paiment === false
+    ) {
+      toast({
+        title:
+          "Veuillez valider l'adresse de livraison et/ou le mode de paiement",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+    } else {
+      axios.put(`${VITE_BACKEND_URL}/carts/${dataCart[0].id}`, {
+        is_order: true,
+      });
+      axios.post(`${VITE_BACKEND_URL}/carts`, {
+        user_id: user.id,
+        cart_id: dataCart[0].id,
+        is_order: false,
+      });
+      window.location.reload();
+    }
+  };
   return (
     <div className="flex">
       {showCartWines ? (
-        <CartWines {...handleProps()} />
+        <CartWines
+          dataCart={dataCart}
+          setSelectedWine={setSelectedWine}
+          setShowModalConfirme={setShowModalConfirme}
+          showModalConfirme={showModalConfirme}
+          selectedWine={selectedWine}
+          handleDelete={handleDelete}
+        />
       ) : (
-        <Payment {...handleProps()} />
+        <Payment
+          handleCartOrder={handleCartOrder}
+          handleValide={handleValide}
+          user={user}
+          checkedValidePaiment={checkedValidePaiment}
+        />
       )}
-      <RecapOrder {...handleProps()} />
+      <RecapOrder
+        valueDelivery={valueDelivery}
+        total={total}
+        showCartWines={showCartWines}
+        setShowCartWines={setShowCartWines}
+      />
     </div>
   );
 }
