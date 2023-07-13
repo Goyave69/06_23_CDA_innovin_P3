@@ -2,12 +2,14 @@ const inputFields = [
   {
     placeholder: "Prénom",
     name: "firstName",
-    className: "m-3 shadow-lg p-2 rounded-lg border border-black",
+    className:
+      "m-3 w-full md:w-[45%] shadow-lg p-2 rounded-lg border border-black",
   },
   {
     placeholder: "Nom",
     name: "lastName",
-    className: "m-3 shadow-lg p-2 rounded-lg border border-black",
+    className:
+      "m-3 w-full md:w-[46%] shadow-lg p-2 rounded-lg border border-black",
   },
   {
     placeholder: "Email",
