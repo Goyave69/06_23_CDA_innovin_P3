@@ -6,8 +6,7 @@ export default function BuyDetails({
   priceMultiple,
   setQuantitiesSelected,
   quantity,
-  quantitiesSelected,
-  // takeItemInCart,
+  handleCart,
 }) {
   return (
     <div className="flex flex-col mx-3 md:w-[20vw] pb-4 border border-2-black px-3 shadow-md">
@@ -33,7 +32,7 @@ export default function BuyDetails({
       </select>
       <br />
       <button
-        onClick={() => console.warn(wineDetail, quantitiesSelected)}
+        onClick={handleCart}
         className=" bg-yellow-300 hover:bg-yellow-400 py-1 mb-2 rounded-lg font-bold"
         type="button"
       >

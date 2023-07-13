@@ -13,7 +13,7 @@ function Offer() {
       </h4>
       <div className="block md:flex justify-around">
         {products.map((product) => (
-          <CardHome key={product.id} props={product} showButton={false} />
+          <CardHome key={product.id} props={product} />
         ))}
       </div>
     </div>

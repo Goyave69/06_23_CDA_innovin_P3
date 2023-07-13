@@ -18,7 +18,7 @@ export default function Donut({ count }) {
 
   return (
     <div className="donut">
-      <Chart options={options} series={series} type="donut" width="360" />
+      <Chart options={options} series={series} type="donut" width="250" />
     </div>
   );
 }
