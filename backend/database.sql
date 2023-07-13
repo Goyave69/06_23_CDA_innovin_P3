@@ -65,11 +65,59 @@ CREATE TABLE article (
     id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     title VARCHAR(100),
     content TEXT,
-    publication_date DATE,
+    publication_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     author VARCHAR(50),
     category VARCHAR(50)
 );
 -- Fixtures / Fausses données
+INSERT INTO wine(
+        name,
+        year,
+        wine_type,
+        origin_country,
+        region,
+        grape_variety,
+        description,
+        best_seller,
+        image,
+        price
+    )
+VALUES (
+        "Campagne",
+        1999,
+        "Rouge",
+        "France",
+        "Champagne-Ardennes",
+        "variété",
+        "une descripion",
+        1,
+        "",
+        19.99
+    ),
+    (
+        "Campagne2",
+        1999,
+        "Rouge",
+        "France",
+        "Champagne-Ardennes",
+        "variété",
+        "une descripion",
+        1,
+        "",
+        19.99
+    ),
+    (
+        "Campagne3",
+        1999,
+        "Rouge",
+        "France",
+        "Champagne-Ardennes",
+        "variété",
+        "une descripion",
+        1,
+        "",
+        19.99
+    );
 INSERT INTO user (
         firstname,
         lastname,
