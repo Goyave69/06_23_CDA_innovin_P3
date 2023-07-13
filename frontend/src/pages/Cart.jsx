@@ -103,10 +103,7 @@ export default function CartBis() {
     }
   };
   return (
-    <div className="flex">
-      <button type="button" onClick={() => console.warn(dataOrder)}>
-        coucou console moi order
-      </button>
+    <div className="flex flex-col md:flex-row">
       {showCartWines ? (
         <CartWines
           dataCart={dataCart}

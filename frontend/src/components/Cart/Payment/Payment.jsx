@@ -9,7 +9,7 @@ export default function Payment({
   checkedValidePaiment,
 }) {
   return (
-    <div className="w-2/3 mr-10 pt-12 pl-12 flex flex-col">
+    <div className="md:w-2/3 w-full mr-10 pt-12 px-10 md:px-0 md:pl-12 flex flex-col">
       <h2 className="text-center text-2xl font-semibold tracking-wide py-4">
         Passer la commande (2 articles)
       </h2>

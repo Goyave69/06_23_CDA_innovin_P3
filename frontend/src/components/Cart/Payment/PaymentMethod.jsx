@@ -78,9 +78,7 @@ export default function PaymentMethod({ checkedValidePaiment, handleValide }) {
           <AccordionButton className="flex relative justify-between">
             <>
               <p className="font-semibold text-xl"> 2</p>
-              <p className="font-semibold text-xl">
-                Sélectionnez un mode de paiement
-              </p>
+              <p className="font-semibold text-xl">Mode de paiement</p>
               {checkedValidePaiment.paiment && (
                 <img
                   className="h-8 absolute right-10"

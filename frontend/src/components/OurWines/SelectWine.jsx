@@ -10,13 +10,13 @@ export default function SelectWine({ setType, wines }) {
         <option value="" className=" sm:text-sm md:text-lg">
           Type de vin
         </option>
-        {wines.map((wine) => (
+        {wines.map((filterWine) => (
           <option
-            key={wine.id}
-            value={wine.wine_type}
+            key={filterWine.id}
+            value={filterWine.wine_type}
             className=" sm:text-sm md:text-lg"
           >
-            {wine.wine_type}
+            {filterWine.wine_type}
           </option>
         ))}
       </select>

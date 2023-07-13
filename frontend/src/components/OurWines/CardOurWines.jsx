@@ -45,6 +45,28 @@ export default function CardOurWines({ props }) {
             </NavLink>
           </div>
         )}
+        <div className="relative md:hidden bottom-12 mx-auto bg-gray-300 w-[90%] rounded flex justify-evenly text-red-500">
+          <img
+            title="Mettre en favoris"
+            className="h-10 p-2 cursor-pointer "
+            src={favori}
+            alt=""
+          />
+          <img
+            title="Ajouter au panier"
+            className="h-10 p-2 cursor-pointer"
+            src={cart}
+            alt=""
+          />
+          <NavLink className="flex" to={`/wine/${props.id}`}>
+            <img
+              title="Voir en detail"
+              className="h-10 p-2 cursor-pointer"
+              src={oeil}
+              alt="coucou"
+            />
+          </NavLink>
+        </div>
       </div>
 
       <br />

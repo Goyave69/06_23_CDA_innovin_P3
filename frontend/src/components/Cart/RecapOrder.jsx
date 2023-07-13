@@ -9,7 +9,7 @@ export default function RecapOrder({
   valueDelivery,
 }) {
   return (
-    <div className=" mt-20 mx-5 h-[300px] w-[25%] flex flex-col border px-5 py-10 rounded-lg shadow border-gray-300">
+    <div className=" mt-20 mx-5 h-[300px] md:w-[25%] flex flex-col border px-5 py-10 rounded-lg shadow border-gray-300">
       <h2 className="text-2xl font-bold tracking-wide">Commande</h2>
       <br />
       {valueDelivery && (

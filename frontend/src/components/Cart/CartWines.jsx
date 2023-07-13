@@ -14,17 +14,17 @@ export default function CartWines({
 }) {
   return (
     <div className="w-2/3 mr-10 pt-12 pl-12 flex-col">
-      <h1 className=" tracking-wider pb-4 mb-4 text-2xl font-bold shadow pl-3">
+      <h1 className=" tracking-wider w-[80vw] md:w-auto pb-4 mb-4 text-2xl font-bold shadow pl-3">
         Panier
       </h1>
-      <div className=" h-[70vh] overflow-auto">
+      <div className=" md:h-[70vh]  md:overflow-auto">
         {dataCart[0]?.content[0].name === null ? (
           <p>Votre panier est vide.</p>
         ) : (
           dataCart[0]?.content.map((item) => (
             <div
-              key={item.id}
-              className="grid grid-cols-4 py-3 justify-between "
+              key={item}
+              className="flex w-[80vw] md:w-auto md:grid md:grid-cols-4 py-3 justify-between "
             >
               <div className="flex">
                 <img

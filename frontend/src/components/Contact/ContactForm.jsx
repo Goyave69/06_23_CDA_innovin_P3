@@ -17,8 +17,10 @@ export default function ContactForm() {
   };
 
   return (
-    <div className=" flex flex-col h-[90vh] w-[50%] px-24 ">
-      <h2 className="text-3xl font-bold text-center pt-20  ">Contactez-nous</h2>
+    <div className=" flex flex-col h-[90vh] md:w-[50%] px-24 ">
+      <h2 className="text-3xl font-bold text-center pt-20 mb-4 md:mb-0">
+        Contactez-nous
+      </h2>
       <select
         className="m-3 p-2 rounded-lg shadow-lg border border-black"
         name="subject"

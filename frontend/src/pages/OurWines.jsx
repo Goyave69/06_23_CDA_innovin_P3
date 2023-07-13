@@ -26,7 +26,9 @@ export default function OurWines() {
               return type === "" ? wine : wine.wine_type.includes(type);
             })
             .map((wine) => (
-              <CardOurWines props={wine} />
+              <div key={wine.id}>
+                <CardOurWines props={wine} />
+              </div>
             ))}
         </div>
       )}
