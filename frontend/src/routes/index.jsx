@@ -11,6 +11,7 @@ import Error404 from "../pages/404";
 import SignUp from "../pages/SignUp";
 import WineDetails from "../pages/WineDetails";
 import Cart from "../pages/Cart";
+import AdminArticle from "../components/Admin/Article/AdminArticle";
 
 const Routes = [
   {
@@ -62,6 +63,10 @@ const Routes = [
       {
         path: "user",
         element: <AdminUser />,
+      },
+      {
+        path: "article",
+        element: <AdminArticle />,
       },
     ],
   },
