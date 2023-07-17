@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import { AiFillSignal } from "react-icons/ai";
-import { FaWineBottle, FaUserFriends } from "react-icons/fa";
+import { FaWineBottle, FaUserFriends, FaRegNewspaper } from "react-icons/fa";
 import NavItem from "./NavItem";
 
 const items = [
@@ -26,6 +26,11 @@ const items = [
     title: "Utilisateur",
     path: "/admin/user",
     icon: FaUserFriends,
+  },
+  {
+    title: "Article",
+    path: "/admin/article",
+    icon: FaRegNewspaper,
   },
 ];
 
