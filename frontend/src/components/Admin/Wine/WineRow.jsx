@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { Input, Tr, Td, Icon, HStack, Checkbox } from "@chakra-ui/react";
 import { FiEdit, FiCheckSquare, FiDelete } from "react-icons/fi";
 import PropTypes from "prop-types";
@@ -10,12 +10,12 @@ export default function WineRow({ wine, setLoadingWines }) {
     id,
     name,
     year,
-    wine_type,
-    origin_country,
+    wineType,
+    originCountry,
     region,
-    grape_variety,
+    grapeVariety,
     description,
-    best_seller,
+    bestSeller,
     image,
     price,
   } = wine;
@@ -24,19 +24,15 @@ export default function WineRow({ wine, setLoadingWines }) {
   const [dataWine, setDataWine] = useState({
     name,
     year,
-    wine_type,
-    origin_country,
+    wine_type: wineType,
+    origin_country: originCountry,
     region,
-    grape_variety,
+    grape_variety: grapeVariety,
     description,
-    best_seller: best_seller === 1,
+    best_seller: bestSeller === 1,
     image: selectedImage,
     price,
   });
-
-  useEffect(() => {
-    console.log(dataWine);
-  }, [dataWine]);s
 
   const handleChange = (e) => {
     switch (e.target.name) {
@@ -62,14 +58,14 @@ export default function WineRow({ wine, setLoadingWines }) {
 
     if (dataWine.image) {
       const myHeaders = new Headers();
-      const wine = JSON.stringify(dataWine);
+      const wineData = JSON.stringify(dataWine);
       const formData = new FormData();
 
-      formData.append("wine", wine);
+      formData.append("wine", wineData);
       if (selectedImage) {
         formData.append("picture", selectedImage);
       } else {
-        formData.append("picture", wine.image);
+        formData.append("picture", wineData.image);
       }
 
       const requestOptions = {
@@ -104,14 +100,14 @@ export default function WineRow({ wine, setLoadingWines }) {
         {isEditable ? (
           <Input value={dataWine.name} name="name" onChange={handleChange} />
         ) : (
-          name
+          dataWine.name
         )}
       </Td>
       <Td>
         {isEditable ? (
           <Input value={dataWine.year} name="year" onChange={handleChange} />
         ) : (
-          year
+          dataWine.year
         )}
       </Td>
       <Td>
@@ -122,7 +118,7 @@ export default function WineRow({ wine, setLoadingWines }) {
             onChange={handleChange}
           />
         ) : (
-          wine_type
+          dataWine.wine_type
         )}
       </Td>
       <Td>
@@ -133,7 +129,7 @@ export default function WineRow({ wine, setLoadingWines }) {
             onChange={handleChange}
           />
         ) : (
-          origin_country
+          dataWine.origin_country
         )}
       </Td>
       <Td>
@@ -144,7 +140,7 @@ export default function WineRow({ wine, setLoadingWines }) {
             onChange={handleChange}
           />
         ) : (
-          region
+          dataWine.region
         )}
       </Td>
       <Td>
@@ -155,7 +151,7 @@ export default function WineRow({ wine, setLoadingWines }) {
             onChange={handleChange}
           />
         ) : (
-          grape_variety
+          dataWine.grape_variety
         )}
       </Td>
       <Td>
@@ -166,7 +162,7 @@ export default function WineRow({ wine, setLoadingWines }) {
             onChange={handleChange}
           />
         ) : (
-          description
+          dataWine.description
         )}
       </Td>
       <Td>
@@ -178,7 +174,7 @@ export default function WineRow({ wine, setLoadingWines }) {
             onChange={handleChange}
           />
         ) : (
-          best_seller
+          dataWine.best_seller
         )}
       </Td>
       <Td>
@@ -192,7 +188,7 @@ export default function WineRow({ wine, setLoadingWines }) {
         {isEditable ? (
           <Input value={dataWine.price} name="price" onChange={handleChange} />
         ) : (
-          price
+          dataWine.price
         )}
       </Td>
       <Td>

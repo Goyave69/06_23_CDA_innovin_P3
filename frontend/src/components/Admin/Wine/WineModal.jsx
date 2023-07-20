@@ -13,7 +13,7 @@ import {
   HStack,
   Checkbox,
 } from "@chakra-ui/react";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import PropTypes from "prop-types";
 
 export default function WineModal({ isOpen, onClose, setLoadingWines }) {
