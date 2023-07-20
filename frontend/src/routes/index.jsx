@@ -11,6 +11,7 @@ import Error404 from "../pages/404";
 import SignUp from "../pages/SignUp";
 import WineDetails from "../pages/WineDetails";
 import Cart from "../pages/Cart";
+import Profil from "../pages/Profil";
 import AdminArticle from "../components/Admin/Article/AdminArticle";
 
 const Routes = [
@@ -45,6 +46,10 @@ const Routes = [
       {
         path: "cart",
         element: <Cart />,
+      },
+      {
+        path: "profil",
+        element: <Profil />,
       },
     ],
   },

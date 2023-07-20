@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import iconMenu from "../assets/menu.png";
 import getCookie from "../services/cookieHelper";
 import ApiHelper from "../services/apiHelper";
@@ -14,8 +14,11 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   const user = getCookie("user");
+  const navigate = useNavigate();
 
   const handleDeconnected = () => {
+    setOpen(!open);
+    navigate("/");
     ApiHelper("logout", "POST", {});
     window.location.reload();
   };
@@ -46,6 +49,7 @@ export default function Navbar() {
             <li key={link.name} className="md:ml-8 text-xl md:my-0 my-7">
               <NavLink
                 to={link.link}
+                onClick={() => setOpen(!open)}
                 className="text-gray-800 hover:text-gray-600 duration-300"
               >
                 {link.name}
@@ -55,6 +59,7 @@ export default function Navbar() {
           {!user ? (
             <li className="md:ml-8 text-xl md:my-0 my-7">
               <NavLink
+                onClick={() => setOpen(!open)}
                 to="connect"
                 className="text-gray-800 hover:text-gray-600 duration-300"
               >
@@ -65,10 +70,20 @@ export default function Navbar() {
             <>
               <li className="md:ml-8 text-xl md:my-0 my-7">
                 <NavLink
+                  onClick={() => setOpen(!open)}
                   to="/cart"
                   className="text-gray-800 hover:text-gray-600 duration-300"
                 >
                   PANIER
+                </NavLink>
+              </li>
+              <li className="md:ml-8 text-xl md:my-0 my-7">
+                <NavLink
+                  onClick={() => setOpen(!open)}
+                  to="/profil"
+                  className="text-gray-800 hover:text-gray-600 duration-300"
+                >
+                  PROFIL
                 </NavLink>
               </li>
               <li className="md:ml-8 text-xl md:my-0 my-7">

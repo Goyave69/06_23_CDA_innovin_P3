@@ -31,7 +31,6 @@ const read = (req, res) => {
 const edit = (req, res) => {
   const cartWine = req.body;
 
-  // TODO validations (length, format...)
   const id = parseInt(req.params.id, 10);
 
   models.cartWine
@@ -51,7 +50,6 @@ const edit = (req, res) => {
 
 const add = (req, res) => {
   const cartWine = req.body;
-  // TODO validations (length, format...)
   models.cartWine
     .insert(cartWine)
     .then(([result]) => {

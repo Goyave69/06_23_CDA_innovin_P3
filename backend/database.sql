@@ -45,7 +45,7 @@ CREATE TABLE cart_wine (
     quantity INT,
     wine_id INT,
     cart_id INT,
-    FOREIGN KEY (wine_id) REFERENCES wine(id),
+    FOREIGN KEY (wine_id) REFERENCES wine(id) ON DELETE CASCADE,
     FOREIGN KEY (cart_id) REFERENCES cart(id)
 );
 -- Création de la table "order"

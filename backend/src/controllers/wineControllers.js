@@ -60,7 +60,6 @@ const edit = (req, res) => {
 
 const add = (req, res) => {
   const wine = JSON.parse(req.body.wine);
-  // TODO validations (length, format...)
   const { error } = validator(wine);
   if (error) {
     res.status(422).json({ validationErrors: error.details });

@@ -41,4 +41,15 @@ const verifyPassword = (req, res) => {
     });
 };
 
-module.exports = { verifyPassword };
+const verifyToken = (req, res, next) => {
+  try {
+    const { token } = req.cookies;
+    req.payload = jwt.verify(token, JWT_SECRET);
+    next();
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(401);
+  }
+};
+
+module.exports = { verifyPassword, verifyToken };

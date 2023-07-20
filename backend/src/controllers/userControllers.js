@@ -32,14 +32,11 @@ const read = (req, res) => {
 
 const edit = (req, res) => {
   const user = req.body;
-
-  // TODO validations (length, format...)
   const { error } = validator(user, false);
   if (error) {
     res.status(422).json({ validationErrors: error.details });
   } else {
     const id = parseInt(req.params.id, 10);
-
     models.user
       .update(id, user)
       .then(([result]) => {
@@ -58,7 +55,6 @@ const edit = (req, res) => {
 
 const add = (req, res) => {
   const user = req.body;
-  // TODO validations (length, format...)
   const { error } = validator(user);
   if (error) {
     res.status(422).json({ validationErrors: error.details });

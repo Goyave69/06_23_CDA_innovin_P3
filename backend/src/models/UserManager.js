@@ -2,7 +2,7 @@ const AbstractManager = require("./AbstractManager");
 
 const generateSqlSets = require("../services/generateSqlSets");
 
-class WineManager extends AbstractManager {
+class UserManager extends AbstractManager {
   constructor() {
     super({ table: "user" });
   }
@@ -34,10 +34,10 @@ class WineManager extends AbstractManager {
 
   findByEmailWithPassword(email) {
     return this.database.query(
-      `SELECT id, email, password, firstname, lastname FROM ${this.table} WHERE email = ?`,
+      `SELECT id, email, password, firstname, address, role, phone, lastname FROM ${this.table} WHERE email = ?`,
       [email]
     );
   }
 }
 
-module.exports = WineManager;
+module.exports = UserManager;

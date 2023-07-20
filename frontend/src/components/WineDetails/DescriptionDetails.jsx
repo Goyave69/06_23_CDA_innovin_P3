@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from "react";
 import warning from "../../assets/warning.png";
 import star from "../../assets/star.png";

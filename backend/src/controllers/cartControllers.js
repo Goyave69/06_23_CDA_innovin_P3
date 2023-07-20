@@ -1,8 +1,8 @@
 const models = require("../models");
 
-const browse = (_, res) => {
+const browse = (req, res) => {
   models.cart
-    .findNotOrder(1)
+    .findNotOrder(req.payload.sub)
     .then(([rows]) => {
       res.send(rows);
     })
@@ -51,9 +51,8 @@ const edit = (req, res) => {
 
 const add = (req, res) => {
   const cart = req.body;
-  // TODO validations (length, format...)
   models.cart
-    .insert(cart)
+    .insert(cart, req.payload.sub)
     .then(([result]) => {
       res.location(`/carts/${result.insertId}`).sendStatus(201);
     })

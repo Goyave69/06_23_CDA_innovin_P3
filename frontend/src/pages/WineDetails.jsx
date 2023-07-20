@@ -23,46 +23,53 @@ export default function WineDetails() {
 
   const [quantitiesSelected, setQuantitiesSelected] = useState(1);
 
-  const priceMultiple = wineDetail.price * quantitiesSelected;
+  const priceMultiple = (wineDetail.price * quantitiesSelected).toFixed(2);
+
+  const toastSuccess = () => {
+    toast({
+      title: `${quantitiesSelected} bouteille(s) de ${wineDetail.name} ont été ajoutées à votre panier.`,
+      status: "success",
+      duration: 4000,
+      isClosable: true,
+    });
+  };
 
   const handleCart = () => {
-    ApiHelper("carts", "get").then((res) => {
-      const duplicateItem = res.data[0].content.find(
+    let cart = null;
+    ApiHelper("carts", "get").then(async (res) => {
+      if (res.data.length === 0) {
+        const { data } = await ApiHelper("carts", "post", {
+          is_order: false,
+        });
+        [cart] = data;
+      } else {
+        [cart] = res.data;
+      }
+      const duplicateItem = cart.content.find(
         (wine) => wine.wine_id === parseInt(id, 10)
       );
       if (duplicateItem) {
         ApiHelper(`cartwines/${duplicateItem.cart_wine_id}`, "put", {
           quantity: duplicateItem.quantity + parseInt(quantitiesSelected, 10),
         }).then(() => {
-          toast({
-            title: `${quantitiesSelected} bouteille(s) de ${wineDetail.name} ont été ajoutées à votre panier.`,
-            status: "success",
-            duration: 9000,
-            isClosable: true,
-          });
+          toastSuccess();
         });
       } else {
         ApiHelper("cartwines", "post", {
-          cart_id: res.data[0].id,
+          cart_id: cart.id,
           wine_id: wineDetail.id,
           quantity: parseInt(quantitiesSelected, 10),
         }).then(() => {
-          toast({
-            title: `${quantitiesSelected} bouteille(s) de ${wineDetail.name} ont été ajoutées à votre panier.`,
-            status: "success",
-            duration: 9000,
-            isClosable: true,
-          });
+          toastSuccess();
         });
       }
     });
   };
-
   return (
     <div className="pt-4 px-4 md:px-0">
       <div className="md:flex mb-10">
         <img
-          className="md:h-[70vh] md:max-w-[30vw] h-[30vh] m-4 rounded-xl mx-auto md:mx-32"
+          className="md:h-[70vh] md:max-w-[30vw] h-[30vh] m-4 rounded-xl mx-auto "
           src={`${VITE_BACKEND_URL}/uploads/${wineDetail.image}`}
           alt=""
         />
@@ -72,7 +79,6 @@ export default function WineDetails() {
           setQuantitiesSelected={setQuantitiesSelected}
           priceMultiple={priceMultiple}
           quantity={quantity}
-          quantitiesSelected={quantitiesSelected}
           handleCart={handleCart}
         />
       </div>

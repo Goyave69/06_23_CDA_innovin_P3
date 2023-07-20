@@ -44,20 +44,22 @@ export default function FormSign() {
             placeholder={input.placeholder}
           />
         ))}
-        <div className="flex justify-between">
+        <div className="flex relative justify-between">
           <Input
             placeholder="Mot de passe"
             name="password"
             onChange={handleChange}
-            className="bg-gray-100 w-full mr-3 pl-2 border border-gray-400 rounded-sm shadow-md"
+            className="bg-gray-100 w-full pl-2 border border-gray-400 rounded-sm shadow-md"
             type={showPassword ? "text" : "password"}
           />
-          <Button
+          <button
+            type="button"
             variant={"ghost"}
+            className="absolute right-3 top-2 z-10"
             onClick={() => setShowPassword(!showPassword)}
           >
             {showPassword ? <ViewIcon /> : <ViewOffIcon />}
-          </Button>
+          </button>
         </div>
       </Stack>
       <Button
@@ -66,7 +68,10 @@ export default function FormSign() {
       >
         Se Connecter
       </Button>
-      <Button className="mt-4 w-full bg-red-500 hover:bg-red-300 font-bold rounded-sm shadow-md">
+      <Button
+        onClick={() => navigate("/signup")}
+        className="mt-4 w-full bg-red-500 hover:bg-red-300 font-bold rounded-sm shadow-md"
+      >
         S'inscrire
       </Button>
     </Box>
