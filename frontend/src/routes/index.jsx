@@ -12,6 +12,7 @@ import SignUp from "../pages/SignUp";
 import WineDetails from "../pages/WineDetails";
 import Cart from "../pages/Cart";
 import Profil from "../pages/Profil";
+import AdminArticle from "../components/Admin/Article/AdminArticle";
 
 const Routes = [
   {
@@ -67,6 +68,10 @@ const Routes = [
       {
         path: "user",
         element: <AdminUser />,
+      },
+      {
+        path: "article",
+        element: <AdminArticle />,
       },
     ],
   },

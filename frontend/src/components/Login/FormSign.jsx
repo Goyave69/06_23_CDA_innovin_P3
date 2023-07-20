@@ -68,7 +68,10 @@ export default function FormSign() {
       >
         Se Connecter
       </Button>
-      <Button className="mt-4 w-full bg-red-500 hover:bg-red-300 font-bold rounded-sm shadow-md">
+      <Button
+        onClick={() => navigate("/signup")}
+        className="mt-4 w-full bg-red-500 hover:bg-red-300 font-bold rounded-sm shadow-md"
+      >
         S'inscrire
       </Button>
     </Box>

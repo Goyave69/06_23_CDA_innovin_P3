@@ -7,24 +7,24 @@ import ApiHelper from "../services/apiHelper";
 import CartWines from "../components/Cart/CartWines";
 import RecapOrder from "../components/Cart/RecapOrder";
 import Payment from "../components/Cart/Payment/Payment";
+import { useUserContext } from "../services/Context/UserContext";
+import { useCartContext } from "../services/Context/CartContext";
 
 const { VITE_BACKEND_URL } = import.meta.env;
 
 export default function Cart() {
-  const [dataCart, setDataCart] = useState([]);
-  const [reloadCart, setReloadCart] = useState(false);
   const [showModalConfirme, setShowModalConfirme] = useState(false);
   const [showCartWines, setShowCartWines] = useState(true);
   const [selectedWine, setSelectedWine] = useState(null);
   const [valueDelivery, setValueDelivery] = useState(null);
   const [total, setTotal] = useState(0);
   const [_, setValuePaiment] = useState(null);
-  const [user, setUser] = useState({});
+  const user = useUserContext();
+  const { dataCart, reloadCart, setReloadCart } = useCartContext();
   const [checkedValidePaiment, setCheckedValidePaiment] = useState({
     delivery: false,
     paiment: false,
   });
-
   const toast = useToast();
 
   // rempli les states d'adresse et de paiment
@@ -39,20 +39,6 @@ export default function Cart() {
     }
   };
 
-  const [dataOrder, setDataOrder] = useState([]);
-  // récupere les carts
-  useEffect(() => {
-    ApiHelper("carts", "get").then((res) => {
-      setDataCart(res.data);
-    });
-  }, [reloadCart]);
-
-  useEffect(() => {
-    ApiHelper("orders", "get").then((res) => {
-      setDataOrder(res.data);
-    });
-  }, [reloadCart]);
-
   // calcul la somme total du panier
   useEffect(() => {
     let sum = 0;
@@ -64,6 +50,7 @@ export default function Cart() {
     setTotal(sum.toFixed(2));
   }, [dataCart]);
 
+  // Delete un vin du panier
   const handleDelete = (id) => {
     if (!selectedWine) return;
     axios.delete(`${VITE_BACKEND_URL}/cartwines/${id}`).then(() => {
@@ -71,10 +58,6 @@ export default function Cart() {
       setShowModalConfirme(false);
     });
   };
-
-  useEffect(() => {
-    setUser(JSON.parse(Cookies.get("user").slice(2)));
-  }, []);
 
   // vérifie si l'utilisateur a bien mis l'adresse et le moyen de paiment avant de valider
   // Modifie is_order en true et renvoi un nouveau panier vide
@@ -94,9 +77,7 @@ export default function Cart() {
       axios.put(`${VITE_BACKEND_URL}/carts/${dataCart[0].id}`, {
         is_order: true,
       });
-      axios.post(`${VITE_BACKEND_URL}/carts`, {
-        user_id: user.id,
-        cart_id: dataCart[0].id,
+      ApiHelper("carts", "post", {
         is_order: false,
       });
       window.location.reload();

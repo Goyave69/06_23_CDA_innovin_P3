@@ -42,5 +42,5 @@ export default function NavItem({ path, icon, children, ...rest }) {
 NavItem.propTypes = {
   path: PropTypes.string.isRequired,
   children: PropTypes.string.isRequired,
-  icon: PropTypes.element.isRequired,
+  icon: PropTypes.elementType.isRequired,
 };

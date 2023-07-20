@@ -27,7 +27,7 @@ export default function CartWines({
               className="flex w-[80vw] shadow-sm md:w-auto md:grid md:grid-cols-5 items-center py-3 justify-between "
             >
               <img
-                className="h-36 w-fit rounded-lg "
+                className="h-36 mx-auto rounded-lg "
                 src={`${VITE_BACKEND_URL}/uploads/${item.image}`}
                 alt=""
               />

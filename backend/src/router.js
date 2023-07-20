@@ -14,7 +14,12 @@ const fileControllers = require("./controllers/fileControllers");
 
 router.get("/wines", wineControllers.browse);
 router.get("/wines/:id", wineControllers.read);
-router.put("/wines/:id", wineControllers.edit);
+router.put(
+  "/wines/:id",
+  upload.single("picture"),
+  fileControllers.fileRename,
+  wineControllers.edit
+);
 router.post(
   "/wines",
   upload.single("picture"),
@@ -50,7 +55,7 @@ const cartControllers = require("./controllers/cartControllers");
 router.get("/carts", verifyToken, cartControllers.browse);
 router.get("/carts/:id", cartControllers.read);
 router.put("/carts/:id", cartControllers.edit);
-router.post("/carts", cartControllers.add);
+router.post("/carts", verifyToken, cartControllers.add);
 router.delete("/carts/:id", cartControllers.destroy);
 
 // routes pour Orders

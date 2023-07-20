@@ -17,7 +17,7 @@ export default function OurWines() {
       <h4 className="text-center py-4 font-bold text-red-500 text-3xl">
         Nos vins
       </h4>
-      <SelectWine setType={setType} wines={wines} />
+      <SelectWine setType={setType} />
       {wines.length > 0 && (
         <div className="md:grid md:grid-cols-4 md:gap-10 ">
           {wines

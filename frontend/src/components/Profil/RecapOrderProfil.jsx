@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
+import Pagination from "./Pagination";
 
 const { VITE_BACKEND_URL } = import.meta.env;
 
@@ -17,11 +18,12 @@ export default function RecapOrderProfil() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`${VITE_BACKEND_URL}/orders`)
-      .then((res) =>
-        setOrders(res.data).filter((word) => word.content[0].name !== null)
+    axios.get(`${VITE_BACKEND_URL}/orders`).then((res) => {
+      const filteredOrders = res.data.filter((order) =>
+        order.content.some((item) => item.name !== null)
       );
+      setOrders(filteredOrders);
+    });
   }, []);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -76,22 +78,11 @@ export default function RecapOrderProfil() {
           </Accordion>
         ))}
       </div>
-      <div className="flex justify-center">
-        {pageNumbers.map((number) => (
-          <button
-            type="button"
-            key={number}
-            onClick={() => paginate(number)}
-            className={
-              currentPage === number
-                ? "text-red-500 font-bold underline pr-2 text-3xl"
-                : "text-black font-bold pr-2 text-2xl"
-            }
-          >
-            {number}
-          </button>
-        ))}
-      </div>
+      <Pagination
+        pageNumbers={pageNumbers}
+        paginate={paginate}
+        currentPage={currentPage}
+      />
     </div>
   );
 }

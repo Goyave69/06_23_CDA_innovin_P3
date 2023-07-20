@@ -44,31 +44,31 @@ export default function SignUp() {
         className="bg-cover bg-center w-1/2 h-[90vh] hidden md:block"
         style={{ backgroundImage: `url(${bgLogin})` }}
       />
-      <div className="w-full">
+      <div className="w-full flex flex-col mx-20">
         <h4 className="text-white text-center py-10px px-10vw">
           Bienvenue dans l'équipe !
         </h4>
-        {inputFields.map((field) => (
-          <div className="flex  justify-center  items-center" key={field.name}>
-            <img src={field.icon} alt="" />
-            <input
-              onChange={handleChange}
-              name={field.name}
-              label={field.label}
-              placeholder={field.placeholder}
-              className="m-10 rounded-30px"
-            />
-          </div>
-        ))}
-        <div className="w-full flex justify-center">
-          <button
-            type="submit"
-            onClick={SubmitSignUp}
-            className="bg-red-500 w-35%"
-          >
-            S'inscrire
-          </button>
+        <div className="flex flex-wrap justify-center">
+          {inputFields.map((field) => (
+            <div className="flex justify-center items-center" key={field.name}>
+              <img src={field.icon} alt="" />
+              <input
+                onChange={handleChange}
+                name={field.name}
+                label={field.label}
+                placeholder={field.placeholder}
+                className="m-5 rounded-md shadow border py-2 px-1"
+              />
+            </div>
+          ))}
         </div>
+        <button
+          type="submit"
+          onClick={SubmitSignUp}
+          className="bg-red-500 mx-auto py-3 rounded-md px-2"
+        >
+          S'inscrire
+        </button>
       </div>
     </div>
   );

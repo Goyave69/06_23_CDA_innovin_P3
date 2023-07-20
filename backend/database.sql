@@ -45,7 +45,7 @@ CREATE TABLE cart_wine (
     quantity INT,
     wine_id INT,
     cart_id INT,
-    FOREIGN KEY (wine_id) REFERENCES wine(id),
+    FOREIGN KEY (wine_id) REFERENCES wine(id) ON DELETE CASCADE,
     FOREIGN KEY (cart_id) REFERENCES cart(id)
 );
 -- Création de la table "order"
@@ -90,7 +90,7 @@ VALUES (
         "Champagne-Ardennes",
         "variété",
         "une descripion",
-        1,
+        true,
         "",
         19.99
     ),
@@ -102,7 +102,7 @@ VALUES (
         "Champagne-Ardennes",
         "variété",
         "une descripion",
-        1,
+        false,
         "",
         19.99
     ),
@@ -114,7 +114,7 @@ VALUES (
         "Champagne-Ardennes",
         "variété",
         "une descripion",
-        1,
+        true,
         "",
         19.99
     );

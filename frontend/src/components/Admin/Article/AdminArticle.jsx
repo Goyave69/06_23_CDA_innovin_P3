@@ -9,23 +9,23 @@ import {
 } from "@chakra-ui/react";
 import * as React from "react";
 import ApiHelper from "../../../services/apiHelper";
-import TableWine from "./TableWine";
-import WineModal from "./WineModal";
+import TableArticle from "./TableArticle";
+import ArticleModal from "./ArticleModal";
 
-export default function AdminWine() {
-  const [wines, setWines] = React.useState([]);
-  const [loadingWines, setLoadingWines] = React.useState(false);
+export default function AdminArticle() {
+  const [articles, setArticles] = React.useState([]);
+  const [loadingArticles, setLoadingArticles] = React.useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   React.useEffect(() => {
-    ApiHelper("wines", "get")
+    ApiHelper("articles", "get")
       .then((res) => {
-        setWines(res.data);
+        setArticles(res.data);
       })
       .catch((err) => {
         console.error(`Axios Error : ${err.message}`);
       });
-  }, [loadingWines]);
+  }, [loadingArticles]);
 
   return (
     <Container maxW="container.xl" mx="16">
@@ -33,18 +33,21 @@ export default function AdminWine() {
         <HStack p="4">
           <Link href="/admin">Dashboard</Link>
           <p style={{ padding: "10px" }}>/</p>
-          <Link href="/admin/wines">Wines</Link>
+          <Link href="/admin/article">Article</Link>
         </HStack>
         <Spacer />
         <Button onClick={onOpen} colorScheme="blue" p="4">
-          Nouveau vin
+          Nouvel article
         </Button>
       </Flex>
-      <TableWine wines={wines} setLoadingWines={setLoadingWines} />
-      <WineModal
+      <TableArticle
+        articles={articles}
+        setLoadingArticles={setLoadingArticles}
+      />
+      <ArticleModal
         isOpen={isOpen}
         onClose={onClose}
-        setLoadingWines={setLoadingWines}
+        setLoadingArticles={setLoadingArticles}
       />
     </Container>
   );

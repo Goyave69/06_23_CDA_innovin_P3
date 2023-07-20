@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function SelectWine({ setType, wines }) {
+export default function SelectWine({ setType }) {
   return (
     <div className="my-1 w-full">
       <select
@@ -10,15 +10,18 @@ export default function SelectWine({ setType, wines }) {
         <option value="" className=" sm:text-sm md:text-lg">
           Type de vin
         </option>
-        {wines.map((filterWine) => (
-          <option
-            key={filterWine.id}
-            value={filterWine.wine_type}
-            className=" sm:text-sm md:text-lg"
-          >
-            {filterWine.wine_type}
-          </option>
-        ))}
+        <option value="Blanc" className=" sm:text-sm md:text-lg">
+          Blanc
+        </option>
+        <option value="Rouge" className=" sm:text-sm md:text-lg">
+          Rouge
+        </option>
+        <option value="Rosé" className=" sm:text-sm md:text-lg">
+          Rosé
+        </option>
+        <option value="Champagne" className=" sm:text-sm md:text-lg">
+          Champagne
+        </option>
       </select>
     </div>
   );

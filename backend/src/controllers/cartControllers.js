@@ -51,9 +51,8 @@ const edit = (req, res) => {
 
 const add = (req, res) => {
   const cart = req.body;
-  // TODO validations (length, format...)
   models.cart
-    .insert(cart)
+    .insert(cart, req.payload.sub)
     .then(([result]) => {
       res.location(`/carts/${result.insertId}`).sendStatus(201);
     })

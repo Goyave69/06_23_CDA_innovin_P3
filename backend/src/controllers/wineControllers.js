@@ -31,7 +31,7 @@ const read = (req, res) => {
 };
 
 const edit = (req, res) => {
-  const wine = req.body;
+  const wine = JSON.parse(req.body.wine);
 
   // TODO validations (length, format...)
   const { error } = validator(wine, false);
@@ -39,6 +39,8 @@ const edit = (req, res) => {
     res.status(422).json({ validationErrors: error.details });
   } else {
     const id = parseInt(req.params.id, 10);
+    const { renamedFile } = req;
+    wine.image = renamedFile;
 
     models.wine
       .update(id, wine)

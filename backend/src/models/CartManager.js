@@ -28,10 +28,10 @@ class CartManager extends AbstractManager {
     );
   }
 
-  insert(cart) {
+  insert(cart, id) {
     return this.database.query(
       `INSERT INTO ${this.table} (is_order, user_id) VALUES (?, ?)`,
-      [cart.is_order, cart.user_id]
+      [cart.is_order, id]
     );
   }
 
