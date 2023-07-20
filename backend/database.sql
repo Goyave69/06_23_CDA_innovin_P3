@@ -90,7 +90,7 @@ VALUES (
         "Champagne-Ardennes",
         "variété",
         "une descripion",
-        1,
+        true,
         "",
         19.99
     ),
@@ -102,7 +102,7 @@ VALUES (
         "Champagne-Ardennes",
         "variété",
         "une descripion",
-        1,
+        false,
         "",
         19.99
     ),
@@ -114,7 +114,7 @@ VALUES (
         "Champagne-Ardennes",
         "variété",
         "une descripion",
-        1,
+        true,
         "",
         19.99
     );
