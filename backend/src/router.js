@@ -66,6 +66,14 @@ router.put("/orders/:id", orderControllers.edit);
 router.post("/orders", orderControllers.add);
 router.delete("/orders/:id", orderControllers.destroy);
 
+const articleControllers = require("./controllers/articleControllers");
+
+router.get("/articles", articleControllers.browse);
+router.get("/articles/:id", articleControllers.read);
+router.put("/articles/:id", articleControllers.edit);
+router.post("/articles", articleControllers.add);
+router.delete("/articles/:id", articleControllers.destroy);
+
 // route pour login
 const { verifyPassword } = require("./services/auth");
 const authControllers = require("./controllers/authControllers");

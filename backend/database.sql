@@ -65,7 +65,7 @@ CREATE TABLE article (
     id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     title VARCHAR(100),
     content TEXT,
-    publication_date DATE,
+    publication_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     author VARCHAR(50),
     category VARCHAR(50)
 );

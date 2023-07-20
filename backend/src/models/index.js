@@ -54,6 +54,11 @@ const OrderManager = require("./OrderManager");
 models.order = new OrderManager();
 models.order.setDatabase(pool);
 
+const ArticleManager = require("./ArticleManager");
+
+models.article = new ArticleManager();
+models.article.setDatabase(pool);
+
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 
