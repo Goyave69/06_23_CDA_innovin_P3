@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import arrow from "../../assets/Cart/arrow.png";
 
 export default function RecapOrder({
   total,
@@ -24,11 +23,10 @@ export default function RecapOrder({
       </div>
       <button
         onClick={() => setShowCartWines(!showCartWines)}
-        className="p-2 border  bg-[#3182ce] hover:bg-[#1e5181] text-white mt-6 flex justify-center w-full items-center border-black rounded-lg"
+        className="p-2 border underline bg-[#3182ce] hover:bg-[#1e5181] text-white mt-6 flex justify-center w-full items-center border-black rounded-lg"
         type="button"
       >
         Paiement
-        <img className="h-8 pl-4" src={arrow} alt="" />
       </button>
       <NavLink to="/wines" className="pt-10 mx-auto">
         <span className="font-bold text-[#3182ce] hover:text-[#3273af] hover:underline">

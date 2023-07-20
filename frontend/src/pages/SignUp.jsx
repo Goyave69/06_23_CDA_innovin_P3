@@ -56,7 +56,7 @@ export default function SignUp() {
               name={field.name}
               label={field.label}
               placeholder={field.placeholder}
-              className="m-10px rounded-30px"
+              className="m-10 rounded-30px"
             />
           </div>
         ))}

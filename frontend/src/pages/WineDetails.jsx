@@ -25,6 +25,15 @@ export default function WineDetails() {
 
   const priceMultiple = (wineDetail.price * quantitiesSelected).toFixed(2);
 
+  const toastSuccess = () => {
+    toast({
+      title: `${quantitiesSelected} bouteille(s) de ${wineDetail.name} ont été ajoutées à votre panier.`,
+      status: "success",
+      duration: 4000,
+      isClosable: true,
+    });
+  };
+
   const handleCart = () => {
     ApiHelper("carts", "get").then((res) => {
       const duplicateItem = res.data[0].content.find(
@@ -34,12 +43,7 @@ export default function WineDetails() {
         ApiHelper(`cartwines/${duplicateItem.cart_wine_id}`, "put", {
           quantity: duplicateItem.quantity + parseInt(quantitiesSelected, 10),
         }).then(() => {
-          toast({
-            title: `${quantitiesSelected} bouteille(s) de ${wineDetail.name} ont été ajoutées à votre panier.`,
-            status: "success",
-            duration: 4000,
-            isClosable: true,
-          });
+          toastSuccess();
         });
       } else {
         ApiHelper("cartwines", "post", {
@@ -47,12 +51,7 @@ export default function WineDetails() {
           wine_id: wineDetail.id,
           quantity: parseInt(quantitiesSelected, 10),
         }).then(() => {
-          toast({
-            title: `${quantitiesSelected} bouteille(s) de ${wineDetail.name} ont été ajoutées à votre panier.`,
-            status: "success",
-            duration: 4000,
-            isClosable: true,
-          });
+          toastSuccess();
         });
       }
     });

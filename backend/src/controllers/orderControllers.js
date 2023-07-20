@@ -1,8 +1,9 @@
 const models = require("../models");
 
 const browse = (req, res) => {
+  // req.payload.sub
   models.order
-    .findAllOrder(req.payload.sub)
+    .findAllOrder(3)
     .then(([rows]) => {
       res.send(rows);
     })
@@ -30,10 +31,7 @@ const read = (req, res) => {
 
 const edit = (req, res) => {
   const order = req.body;
-
-  // TODO validations (length, format...)
   const id = parseInt(req.params.id, 10);
-
   models.order
     .update(id, order)
     .then(([result]) => {
@@ -51,7 +49,6 @@ const edit = (req, res) => {
 
 const add = (req, res) => {
   const order = req.body;
-  // TODO validations (length, format...)
   models.order
     .insert(order)
     .then(([result]) => {

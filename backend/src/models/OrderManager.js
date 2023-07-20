@@ -21,7 +21,9 @@ class OrderManager extends AbstractManager {
               'order_date', NOW(),
               'name', w.name,
               'price', ROUND(w.price, 2),
-              'quantity', cw.quantity
+              'quantity', cw.quantity,
+              'wineImage', w.image,
+              'wineId', w.id
           )
       ) AS content FROM cart c
       LEFT JOIN cart_wine cw ON c.id = cw.cart_id

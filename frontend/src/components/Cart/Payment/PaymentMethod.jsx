@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import {
   Accordion,
   AccordionItem,
@@ -12,22 +13,35 @@ import ListCardPayment from "./ListCardPayment";
 import iconSuccess from "../../../assets/Cart/Payment/iconSuccess.png";
 
 export default function PaymentMethod({ checkedValidePaiment, handleValide }) {
+  const [localCard, setLocalCard] = useState([]);
+  useEffect(() => {
+    const storedLocalCard = localStorage.getItem("localCard");
+    if (storedLocalCard) {
+      setLocalCard(JSON.parse(storedLocalCard));
+    }
+  }, []);
+
+  const handleDeletedCard = (id) => {
+    const updatedLocalCard = localCard.filter((card) => card.id !== id);
+    setLocalCard(updatedLocalCard);
+    localStorage.setItem("localCard", JSON.stringify(updatedLocalCard));
+  };
+
   const [dataCard, setDataCard] = useState({
     firstname: "",
     lastname: "",
     number: "",
     expire: "",
     genre: "",
+    cvv: "",
   });
-
-  const [localCard, setLocalCard] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     if (name === "number") {
-      if (value.length <= 16) {
-        setDataCard({ ...dataCard, [name]: value });
+      const numericValue = value.replace(/\D/g, "");
+      if (numericValue.length <= 16) {
+        setDataCard({ ...dataCard, [name]: numericValue });
       }
     } else {
       setDataCard({ ...dataCard, [name]: value });
@@ -36,39 +50,15 @@ export default function PaymentMethod({ checkedValidePaiment, handleValide }) {
 
   const [createdCard, setCreatedCard] = useState(false);
 
-  function formatCardNumber(cardNumber) {
-    const array = [];
-    for (let i = 0; i < cardNumber.length; i += 4) {
-      array.push(cardNumber.substr(i, 4));
-    }
-    return array.join(" ");
-  }
-
   const handleSubmit = () => {
-    const updatedLocalCard = [...localCard, dataCard];
+    const newCard = {
+      ...dataCard,
+      id: uuidv4(),
+    };
+    const updatedLocalCard = [...localCard, newCard];
     setLocalCard(updatedLocalCard);
     localStorage.setItem("localCard", JSON.stringify(updatedLocalCard));
     setCreatedCard(!createdCard);
-  };
-
-  useEffect(() => {
-    const storedLocalCard = localStorage.getItem("localCard");
-    if (storedLocalCard) {
-      setLocalCard(JSON.parse(storedLocalCard));
-    }
-  }, []);
-
-  const handleProps = () => {
-    return {
-      dataCard: dataCard,
-      handleChange: handleChange,
-      handleSubmit: handleSubmit,
-      formatCardNumber: formatCardNumber,
-      localCard: localCard,
-      setCreatedCard: setCreatedCard,
-      createdCard: createdCard,
-      handleValide: handleValide,
-    };
   };
 
   return (
@@ -90,7 +80,13 @@ export default function PaymentMethod({ checkedValidePaiment, handleValide }) {
             </>
             <AccordionIcon />
           </AccordionButton>
-          {localCard && <ListCardPayment {...handleProps()} />}
+          {localCard && (
+            <ListCardPayment
+              localCard={localCard}
+              handleValide={handleValide}
+              handleDeletedCard={handleDeletedCard}
+            />
+          )}
           <AccordionPanel className="flex flex-col item-center py-4">
             <button
               className="border w-fit px-3 py-2 rounded mx-auto"
@@ -102,7 +98,15 @@ export default function PaymentMethod({ checkedValidePaiment, handleValide }) {
           </AccordionPanel>
         </AccordionItem>
       </Accordion>
-      {createdCard && <CreateCardPayment {...handleProps()} />}
+      {createdCard && (
+        <CreateCardPayment
+          dataCard={dataCard}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          setCreatedCard={setCreatedCard}
+          createdCard={createdCard}
+        />
+      )}
     </>
   );
 }

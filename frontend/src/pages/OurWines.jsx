@@ -12,7 +12,6 @@ export default function OurWines() {
       setWines(res.data);
     });
   }, []);
-
   return (
     <div className="mx-10">
       <h4 className="text-center py-4 font-bold text-red-500 text-3xl">

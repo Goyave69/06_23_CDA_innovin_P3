@@ -10,7 +10,7 @@ import Payment from "../components/Cart/Payment/Payment";
 
 const { VITE_BACKEND_URL } = import.meta.env;
 
-export default function CartBis() {
+export default function Cart() {
   const [dataCart, setDataCart] = useState([]);
   const [reloadCart, setReloadCart] = useState(false);
   const [showModalConfirme, setShowModalConfirme] = useState(false);

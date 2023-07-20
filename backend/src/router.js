@@ -57,7 +57,7 @@ router.delete("/carts/:id", cartControllers.destroy);
 
 const orderControllers = require("./controllers/orderControllers");
 
-router.get("/orders", verifyToken, orderControllers.browse);
+router.get("/orders", orderControllers.browse);
 router.get("/orders/:id", orderControllers.read);
 router.put("/orders/:id", orderControllers.edit);
 router.post("/orders", orderControllers.add);

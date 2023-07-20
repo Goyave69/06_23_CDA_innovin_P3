@@ -24,18 +24,17 @@ export default function CartWines({
           dataCart[0]?.content.map((item) => (
             <div
               key={item}
-              className="flex w-[80vw] md:w-auto md:grid md:grid-cols-4 py-3 justify-between "
+              className="flex w-[80vw] shadow-sm md:w-auto md:grid md:grid-cols-5 items-center py-3 justify-between "
             >
-              <div className="flex">
-                <img
-                  className="h-36 w-fit rounded-lg "
-                  src={`${VITE_BACKEND_URL}/uploads/${item.image}`}
-                  alt=""
-                />
-                <div className="flex flex-col p-3 pl-3 ">
-                  <p>{item.name}</p>
-                  <p>{item.description}</p>
-                </div>
+              <img
+                className="h-36 w-fit rounded-lg "
+                src={`${VITE_BACKEND_URL}/uploads/${item.image}`}
+                alt=""
+              />
+
+              <div className="flex flex-col p-3 pl-3 ">
+                <p>{item.name}</p>
+                <p>{item.description}</p>
               </div>
               <p className="p-5 ">{item.quantity}</p>
               <p className="p-5">
@@ -46,7 +45,7 @@ export default function CartWines({
                   setSelectedWine(item);
                   setShowModalConfirme(true);
                 }}
-                className="h-5 pt-8"
+                className="h-5 ml-auto"
               />
             </div>
           ))

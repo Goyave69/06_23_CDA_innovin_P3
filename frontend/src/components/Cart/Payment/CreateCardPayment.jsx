@@ -4,7 +4,6 @@ import InputFormCard from "./InputFormCard";
 
 export default function CreateCardPayment({
   dataCard,
-  formatCardNumber,
   handleChange,
   handleSubmit,
   setCreatedCard,
@@ -13,23 +12,20 @@ export default function CreateCardPayment({
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden mx-10 overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-        <div className="bg-white md:w-[45vw] rounded-t-2xl">
-          <VisualCardVirtuel
-            dataCard={dataCard}
-            formatCardNumber={formatCardNumber}
-          />
+        <div className="bg-white md:w-[45vw] rounded-2xl">
+          <VisualCardVirtuel dataCard={dataCard} />
           <InputFormCard handleChange={handleChange} />
-          <div className="flex">
+          <div className="flex justify-center">
             <button
               onClick={handleSubmit}
-              className="mx-auto py-2 px-4 mb-2 border rounded"
+              className="py-2 px-4 mx-2 mb-2 border rounded"
               type="button"
             >
               Valider
             </button>
             <button
               onClick={() => setCreatedCard(!createdCard)}
-              className="mx-auto py-2 px-4 mb-2 border rounded"
+              className="py-2 px-4 mx-2 mb-2 border rounded"
               type="button"
             >
               Annuler

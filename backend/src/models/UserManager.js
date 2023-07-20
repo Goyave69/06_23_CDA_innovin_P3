@@ -2,7 +2,7 @@ const AbstractManager = require("./AbstractManager");
 
 const generateSqlSets = require("../services/generateSqlSets");
 
-class WineManager extends AbstractManager {
+class UserManager extends AbstractManager {
   constructor() {
     super({ table: "user" });
   }
@@ -40,4 +40,4 @@ class WineManager extends AbstractManager {
   }
 }
 
-module.exports = WineManager;
+module.exports = UserManager;
