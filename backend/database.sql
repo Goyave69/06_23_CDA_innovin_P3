@@ -70,6 +70,54 @@ CREATE TABLE article (
     category VARCHAR(50)
 );
 -- Fixtures / Fausses données
+INSERT INTO wine(
+        name,
+        year,
+        wine_type,
+        origin_country,
+        region,
+        grape_variety,
+        description,
+        best_seller,
+        image,
+        price
+    )
+VALUES (
+        "Campagne",
+        1999,
+        "Rouge",
+        "France",
+        "Champagne-Ardennes",
+        "variété",
+        "une descripion",
+        true,
+        "",
+        19.99
+    ),
+    (
+        "Campagne2",
+        1999,
+        "Rouge",
+        "France",
+        "Champagne-Ardennes",
+        "variété",
+        "une descripion",
+        false,
+        "",
+        19.99
+    ),
+    (
+        "Campagne3",
+        1999,
+        "Rouge",
+        "France",
+        "Champagne-Ardennes",
+        "variété",
+        "une descripion",
+        true,
+        "",
+        19.99
+    );
 INSERT INTO user (
         firstname,
         lastname,
