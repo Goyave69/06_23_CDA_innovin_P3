@@ -42,28 +42,26 @@ export default function WineModal({ isOpen, onClose, setLoadingWines }) {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (dataWine.image) {
-      const myHeaders = new Headers();
-      const wine = JSON.stringify(dataWine);
-      const formData = new FormData();
+    const myHeaders = new Headers();
+    const wine = JSON.stringify(dataWine);
+    const formData = new FormData();
 
-      formData.append("wine", wine);
-      formData.append("picture", inputRef.current.files[0]);
+    formData.append("wine", wine);
+    formData.append("picture", inputRef.current.files[0]);
 
-      const requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: formData,
-      };
-      fetch(`http://localhost:5000/wines`, requestOptions)
-        .then((response) => response.text())
-        .then(() => {
-          setLoadingWines((prev) => !prev);
-          setDataWine({});
-          onClose();
-        })
-        .catch(console.error);
-    }
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: formData,
+    };
+    fetch(`http://localhost:5000/wines`, requestOptions)
+      .then((response) => response.text())
+      .then(() => {
+        setLoadingWines((prev) => !prev);
+        setDataWine({});
+        onClose();
+      })
+      .catch(console.error);
   };
 
   return (

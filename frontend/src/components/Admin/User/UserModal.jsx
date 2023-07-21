@@ -148,7 +148,7 @@ export default function UserModal({ isOpen, onClose, setLoadingUsers }) {
 }
 
 UserModal.propTypes = {
-  isOpen: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   setLoadingUsers: PropTypes.func.isRequired,
 };

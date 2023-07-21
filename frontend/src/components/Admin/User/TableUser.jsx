@@ -45,6 +45,6 @@ export default function TableUser({ users, setLoadingUsers }) {
 }
 
 TableUser.propTypes = {
-  users: PropTypes.arrayOf(UserPropTypes).isRequired,
+  users: PropTypes.arrayOf(PropTypes.shape(UserPropTypes)).isRequired,
   setLoadingUsers: PropTypes.func.isRequired,
 };
