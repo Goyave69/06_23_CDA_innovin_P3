@@ -5,4 +5,9 @@ function stringLimiter(str, limit = 100) {
   return `${res.join(" ")}...`;
 }
 
-export default { stringLimiter };
+function dateFormatter(date) {
+  const cleanDate = date.split("T")[0];
+  return cleanDate.split("-").toReversed().join("/");
+}
+
+export default { stringLimiter, dateFormatter };
