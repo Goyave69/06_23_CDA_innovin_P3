@@ -13,6 +13,7 @@ import WineDetails from "../pages/WineDetails";
 import Cart from "../pages/Cart";
 import Profil from "../pages/Profil";
 import AdminArticle from "../components/Admin/Article/AdminArticle";
+import ArticleDetails from "../pages/ArticleDetails";
 
 const Routes = [
   {
@@ -42,6 +43,10 @@ const Routes = [
       {
         path: "wine/:id",
         element: <WineDetails />,
+      },
+      {
+        path: "article/:id",
+        element: <ArticleDetails />,
       },
       {
         path: "cart",
