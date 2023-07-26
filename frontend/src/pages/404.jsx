@@ -19,7 +19,7 @@ export default function Page404() {
         type="button"
         to="/"
       >
-        Go back to dashboard
+        Retour à l'accueil
       </NavLink>
     </div>
   );

@@ -21,8 +21,8 @@ const browseAll = (req, res) => {
     .catch((err) => {
       console.error(err);
       res.sendStatus(500);
-    })
-}
+    });
+};
 
 const read = (req, res) => {
   models.cart

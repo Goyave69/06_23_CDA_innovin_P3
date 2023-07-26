@@ -1,9 +1,21 @@
+/* eslint-disable */
 import { useState, useRef } from "react";
-import { Input, Tr, Td, Icon, HStack, Checkbox } from "@chakra-ui/react";
+import {
+  Input,
+  Tr,
+  Td,
+  Icon,
+  HStack,
+  Checkbox,
+  Button,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { FiEdit, FiCheckSquare, FiDelete } from "react-icons/fi";
 import PropTypes from "prop-types";
 import ApiHelper from "../../../services/apiHelper";
+import stringHelper from "../../../services/stringHelper";
 import WinePropTypes from "./WinePropTypes";
+import DescriptionModal from "./DescriptionModal";
 
 export default function WineRow({ wine, setLoadingWines }) {
   const {
@@ -34,6 +46,8 @@ export default function WineRow({ wine, setLoadingWines }) {
   });
 
   const inputRef = useRef(null);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleChange = (e) => {
     switch (e.target.name) {
@@ -148,13 +162,11 @@ export default function WineRow({ wine, setLoadingWines }) {
       </Td>
       <Td>
         {isEditable ? (
-          <Input
-            value={dataWine.description}
-            name="description"
-            onChange={handleChange}
-          />
+          <Button onClick={onOpen} colorScheme="blue">
+            Editer
+          </Button>
         ) : (
-          description
+          stringHelper.stringLimiter(description, 45)
         )}
       </Td>
       <Td>
@@ -198,6 +210,12 @@ export default function WineRow({ wine, setLoadingWines }) {
           <Icon onClick={() => handleDelete()} as={FiDelete} />
         </HStack>
       </Td>
+      <DescriptionModal
+        isOpen={isOpen}
+        onClose={onClose}
+        setLoadingWines={setLoadingWines}
+        wineId={id}
+      />
     </Tr>
   );
 }

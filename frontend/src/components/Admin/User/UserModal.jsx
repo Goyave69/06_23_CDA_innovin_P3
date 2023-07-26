@@ -11,6 +11,9 @@ import {
   ModalBody,
   ModalCloseButton,
   HStack,
+  InputGroup,
+  InputRightElement,
+  Select,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import PropTypes from "prop-types";
@@ -27,6 +30,7 @@ export default function UserModal({ isOpen, onClose, setLoadingUsers }) {
     address: "",
     phone: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     setDataUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -86,12 +90,10 @@ export default function UserModal({ isOpen, onClose, setLoadingUsers }) {
 
             <FormControl mt="4">
               <FormLabel>Rôle</FormLabel>
-              <Input
-                value={dataUser.role}
-                name="role"
-                placeholder="user"
-                onChange={handleChange}
-              />
+              <Select name="role" onChange={handleChange}>
+                <option value="user">Utilisateur</option>
+                <option value="admin">Administrateur</option>
+              </Select>
             </FormControl>
           </HStack>
 
@@ -107,12 +109,24 @@ export default function UserModal({ isOpen, onClose, setLoadingUsers }) {
 
           <FormControl mt="4">
             <FormLabel>Mot de passe</FormLabel>
-            <Input
-              value={dataUser.password}
-              name="password"
-              placeholder="?nA80cqWm8r0"
-              onChange={handleChange}
-            />
+            <InputGroup>
+              <Input
+                value={dataUser.password}
+                name="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="?nA80cqWm8r0"
+                onChange={handleChange}
+              />
+              <InputRightElement width="4.5rem">
+                <Button
+                  h="1.75rem"
+                  size="sm"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </Button>
+              </InputRightElement>
+            </InputGroup>
           </FormControl>
 
           <FormControl mt="4">

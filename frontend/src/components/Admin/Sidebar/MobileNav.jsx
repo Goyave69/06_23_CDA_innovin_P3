@@ -9,14 +9,17 @@ import {
   Text,
   Menu,
   MenuButton,
-  MenuDivider,
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
-import { FiMenu, FiBell, FiChevronDown } from "react-icons/fi";
+import { FiMenu, FiChevronDown } from "react-icons/fi";
+import getCookie from "../../../services/cookieHelper";
 
 export default function MobileNav({ onOpen, ...rest }) {
+  const cookie = getCookie("user");
+  const user = JSON.parse(cookie.substring(2));
+
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -44,16 +47,10 @@ export default function MobileNav({ onOpen, ...rest }) {
         fontFamily="monospace"
         fontWeight="bold"
       >
-        Logo
+        Inno'Vin
       </Text>
 
       <HStack spacing={{ base: "0", md: "6" }}>
-        <IconButton
-          size="lg"
-          variant="ghost"
-          aria-label="open menu"
-          icon={<FiBell />}
-        />
         <Flex alignItems="center">
           <Menu>
             <MenuButton
@@ -68,7 +65,9 @@ export default function MobileNav({ onOpen, ...rest }) {
                   spacing="1px"
                   ml="2"
                 >
-                  <Text fontSize="sm">Justina Clark</Text>
+                  <Text fontSize="sm">
+                    {user.firstname} {user.lastname}
+                  </Text>
                   <Text fontSize="xs" color="gray.600">
                     Admin
                   </Text>
@@ -82,11 +81,9 @@ export default function MobileNav({ onOpen, ...rest }) {
               bg={useColorModeValue("white", "gray.900")}
               borderColor={useColorModeValue("gray.200", "gray.700")}
             >
-              <MenuItem>Profile</MenuItem>
-              <MenuItem>Settings</MenuItem>
-              <MenuItem>Billing</MenuItem>
-              <MenuDivider />
-              <MenuItem>Sign out</MenuItem>
+              <MenuItem as="a" href="/">
+                Retour au site
+              </MenuItem>
             </MenuList>
           </Menu>
         </Flex>

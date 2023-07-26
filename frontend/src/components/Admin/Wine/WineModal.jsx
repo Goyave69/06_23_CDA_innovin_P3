@@ -19,7 +19,7 @@ import PropTypes from "prop-types";
 export default function WineModal({ isOpen, onClose, setLoadingWines }) {
   const [dataWine, setDataWine] = useState({
     name: "",
-    year: 1994,
+    year: null,
     wine_type: "",
     origin_country: "",
     region: "",
@@ -27,16 +27,25 @@ export default function WineModal({ isOpen, onClose, setLoadingWines }) {
     description: "",
     best_seller: false,
     image: "",
-    price: 0,
+    price: null,
   });
 
   const inputRef = useRef(null);
 
   const handleChange = (e) => {
-    setDataWine((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.checked || e.target.value,
-    }));
+    switch (e.target.name) {
+      case "best_seller":
+        setDataWine((prev) => ({
+          ...prev,
+          [e.target.name]: e.target.checked,
+        }));
+        break;
+      default:
+        setDataWine((prev) => ({
+          ...prev,
+          [e.target.name]: e.target.value,
+        }));
+    }
   };
 
   const onSubmit = (e) => {

@@ -1,4 +1,4 @@
-/* eslint-disable prettier/prettier */
+/* eslint-disable */
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import iconMenu from "../assets/menu.png";
@@ -13,7 +13,8 @@ export default function Navbar() {
   ];
   const [open, setOpen] = useState(false);
 
-  const user = getCookie("user");
+  const cookie = getCookie("user");
+  const user = cookie.length > 0 ? JSON.parse(cookie.substring(2)) : null;
   const navigate = useNavigate();
 
   const handleDeconnected = () => {
@@ -66,6 +67,27 @@ export default function Navbar() {
                 CONNEXION
               </NavLink>
             </li>
+          ) : user.role === "admin" ? (
+            <>
+              <li className="md:ml-8 text-xl md:my-0 my-7">
+                <NavLink
+                  onClick={() => setOpen(!open)}
+                  to="/admin"
+                  className="text-gray-800 hover:text-gray-600 duration-300"
+                >
+                  ADMIN
+                </NavLink>
+              </li>
+              <li className="md:ml-8 text-xl md:my-0 my-7">
+                <button
+                  onClick={handleDeconnected}
+                  type="button"
+                  className="text-gray-800 hover:text-gray-600 duration-300"
+                >
+                  DECONNEXION
+                </button>
+              </li>
+            </>
           ) : (
             <>
               <li className="md:ml-8 text-xl md:my-0 my-7">
