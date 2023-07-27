@@ -12,6 +12,18 @@ const browse = (req, res) => {
     });
 };
 
+const browseAll = (req, res) => {
+  models.cart
+    .findAll()
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const read = (req, res) => {
   models.cart
     .find(req.params.id)
@@ -80,6 +92,7 @@ const destroy = (req, res) => {
 
 module.exports = {
   browse,
+  browseAll,
   read,
   edit,
   add,

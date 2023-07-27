@@ -35,7 +35,7 @@ export default function ArticleRow({ article, setLoadingArticles }) {
   const onSubmit = () => {
     ApiHelper(`articles/${id}`, "put", dataArticle)
       .then(() => {
-        // setLoadingArticles((prev) => !prev);
+        setLoadingArticles((prev) => !prev);
         setEditable(false);
       })
       .catch((err) => {

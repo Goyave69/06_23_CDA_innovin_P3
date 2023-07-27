@@ -53,6 +53,7 @@ router.delete("/cartwines/:id", cartWineControllers.destroy);
 const cartControllers = require("./controllers/cartControllers");
 
 router.get("/carts", verifyToken, cartControllers.browse);
+router.get("/allCarts", cartControllers.browseAll);
 router.get("/carts/:id", cartControllers.read);
 router.put("/carts/:id", cartControllers.edit);
 router.post("/carts", verifyToken, cartControllers.add);

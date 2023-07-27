@@ -1,44 +1,56 @@
-import { useState } from "react";
-import { Input, Tr, Td, Icon, HStack, Checkbox } from "@chakra-ui/react";
+/* eslint-disable */
+import { useState, useRef } from "react";
+import {
+  Input,
+  Tr,
+  Td,
+  Icon,
+  HStack,
+  Checkbox,
+  Button,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { FiEdit, FiCheckSquare, FiDelete } from "react-icons/fi";
 import PropTypes from "prop-types";
 import ApiHelper from "../../../services/apiHelper";
+import stringHelper from "../../../services/stringHelper";
 import WinePropTypes from "./WinePropTypes";
+import DescriptionModal from "./DescriptionModal";
 
 export default function WineRow({ wine, setLoadingWines }) {
   const {
     id,
     name,
     year,
-    wineType,
-    originCountry,
+    wine_type,
+    origin_country,
     region,
-    grapeVariety,
+    grape_variety,
     description,
-    bestSeller,
+    best_seller,
     image,
     price,
   } = wine;
   const [isEditable, setEditable] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
   const [dataWine, setDataWine] = useState({
     name,
     year,
-    wine_type: wineType,
-    origin_country: originCountry,
+    wine_type,
+    origin_country,
     region,
-    grape_variety: grapeVariety,
+    grape_variety,
     description,
-    best_seller: bestSeller === 1,
-    image: selectedImage,
+    best_seller: best_seller === 1,
+    image,
     price,
   });
 
+  const inputRef = useRef(null);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const handleChange = (e) => {
     switch (e.target.name) {
-      case "image":
-        setSelectedImage(e.target.files[0]);
-        break;
       case "best_seller":
         setDataWine((prev) => ({
           ...prev,
@@ -56,31 +68,25 @@ export default function WineRow({ wine, setLoadingWines }) {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (dataWine.image) {
-      const myHeaders = new Headers();
-      const wineData = JSON.stringify(dataWine);
-      const formData = new FormData();
+    const myHeaders = new Headers();
+    const wineData = JSON.stringify(dataWine);
+    const formData = new FormData();
 
-      formData.append("wine", wineData);
-      if (selectedImage) {
-        formData.append("picture", selectedImage);
-      } else {
-        formData.append("picture", wineData.image);
-      }
+    formData.append("wine", wineData);
+    formData.append("picture", inputRef.current.files[0]);
 
-      const requestOptions = {
-        method: "PUT",
-        headers: myHeaders,
-        body: formData,
-      };
-      fetch(`http://localhost:5000/wines/${id}`, requestOptions)
-        .then((response) => response.text())
-        .then(() => {
-          setLoadingWines((prev) => !prev);
-          setEditable(false);
-        })
-        .catch(console.error);
-    }
+    const requestOptions = {
+      method: "PUT",
+      headers: myHeaders,
+      body: formData,
+    };
+    fetch(`http://localhost:5000/wines/${id}`, requestOptions)
+      .then((response) => response.text())
+      .then(() => {
+        setLoadingWines((prev) => !prev);
+        setEditable(false);
+      })
+      .catch(console.error);
   };
 
   const handleDelete = () => {
@@ -100,14 +106,14 @@ export default function WineRow({ wine, setLoadingWines }) {
         {isEditable ? (
           <Input value={dataWine.name} name="name" onChange={handleChange} />
         ) : (
-          dataWine.name
+          name
         )}
       </Td>
       <Td>
         {isEditable ? (
           <Input value={dataWine.year} name="year" onChange={handleChange} />
         ) : (
-          dataWine.year
+          year
         )}
       </Td>
       <Td>
@@ -118,7 +124,7 @@ export default function WineRow({ wine, setLoadingWines }) {
             onChange={handleChange}
           />
         ) : (
-          dataWine.wine_type
+          wine_type
         )}
       </Td>
       <Td>
@@ -129,7 +135,7 @@ export default function WineRow({ wine, setLoadingWines }) {
             onChange={handleChange}
           />
         ) : (
-          dataWine.origin_country
+          origin_country
         )}
       </Td>
       <Td>
@@ -140,7 +146,7 @@ export default function WineRow({ wine, setLoadingWines }) {
             onChange={handleChange}
           />
         ) : (
-          dataWine.region
+          region
         )}
       </Td>
       <Td>
@@ -151,18 +157,16 @@ export default function WineRow({ wine, setLoadingWines }) {
             onChange={handleChange}
           />
         ) : (
-          dataWine.grape_variety
+          grape_variety
         )}
       </Td>
       <Td>
         {isEditable ? (
-          <Input
-            value={dataWine.description}
-            name="description"
-            onChange={handleChange}
-          />
+          <Button onClick={onOpen} colorScheme="blue">
+            Editer
+          </Button>
         ) : (
-          dataWine.description
+          stringHelper.stringLimiter(description, 45)
         )}
       </Td>
       <Td>
@@ -174,12 +178,17 @@ export default function WineRow({ wine, setLoadingWines }) {
             onChange={handleChange}
           />
         ) : (
-          dataWine.best_seller
+          best_seller
         )}
       </Td>
       <Td>
         {isEditable ? (
-          <Input type="file" name="image" onChange={handleChange} />
+          <Input
+            ref={inputRef}
+            type="file"
+            name="image"
+            onChange={handleChange}
+          />
         ) : (
           image
         )}
@@ -188,7 +197,7 @@ export default function WineRow({ wine, setLoadingWines }) {
         {isEditable ? (
           <Input value={dataWine.price} name="price" onChange={handleChange} />
         ) : (
-          dataWine.price
+          price
         )}
       </Td>
       <Td>
@@ -201,6 +210,12 @@ export default function WineRow({ wine, setLoadingWines }) {
           <Icon onClick={() => handleDelete()} as={FiDelete} />
         </HStack>
       </Td>
+      <DescriptionModal
+        isOpen={isOpen}
+        onClose={onClose}
+        setLoadingWines={setLoadingWines}
+        wineId={id}
+      />
     </Tr>
   );
 }

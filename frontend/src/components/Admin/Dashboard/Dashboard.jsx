@@ -1,24 +1,20 @@
-import {
-  CardActionArea,
-  Card,
-  CardContent,
-  Typography,
-  Stack,
-  Container,
-  Box,
-  Link,
-  SvgIcon,
-} from "@mui/material";
-import PeopleIcon from "@mui/icons-material/People";
-import LiquorIcon from "@mui/icons-material/Liquor";
+import { Box, chakra, SimpleGrid } from "@chakra-ui/react";
 import * as React from "react";
+import {
+  FaWineBottle,
+  FaUserFriends,
+  FaRegNewspaper,
+  FaShoppingCart,
+  FaBox,
+} from "react-icons/fa";
 import ApiHelper from "../../../services/apiHelper";
-import Donut from "../Donut";
+import StatsCard from "./StatsCard";
 
 export default function Dashboard() {
   const [users, setUsers] = React.useState([]);
   const [wines, setWines] = React.useState([]);
-  const graph = [users.length, wines.length];
+  const [articles, setArticles] = React.useState([]);
+  const [carts, setCarts] = React.useState([]);
 
   React.useEffect(() => {
     ApiHelper("users", "get")
@@ -40,90 +36,69 @@ export default function Dashboard() {
       });
   }, [wines]);
 
+  React.useEffect(() => {
+    ApiHelper("articles", "get")
+      .then((res) => {
+        setArticles(res.data);
+      })
+      .catch((err) => {
+        console.error(`Axios Error : ${err.message}`);
+      });
+  }, [articles]);
+
+  React.useEffect(() => {
+    ApiHelper("allCarts", "get")
+      .then((res) => {
+        setCarts(res.data);
+      })
+      .catch((err) => {
+        console.error(`Axios Error : ${err.message}`);
+      });
+  }, [carts]);
+
+  const tables = [
+    {
+      title: "Utilisateur",
+      stat: users.length,
+      icon: <FaUserFriends size="3em" />,
+    },
+    {
+      title: "Vin",
+      stat: wines.length,
+      icon: <FaWineBottle size="3em" />,
+    },
+    {
+      title: "Articles",
+      stat: articles.length,
+      icon: <FaRegNewspaper size="3em" />,
+    },
+    {
+      title: "Panier",
+      stat: carts.length,
+      icon: <FaShoppingCart size="3em" />,
+    },
+    {
+      title: "Commandes",
+      stat: carts.filter((cart) => cart.is_order === 1).length,
+      icon: <FaBox size="3em" />,
+    },
+  ];
+
   return (
-    <Container>
-      <Stack
-        direction="row"
-        alignItems="center"
-        justifyContent="space-between"
-        my={5}
-      >
-        <Box sx={{ display: "flex", justifyContent: "flex-start" }}>
-          <Link
-            href="/admin"
-            underline="none"
-            color="text.primary"
-            sx={{ p: "10px" }}
-          >
-            Dashboard
-          </Link>
-        </Box>
-      </Stack>
-      <Stack direction="row" justifyContent="center" alignItems="center" my={5}>
-        <Card sx={{ m: 5 }}>
-          <CardActionArea href="/admin/user">
-            <CardContent
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                p: 0,
-                width: "15vw",
-                height: "30vh",
-              }}
-            >
-              <SvgIcon fontSize="large">
-                <PeopleIcon />
-              </SvgIcon>
-              <Typography fontSize="3rem" variant="body2" color="text.primary">
-                {users.length}
-              </Typography>
-              <Typography variant="h5" component="div">
-                Users
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-        <Card sx={{ m: 5 }}>
-          <CardActionArea href="/admin/wine">
-            <CardContent
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                p: 0,
-                width: "15vw",
-                height: "30vh",
-              }}
-            >
-              <SvgIcon fontSize="large">
-                <LiquorIcon />
-              </SvgIcon>
-              <Typography fontSize="3rem" variant="body2" color="text.primary">
-                {wines.length}
-              </Typography>
-              <Typography gutterBottom variant="h5" component="div">
-                Wines
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Stack>
-      <Box sx={{ display: "flex", justifyContent: "center", width: "100%" }}>
-        <Card
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "25vw",
-            height: "25vh",
-          }}
-        >
-          <Donut count={graph} />
-        </Card>
-      </Box>
-    </Container>
+    <Box maxW="7xl" mx="auto" pt={5} px={{ base: 2, sm: 12, md: 17 }}>
+      <chakra.h1 textAlign="center" fontSize="4xl" py={10} fontWeight="bold">
+        Que fait notre compagnie ?
+      </chakra.h1>
+      <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
+        {tables.map((data) => (
+          <StatsCard
+            key={data.title}
+            title={data.title}
+            stat={data.stat}
+            icon={data.icon}
+          />
+        ))}
+      </SimpleGrid>
+    </Box>
   );
 }
